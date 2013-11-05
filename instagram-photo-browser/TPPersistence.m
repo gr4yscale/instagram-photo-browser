@@ -24,9 +24,30 @@
 {
     self = [super init];
     if (self) {
-
+        
+        // handle merging changes when a save notification happens from a background MOC
+        [[NSNotificationCenter defaultCenter] addObserverForName:NSManagedObjectContextDidSaveNotification
+                                                          object:nil
+                                                           queue:nil
+                                                      usingBlock:^(NSNotification *notification) {
+                                                          
+                                                          if (notification.object != self.mainMOC) {
+                                                              
+                                                              NSLog(@"Merging changes into the main context from a background context");
+                                                              [self.mainMOC performBlock:^(){
+                                                                  [self.mainMOC mergeChangesFromContextDidSaveNotification:notification];
+                                                              }];
+                                                          }
+                                                      }];
     }
     return self;
+}
+
+
+- (void)dealloc // this should never be dealloc'd, but safety third...
+{
+    
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 
