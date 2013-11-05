@@ -7,11 +7,12 @@
 //
 
 #import "TPPhotosImportOperation.h"
+#import "Photo+ImportAdditions.h"
 
 @interface TPPhotosImportOperation ()
 
 @property (nonatomic, strong) TPPersistence *persistence;
-@property (nonatomic, strong) NSDictionary *photosDictionary;
+@property (nonatomic, strong) NSArray *photos;
 @property (nonatomic, strong) NSManagedObjectContext *backgroundMOC;
 
 - (void)importPhotos;
@@ -22,12 +23,12 @@
 
 @implementation TPPhotosImportOperation
 
-- (id)initWithPersistence:(TPPersistence *)persistence photos:(NSDictionary *)photos
+- (id)initWithPersistence:(TPPersistence *)persistence photos:(NSArray *)photos
 {
     self = [super init];
     if (self) {
         self.persistence = persistence;
-        self.photosDictionary = photos;
+        self.photos = photos;
     }
     return self;
 }
@@ -50,8 +51,21 @@
 
 - (void)importPhotos
 {
-
-    NSLog(@"%@", self.photosDictionary);
+    if (![self.photos isKindOfClass:[NSArray class]]) return;
+    
+    for (NSDictionary *photoDict in self.photos) {
+        
+        [Photo importFromDictionary:photoDict intoMOC:self.backgroundMOC];
+        NSLog(@"imported id: %@", photoDict[@"id"]);
+    }
+ 
+    NSError *importError = nil;
+    [self.backgroundMOC save:&importError];
+    
+    if (importError) {
+        NSLog(@"error during import! %@ %@", importError, [importError userInfo]);
+    }
 }
+
 
 @end

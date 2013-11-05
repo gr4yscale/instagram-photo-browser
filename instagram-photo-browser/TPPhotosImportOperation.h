@@ -10,6 +10,6 @@
 
 @interface TPPhotosImportOperation : NSOperation
 
-- (id)initWithPersistence:(TPPersistence *)persistence photos:(NSDictionary *)photos;
+- (id)initWithPersistence:(TPPersistence *)persistence photos:(NSArray *)photos;
 
 @end
