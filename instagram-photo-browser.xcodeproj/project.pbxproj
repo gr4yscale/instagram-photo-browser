@@ -21,6 +21,7 @@
 		29A505C41828A7E800F03F24 /* instagram_photo_browserTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 29A505C31828A7E800F03F24 /* instagram_photo_browserTests.m */; };
 		29A505D21828ADA500F03F24 /* TPWebServiceClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 29A505D11828ADA500F03F24 /* TPWebServiceClient.m */; };
 		29A505D61828AECB00F03F24 /* TPInitialPhotosViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 29A505D51828AECB00F03F24 /* TPInitialPhotosViewController.m */; };
+		29A505D91828B6A300F03F24 /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 29A505D71828B6A300F03F24 /* DataModel.xcdatamodeld */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,6 +55,7 @@
 		29A505D11828ADA500F03F24 /* TPWebServiceClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TPWebServiceClient.m; path = ../TPWebServiceClient.m; sourceTree = "<group>"; };
 		29A505D41828AECB00F03F24 /* TPInitialPhotosViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPInitialPhotosViewController.h; sourceTree = "<group>"; };
 		29A505D51828AECB00F03F24 /* TPInitialPhotosViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPInitialPhotosViewController.m; sourceTree = "<group>"; };
+		29A505D81828B6A300F03F24 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -122,6 +124,7 @@
 				29A505D31828ADC800F03F24 /* views */,
 				29A505B01828A7E800F03F24 /* Images.xcassets */,
 				29A505A51828A7E800F03F24 /* Supporting Files */,
+				29A505D71828B6A300F03F24 /* DataModel.xcdatamodeld */,
 			);
 			path = "instagram-photo-browser";
 			sourceTree = "<group>";
@@ -259,6 +262,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				29A505D61828AECB00F03F24 /* TPInitialPhotosViewController.m in Sources */,
+				29A505D91828B6A300F03F24 /* DataModel.xcdatamodeld in Sources */,
 				29A505AF1828A7E800F03F24 /* TPAppDelegate.m in Sources */,
 				29A505AB1828A7E800F03F24 /* main.m in Sources */,
 				29A505D21828ADA500F03F24 /* TPWebServiceClient.m in Sources */,
@@ -472,6 +476,19 @@
 			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		29A505D71828B6A300F03F24 /* DataModel.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				29A505D81828B6A300F03F24 /* DataModel.xcdatamodel */,
+			);
+			currentVersion = 29A505D81828B6A300F03F24 /* DataModel.xcdatamodel */;
+			path = DataModel.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
 	};
 	rootObject = 29A505931828A7E800F03F24 /* Project object */;
 }
