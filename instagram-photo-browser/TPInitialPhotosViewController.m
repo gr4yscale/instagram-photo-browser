@@ -7,32 +7,49 @@
 //
 
 #import "TPInitialPhotosViewController.h"
+#import "TPWebServiceClient.h"
 
 @interface TPInitialPhotosViewController ()
+
+@property (nonatomic, strong) NSOperationQueue *operationQueue;
+@property (nonatomic, strong) TPWebServiceClient *webserviceClient;
 
 @end
 
 @implementation TPInitialPhotosViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+- (id)init
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
+    self = [super init];
     if (self) {
-        // Custom initialization
+        self.operationQueue = [[NSOperationQueue alloc] init];
+        self.webserviceClient = [[TPWebServiceClient alloc] init];
     }
     return self;
 }
 
+- (void)loadView
+{
+
+    UIView *view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    view.backgroundColor = [UIColor purpleColor];
+    
+    self.view = view;
+}
+
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	// Do any additional setup after loading the view.
+
+    
 }
+
 
 - (void)didReceiveMemoryWarning
 {
     [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
+
 }
 
 @end
