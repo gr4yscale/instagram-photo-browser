@@ -6,6 +6,7 @@
 //  Copyright (c) 2013 Tyler Powers. All rights reserved.
 //
 
+#import <CoreData/CoreData.h>
 
 @interface TPAppDelegate : UIResponder <UIApplicationDelegate>
 

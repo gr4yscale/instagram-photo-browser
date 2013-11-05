@@ -14,6 +14,8 @@
 @property (nonatomic, strong) NSDictionary *photosDictionary;
 @property (nonatomic, strong) NSManagedObjectContext *backgroundMOC;
 
+- (void)importPhotos;
+
 @end
 
 
@@ -41,8 +43,15 @@
     
     [backgroundMOC performBlockAndWait:^{
         
-        // do the shiz with our dict
+        [self importPhotos];
     }];
+}
+
+
+- (void)importPhotos
+{
+
+    NSLog(@"%@", self.photosDictionary);
 }
 
 @end
