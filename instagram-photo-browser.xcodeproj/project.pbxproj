@@ -25,6 +25,7 @@
 		29BE5FC61828BB3000FE4D04 /* TPPersistence.m in Sources */ = {isa = PBXBuildFile; fileRef = 29BE5FC51828BB3000FE4D04 /* TPPersistence.m */; };
 		29BE5FCC1828C1B800FE4D04 /* TPUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 29BE5FCB1828C1B800FE4D04 /* TPUtils.m */; };
 		29BE5FCF1828C7E500FE4D04 /* TPPhotosImportOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 29BE5FCE1828C7E500FE4D04 /* TPPhotosImportOperation.m */; };
+		29BE5FD21828D3B100FE4D04 /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 29BE5FD11828D3B100FE4D04 /* Photo.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,6 +66,8 @@
 		29BE5FCB1828C1B800FE4D04 /* TPUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPUtils.m; sourceTree = "<group>"; };
 		29BE5FCD1828C7E500FE4D04 /* TPPhotosImportOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPPhotosImportOperation.h; sourceTree = "<group>"; };
 		29BE5FCE1828C7E500FE4D04 /* TPPhotosImportOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPPhotosImportOperation.m; sourceTree = "<group>"; };
+		29BE5FD01828D3B100FE4D04 /* Photo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Photo.h; sourceTree = "<group>"; };
+		29BE5FD11828D3B100FE4D04 /* Photo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Photo.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,6 +143,8 @@
 				29A505B01828A7E800F03F24 /* Images.xcassets */,
 				29A505A51828A7E800F03F24 /* Supporting Files */,
 				29A505D71828B6A300F03F24 /* DataModel.xcdatamodeld */,
+				29BE5FD01828D3B100FE4D04 /* Photo.h */,
+				29BE5FD11828D3B100FE4D04 /* Photo.m */,
 			);
 			path = "instagram-photo-browser";
 			sourceTree = "<group>";
@@ -279,6 +284,7 @@
 				29BE5FCC1828C1B800FE4D04 /* TPUtils.m in Sources */,
 				29BE5FCF1828C7E500FE4D04 /* TPPhotosImportOperation.m in Sources */,
 				29A505D61828AECB00F03F24 /* TPInitialPhotosViewController.m in Sources */,
+				29BE5FD21828D3B100FE4D04 /* Photo.m in Sources */,
 				29BE5FC61828BB3000FE4D04 /* TPPersistence.m in Sources */,
 				29A505D91828B6A300F03F24 /* DataModel.xcdatamodeld in Sources */,
 				29A505AF1828A7E800F03F24 /* TPAppDelegate.m in Sources */,
