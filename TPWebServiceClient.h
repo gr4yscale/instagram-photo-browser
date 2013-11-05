@@ -6,8 +6,9 @@
 //  Copyright (c) 2013 Tyler Powers. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
 
 @interface TPWebServiceClient : NSObject
+
++ (void)getPopularPhotosJSONWithCompletion:(void (^)(id data))completion;
 
 @end

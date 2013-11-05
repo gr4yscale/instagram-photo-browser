@@ -58,30 +58,16 @@
 
 - (void)fetchAndImportPhotosJSON
 {
-    NSURL *popularPhotosURL = [NSURL URLWithString:@"https://api.instagram.com/v1/media/popular?client_id=50c0e12b64a84dd0b9bbf334ba7f6bf6"];
-
     __weak typeof(self)weakSelf = self;
     
-    [NSURLConnection sendAsynchronousRequest:[NSURLRequest requestWithURL:popularPhotosURL]
-                                       queue:[NSOperationQueue mainQueue]
-                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-                               
-                               if (connectionError) {
-                                   NSLog(@"There was an error with the connection: %@, %@", connectionError, [connectionError userInfo]);
-                                   return;
-                               }
-                               
-                               NSError *errorParsingJSON = nil;
-                               id photos = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers
-                                                                             error:&errorParsingJSON];
-                               if (!errorParsingJSON) {
-                                   TPPhotosImportOperation *photosImportOp = [[TPPhotosImportOperation alloc] initWithPersistence:weakSelf.persistence
-                                                                                                                           photos:photos];
-                                   [weakSelf.operationQueue addOperation:photosImportOp];
-                               } else {
-                                   NSLog(@"There was an error parsing the JSON from the instagram popular images API response! %@, %@", errorParsingJSON, [errorParsingJSON userInfo]);
-                                   return;
-                               }
+    [TPWebServiceClient getPopularPhotosJSONWithCompletion:^(id data) {
+    
+        if (data[@"data"]) { // I know this looks weird, instagram JSON the relevant data we want under a "data" key
+            
+            TPPhotosImportOperation *photosImportOp = [[TPPhotosImportOperation alloc] initWithPersistence:weakSelf.persistence
+                                                                                                    photos:data[@"data"]];
+            [weakSelf.operationQueue addOperation:photosImportOp];
+        }
     }];
 }
 
