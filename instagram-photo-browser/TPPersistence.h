@@ -9,6 +9,8 @@
 
 @interface TPPersistence : NSObject
 
+@property (nonatomic,strong) NSManagedObjectContext *mainMOC;
+
 - (void)saveMainMOC;
 
 @end

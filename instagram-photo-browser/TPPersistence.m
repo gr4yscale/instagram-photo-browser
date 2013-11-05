@@ -12,7 +12,6 @@
 @interface TPPersistence ()
 
 @property (nonatomic,strong) NSManagedObjectModel *managedObjectModel;
-@property (nonatomic,strong,readwrite) NSManagedObjectContext *mainMOC;
 @property (nonatomic,strong) NSPersistentStoreCoordinator *persistentStoreCoordinator;
 
 @end
