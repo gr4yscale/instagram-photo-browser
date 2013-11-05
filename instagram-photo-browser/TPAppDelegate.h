@@ -6,7 +6,6 @@
 //  Copyright (c) 2013 Tyler Powers. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
 
 @interface TPAppDelegate : UIResponder <UIApplicationDelegate>
 

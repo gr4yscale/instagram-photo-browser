@@ -8,6 +8,12 @@
 
 #import "TPAppDelegate.h"
 #import "TPInitialPhotosViewController.h"
+#import "TPPersistence.h"
+
+@interface TPAppDelegate ()
+@property (nonatomic, strong) TPPersistence *persistence;
+@end
+
 
 @implementation TPAppDelegate
 
@@ -17,9 +23,12 @@
     // Override point for customization after application launch.
     self.window.backgroundColor = [UIColor whiteColor];
     
-    TPInitialPhotosViewController *initialPhotosVC = [[TPInitialPhotosViewController alloc] init];
-    self.window.rootViewController = initialPhotosVC;
+    self.persistence = [[TPPersistence alloc] init];
     
+    TPInitialPhotosViewController *initialPhotosVC = [[TPInitialPhotosViewController alloc] init];
+    initialPhotosVC.persistence = self.persistence;
+    
+    self.window.rootViewController = initialPhotosVC;
     [self.window makeKeyAndVisible];
     
     return YES;

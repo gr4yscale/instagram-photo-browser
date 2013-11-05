@@ -6,8 +6,10 @@
 //  Copyright (c) 2013 Tyler Powers. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
+#import "TPPersistence.h"
 
 @interface TPInitialPhotosViewController : UIViewController
+
+@property (nonatomic, strong) TPPersistence *persistence;
 
 @end
