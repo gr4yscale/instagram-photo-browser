@@ -19,6 +19,8 @@
 		29A505BA1828A7E800F03F24 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29A505A21828A7E800F03F24 /* UIKit.framework */; };
 		29A505C21828A7E800F03F24 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 29A505C01828A7E800F03F24 /* InfoPlist.strings */; };
 		29A505C41828A7E800F03F24 /* instagram_photo_browserTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 29A505C31828A7E800F03F24 /* instagram_photo_browserTests.m */; };
+		29A505D21828ADA500F03F24 /* TPWebServiceClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 29A505D11828ADA500F03F24 /* TPWebServiceClient.m */; };
+		29A505D61828AECB00F03F24 /* TPInitialPhotosViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 29A505D51828AECB00F03F24 /* TPInitialPhotosViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +50,10 @@
 		29A505BF1828A7E800F03F24 /* instagram-photo-browserTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "instagram-photo-browserTests-Info.plist"; sourceTree = "<group>"; };
 		29A505C11828A7E800F03F24 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		29A505C31828A7E800F03F24 /* instagram_photo_browserTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = instagram_photo_browserTests.m; sourceTree = "<group>"; };
+		29A505D01828ADA500F03F24 /* TPWebServiceClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TPWebServiceClient.h; path = ../TPWebServiceClient.h; sourceTree = "<group>"; };
+		29A505D11828ADA500F03F24 /* TPWebServiceClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TPWebServiceClient.m; path = ../TPWebServiceClient.m; sourceTree = "<group>"; };
+		29A505D41828AECB00F03F24 /* TPInitialPhotosViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPInitialPhotosViewController.h; sourceTree = "<group>"; };
+		29A505D51828AECB00F03F24 /* TPInitialPhotosViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPInitialPhotosViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,8 +113,13 @@
 		29A505A41828A7E800F03F24 /* instagram-photo-browser */ = {
 			isa = PBXGroup;
 			children = (
+				29A505D41828AECB00F03F24 /* TPInitialPhotosViewController.h */,
+				29A505D51828AECB00F03F24 /* TPInitialPhotosViewController.m */,
+				29A505D01828ADA500F03F24 /* TPWebServiceClient.h */,
+				29A505D11828ADA500F03F24 /* TPWebServiceClient.m */,
 				29A505AD1828A7E800F03F24 /* TPAppDelegate.h */,
 				29A505AE1828A7E800F03F24 /* TPAppDelegate.m */,
+				29A505D31828ADC800F03F24 /* views */,
 				29A505B01828A7E800F03F24 /* Images.xcassets */,
 				29A505A51828A7E800F03F24 /* Supporting Files */,
 			);
@@ -142,6 +153,13 @@
 				29A505C01828A7E800F03F24 /* InfoPlist.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		29A505D31828ADC800F03F24 /* views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -240,8 +258,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				29A505D61828AECB00F03F24 /* TPInitialPhotosViewController.m in Sources */,
 				29A505AF1828A7E800F03F24 /* TPAppDelegate.m in Sources */,
 				29A505AB1828A7E800F03F24 /* main.m in Sources */,
+				29A505D21828ADA500F03F24 /* TPWebServiceClient.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
