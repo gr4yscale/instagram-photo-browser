@@ -58,12 +58,26 @@
     
     NSError *error = nil;
     _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
+    
     if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:URL options:nil error:&error]) {
-        NSLog(@"Unresolved error %@, %@", error, [error userInfo]);
+        NSLog(@"error adding persistent store coordinator: %@, %@", error, [error userInfo]);
         abort();
     }
     
     return _persistentStoreCoordinator;
+}
+
+
+- (void)saveMainMOC
+{
+    NSError *error = nil;
+    NSManagedObjectContext *moc = self.mainMOC;
+    if (moc) {
+        if ([moc hasChanges] && ![moc save:&error]) {
+            NSLog(@"error encountered saving main MOC %@, %@", error, [error userInfo]);
+            abort();
+        }
+    }
 }
 
 @end

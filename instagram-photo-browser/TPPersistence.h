@@ -9,4 +9,6 @@
 
 @interface TPPersistence : NSObject
 
+- (void)saveMainMOC;
+
 @end
