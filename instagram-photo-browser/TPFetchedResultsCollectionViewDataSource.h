@@ -6,7 +6,11 @@
 //  Copyright (c) 2013 Tyler Powers. All rights reserved.
 //
 
+typedef void (^updateCellBlock)(id cell, id item);
 
 @interface TPFetchedResultsCollectionViewDataSource : NSObject <UICollectionViewDataSource>
+
+@property (nonatomic, strong) NSString *cellIdentifier;
+@property (nonatomic, copy) updateCellBlock updateCellBlock;
 
 @end
