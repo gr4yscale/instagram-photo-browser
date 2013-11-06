@@ -23,6 +23,7 @@
 		29A505D61828AECB00F03F24 /* TPInitialPhotosViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 29A505D51828AECB00F03F24 /* TPInitialPhotosViewController.m */; };
 		29A505D91828B6A300F03F24 /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 29A505D71828B6A300F03F24 /* DataModel.xcdatamodeld */; };
 		29B85EE91829A98300A11192 /* NSDictionary+KeyValueMapping.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B85EE81829A98300A11192 /* NSDictionary+KeyValueMapping.m */; };
+		29B85EED1829E8BC00A11192 /* TPFetchedResultsCollectionViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B85EEC1829E8BC00A11192 /* TPFetchedResultsCollectionViewDataSource.m */; };
 		29BE5FC61828BB3000FE4D04 /* TPPersistence.m in Sources */ = {isa = PBXBuildFile; fileRef = 29BE5FC51828BB3000FE4D04 /* TPPersistence.m */; };
 		29BE5FCC1828C1B800FE4D04 /* TPUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 29BE5FCB1828C1B800FE4D04 /* TPUtils.m */; };
 		29BE5FCF1828C7E500FE4D04 /* TPPhotosImportOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 29BE5FCE1828C7E500FE4D04 /* TPPhotosImportOperation.m */; };
@@ -64,6 +65,8 @@
 		29A505D81828B6A300F03F24 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
 		29B85EE71829A98300A11192 /* NSDictionary+KeyValueMapping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+KeyValueMapping.h"; sourceTree = "<group>"; };
 		29B85EE81829A98300A11192 /* NSDictionary+KeyValueMapping.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+KeyValueMapping.m"; sourceTree = "<group>"; };
+		29B85EEB1829E8BC00A11192 /* TPFetchedResultsCollectionViewDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPFetchedResultsCollectionViewDataSource.h; sourceTree = "<group>"; };
+		29B85EEC1829E8BC00A11192 /* TPFetchedResultsCollectionViewDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPFetchedResultsCollectionViewDataSource.m; sourceTree = "<group>"; };
 		29BE5FC41828BB3000FE4D04 /* TPPersistence.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPPersistence.h; sourceTree = "<group>"; };
 		29BE5FC51828BB3000FE4D04 /* TPPersistence.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPPersistence.m; sourceTree = "<group>"; };
 		29BE5FCA1828C1B800FE4D04 /* TPUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPUtils.h; sourceTree = "<group>"; };
@@ -152,6 +155,8 @@
 				29BE5FD11828D3B100FE4D04 /* Photo.m */,
 				29A505B01828A7E800F03F24 /* Images.xcassets */,
 				29A505A51828A7E800F03F24 /* Supporting Files */,
+				29B85EEB1829E8BC00A11192 /* TPFetchedResultsCollectionViewDataSource.h */,
+				29B85EEC1829E8BC00A11192 /* TPFetchedResultsCollectionViewDataSource.m */,
 			);
 			path = "instagram-photo-browser";
 			sourceTree = "<group>";
@@ -303,6 +308,7 @@
 				29B85EE91829A98300A11192 /* NSDictionary+KeyValueMapping.m in Sources */,
 				29BE5FCF1828C7E500FE4D04 /* TPPhotosImportOperation.m in Sources */,
 				29A505D61828AECB00F03F24 /* TPInitialPhotosViewController.m in Sources */,
+				29B85EED1829E8BC00A11192 /* TPFetchedResultsCollectionViewDataSource.m in Sources */,
 				29BE5FD21828D3B100FE4D04 /* Photo.m in Sources */,
 				29BE5FD51828D41500FE4D04 /* Photo+ImportAdditions.m in Sources */,
 				29BE5FC61828BB3000FE4D04 /* TPPersistence.m in Sources */,
