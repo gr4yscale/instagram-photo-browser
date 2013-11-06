@@ -12,6 +12,8 @@
 
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
 @property (nonatomic, strong) UICollectionView *collectionView;
+@property (nonatomic, strong) NSBlockOperation *blockOperationForCVBatchUpdates;
+@property (nonatomic, assign) BOOL shouldReloadCollectionView;
 
 @end
 
@@ -33,7 +35,10 @@
     return self;
 }
 
-#pragma UICollectionViewDataSource
+
+
+#pragma mark - UICollectionViewDataSource
+#pragma mark -
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
@@ -66,5 +71,110 @@
 }
 
 
+#pragma mark - NSFetchedResultsControllerDelegate
+#pragma mark -
+
+- (void)controllerWillChangeContent:(NSFetchedResultsController *)controller
+{
+    self.shouldReloadCollectionView = NO;
+    self.blockOperationForCVBatchUpdates = [NSBlockOperation new];
+}
+
+
+- (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id<NSFetchedResultsSectionInfo>)sectionInfo
+           atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type
+{
+    __weak UICollectionView *collectionView = self.collectionView;
+    
+    switch (type) {
+        case NSFetchedResultsChangeInsert: {
+            [self.blockOperationForCVBatchUpdates addExecutionBlock:^{
+                [collectionView insertSections:[NSIndexSet indexSetWithIndex:sectionIndex]];
+            }];
+            break;
+        }
+
+        case NSFetchedResultsChangeDelete: {
+            [self.blockOperationForCVBatchUpdates addExecutionBlock:^{
+                [collectionView deleteSections:[NSIndexSet indexSetWithIndex:sectionIndex]];
+            }];
+            break;
+        }
+            
+        case NSFetchedResultsChangeUpdate: {
+            [self.blockOperationForCVBatchUpdates addExecutionBlock:^{
+                [collectionView reloadSections:[NSIndexSet indexSetWithIndex:sectionIndex]];
+            }];
+            break;
+        }
+            
+        default:
+            break;
+    }
+}
+
+
+- (void)controller:(NSFetchedResultsController *)controller didChangeObject:(id)anObject atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type newIndexPath:(NSIndexPath *)newIndexPath
+{
+    __weak UICollectionView *weakCollectionView = self.collectionView;
+    
+    switch (type) {
+        case NSFetchedResultsChangeInsert: {
+            if ([self.collectionView numberOfSections] > 0) {
+                if ([self.collectionView numberOfItemsInSection:indexPath.section] == 0) {
+                    self.shouldReloadCollectionView = YES;
+                } else {
+                    [self.blockOperationForCVBatchUpdates addExecutionBlock:^{
+                        [weakCollectionView insertItemsAtIndexPaths:@[newIndexPath]];
+                    }];
+                }
+            } else {
+                self.shouldReloadCollectionView = YES;
+            }
+            break;
+        }
+            
+        case NSFetchedResultsChangeDelete: {
+            if ([self.collectionView numberOfItemsInSection:indexPath.section] == 1) {
+                self.shouldReloadCollectionView = YES;
+            } else {
+                [self.blockOperationForCVBatchUpdates addExecutionBlock:^{
+                    [weakCollectionView deleteItemsAtIndexPaths:@[indexPath]];
+                }];
+            }
+            break;
+        }
+            
+        case NSFetchedResultsChangeUpdate: {
+            [self.blockOperationForCVBatchUpdates addExecutionBlock:^{
+                [weakCollectionView reloadItemsAtIndexPaths:@[indexPath]];
+            }];
+            break;
+        }
+            
+        case NSFetchedResultsChangeMove: {
+            [self.blockOperationForCVBatchUpdates addExecutionBlock:^{
+                [weakCollectionView moveItemAtIndexPath:indexPath toIndexPath:newIndexPath];
+            }];
+            break;
+        }
+            
+        default:
+            break;
+    }
+}
+
+
+- (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
+{
+    // Checks if we should reload the collection view to fix a bug @ http://openradar.appspot.com/12954582
+    if (self.shouldReloadCollectionView) {
+        [self.collectionView reloadData];
+    } else {
+        [self.collectionView performBatchUpdates:^{
+            [self.blockOperationForCVBatchUpdates start];
+        } completion:nil];
+    }
+}
 
 @end

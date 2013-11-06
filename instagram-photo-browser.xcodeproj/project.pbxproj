@@ -148,6 +148,8 @@
 				29BE5FCB1828C1B800FE4D04 /* TPUtils.m */,
 				29A505D41828AECB00F03F24 /* TPInitialPhotosViewController.h */,
 				29A505D51828AECB00F03F24 /* TPInitialPhotosViewController.m */,
+				29B85EEB1829E8BC00A11192 /* TPFetchedResultsCollectionViewDataSource.h */,
+				29B85EEC1829E8BC00A11192 /* TPFetchedResultsCollectionViewDataSource.m */,
 				29A505D31828ADC800F03F24 /* views */,
 				29B85EEA1829AE2400A11192 /* categories */,
 				29A505D71828B6A300F03F24 /* DataModel.xcdatamodeld */,
@@ -155,8 +157,6 @@
 				29BE5FD11828D3B100FE4D04 /* Photo.m */,
 				29A505B01828A7E800F03F24 /* Images.xcassets */,
 				29A505A51828A7E800F03F24 /* Supporting Files */,
-				29B85EEB1829E8BC00A11192 /* TPFetchedResultsCollectionViewDataSource.h */,
-				29B85EEC1829E8BC00A11192 /* TPFetchedResultsCollectionViewDataSource.m */,
 			);
 			path = "instagram-photo-browser";
 			sourceTree = "<group>";
