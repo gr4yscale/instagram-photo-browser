@@ -9,18 +9,27 @@
 #import "TPInitialPhotosViewController.h"
 #import "TPWebServiceClient.h"
 #import "TPPhotosImportOperation.h"
+#import "Photo.h"
+#import "TPFetchedResultsCollectionViewDataSource.h"
+#import "TPPhotoCollectionViewCell.h"
 
 @interface TPInitialPhotosViewController ()
 
 @property (nonatomic, strong) NSOperationQueue *operationQueue;
 @property (nonatomic, strong) TPWebServiceClient *webserviceClient;
+@property (nonatomic, strong) TPFetchedResultsCollectionViewDataSource *dataSource;
+@property (nonatomic, strong) UICollectionView *collectionView;
 
+- (NSFetchedResultsController *)setupFetchedResultsController;
+- (UICollectionView *)setupCollectionView;
+- (void)setupDataSource;
 - (void)fetchAndImportPhotosJSON;
 
 @end
 
 
 @implementation TPInitialPhotosViewController
+
 
 - (id)init
 {
@@ -32,28 +41,81 @@
     return self;
 }
 
+
 - (void)loadView
 {
-
-    UIView *view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    view.backgroundColor = [UIColor purpleColor];
+    self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
+    self.view.backgroundColor = [UIColor purpleColor];
     
-    self.view = view;
+    UICollectionView *cv = [self setupCollectionView];
+    self.collectionView = cv;
+    
+    [self.view addSubview:cv];
 }
 
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    [self setupDataSource];
     [self fetchAndImportPhotosJSON];
 }
 
 
-- (void)didReceiveMemoryWarning
+- (NSFetchedResultsController *)setupFetchedResultsController
 {
-    [super didReceiveMemoryWarning];
-
+    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:NSStringFromClass([Photo class])];
+    
+    fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"likeCount"
+                                                                   ascending:NO]];
+    
+    return [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
+                                               managedObjectContext:self.persistence.mainMOC
+                                                 sectionNameKeyPath:nil
+                                                          cacheName:nil];
 }
+
+
+
+- (UICollectionView *)setupCollectionView
+{
+    CGRect collectionViewFrame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+    
+    UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
+    
+    flowLayout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
+    flowLayout.minimumInteritemSpacing = 0;
+    flowLayout.minimumLineSpacing = 6.0f;
+    flowLayout.itemSize = CGSizeMake(self.view.frame.size.width, 10); // this will vary based on the data
+    
+    flowLayout.headerReferenceSize = CGSizeMake(0, 0);
+    flowLayout.footerReferenceSize = CGSizeMake(0, 0);
+    
+    UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:collectionViewFrame
+                                                          collectionViewLayout:flowLayout];
+    collectionView.delegate = self;
+    collectionView.alwaysBounceVertical = YES;
+    
+    [collectionView registerClass:[TPPhotoCollectionViewCell class] forCellWithReuseIdentifier:NSStringFromClass([Photo class])];
+ 
+    return collectionView;
+}
+
+
+- (void)setupDataSource
+{
+    NSFetchedResultsController *frc = [self setupFetchedResultsController];
+    
+    self.dataSource = [[TPFetchedResultsCollectionViewDataSource alloc] initWithCollectionView:self.collectionView
+                                                                      fetchedResultsController:frc];
+    self.dataSource.cellIdentifier = NSStringFromClass([Photo class]);
+    
+    self.dataSource.updateCellBlock = ^(TPPhotoCollectionViewCell *cell, Photo *photo) {
+        
+        cell.nameLabel.text = photo.identifier;
+    };
+}
+
 
 
 - (void)fetchAndImportPhotosJSON
