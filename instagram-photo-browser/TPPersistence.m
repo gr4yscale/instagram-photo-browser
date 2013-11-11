@@ -79,7 +79,10 @@
     NSError *error = nil;
     _persistentStoreCoordinator = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:[self managedObjectModel]];
     
-    if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:URL options:nil error:&error]) {
+    NSDictionary *options = @{NSInferMappingModelAutomaticallyOption : @(YES),
+                              NSMigratePersistentStoresAutomaticallyOption: @(YES)};
+    
+    if (![_persistentStoreCoordinator addPersistentStoreWithType:NSSQLiteStoreType configuration:nil URL:URL options:options error:&error]) {
         NSLog(@"error adding persistent store coordinator: %@, %@", error, [error userInfo]);
         abort();
     }
