@@ -231,6 +231,10 @@
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(spacing)-[commentsCountLabel]-(spacing)-[likesCountLabel]"
                                                                  options:0
                                                                  metrics:metrics
+                                                                   views:views]];
+    
+
+    
     // verticals
     
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(spacing)-[cardView]-(spacing)-|"
