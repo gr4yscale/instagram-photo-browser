@@ -2,7 +2,7 @@
 //  Photo.m
 //  instagram-photo-browser
 //
-//  Created by Tyler Powers on 11/4/13.
+//  Created by Tyler Powers on 11/11/13.
 //  Copyright (c) 2013 Tyler Powers. All rights reserved.
 //
 
@@ -19,5 +19,7 @@
 @dynamic userFullName;
 @dynamic username;
 @dynamic userProfilePicURL;
+@dynamic photoWidth;
+@dynamic photoHeight;
 
 @end

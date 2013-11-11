@@ -2,7 +2,7 @@
 //  Photo.h
 //  instagram-photo-browser
 //
-//  Created by Tyler Powers on 11/4/13.
+//  Created by Tyler Powers on 11/11/13.
 //  Copyright (c) 2013 Tyler Powers. All rights reserved.
 //
 
@@ -20,5 +20,7 @@
 @property (nonatomic, retain) NSString * userFullName;
 @property (nonatomic, retain) NSString * username;
 @property (nonatomic, retain) NSString * userProfilePicURL;
+@property (nonatomic, retain) NSNumber * photoWidth;
+@property (nonatomic, retain) NSNumber * photoHeight;
 
 @end

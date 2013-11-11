@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		296FFF8D1831956B00A78B82 /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 296FFF8C1831956B00A78B82 /* Photo.m */; };
 		29A5059F1828A7E800F03F24 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29A5059E1828A7E800F03F24 /* Foundation.framework */; };
 		29A505A11828A7E800F03F24 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29A505A01828A7E800F03F24 /* CoreGraphics.framework */; };
 		29A505A31828A7E800F03F24 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29A505A21828A7E800F03F24 /* UIKit.framework */; };
@@ -29,7 +30,6 @@
 		29BE5FC61828BB3000FE4D04 /* TPPersistence.m in Sources */ = {isa = PBXBuildFile; fileRef = 29BE5FC51828BB3000FE4D04 /* TPPersistence.m */; };
 		29BE5FCC1828C1B800FE4D04 /* TPUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 29BE5FCB1828C1B800FE4D04 /* TPUtils.m */; };
 		29BE5FCF1828C7E500FE4D04 /* TPPhotosImportOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 29BE5FCE1828C7E500FE4D04 /* TPPhotosImportOperation.m */; };
-		29BE5FD21828D3B100FE4D04 /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 29BE5FD11828D3B100FE4D04 /* Photo.m */; };
 		29BE5FD51828D41500FE4D04 /* Photo+ImportAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 29BE5FD41828D41500FE4D04 /* Photo+ImportAdditions.m */; };
 /* End PBXBuildFile section */
 
@@ -44,6 +44,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		295E381618319B0200EFAAC8 /* DataModel 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DataModel 2.xcdatamodel"; sourceTree = "<group>"; };
+		296FFF8B1831956B00A78B82 /* Photo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Photo.h; sourceTree = "<group>"; };
+		296FFF8C1831956B00A78B82 /* Photo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Photo.m; sourceTree = "<group>"; };
 		2995ED99182F3274009FD949 /* TPConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPConstants.h; sourceTree = "<group>"; };
 		29A5059B1828A7E800F03F24 /* instagram-photo-browser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "instagram-photo-browser.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		29A5059E1828A7E800F03F24 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -80,8 +83,6 @@
 		29BE5FCB1828C1B800FE4D04 /* TPUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPUtils.m; sourceTree = "<group>"; };
 		29BE5FCD1828C7E500FE4D04 /* TPPhotosImportOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPPhotosImportOperation.h; sourceTree = "<group>"; };
 		29BE5FCE1828C7E500FE4D04 /* TPPhotosImportOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPPhotosImportOperation.m; sourceTree = "<group>"; };
-		29BE5FD01828D3B100FE4D04 /* Photo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Photo.h; sourceTree = "<group>"; };
-		29BE5FD11828D3B100FE4D04 /* Photo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Photo.m; sourceTree = "<group>"; };
 		29BE5FD31828D41500FE4D04 /* Photo+ImportAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Photo+ImportAdditions.h"; sourceTree = "<group>"; };
 		29BE5FD41828D41500FE4D04 /* Photo+ImportAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Photo+ImportAdditions.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -160,9 +161,9 @@
 				29B85EEC1829E8BC00A11192 /* TPFetchedResultsCollectionViewDataSource.m */,
 				29A505D31828ADC800F03F24 /* views */,
 				29B85EEA1829AE2400A11192 /* categories */,
+				296FFF8B1831956B00A78B82 /* Photo.h */,
+				296FFF8C1831956B00A78B82 /* Photo.m */,
 				29A505D71828B6A300F03F24 /* DataModel.xcdatamodeld */,
-				29BE5FD01828D3B100FE4D04 /* Photo.h */,
-				29BE5FD11828D3B100FE4D04 /* Photo.m */,
 				29A505B01828A7E800F03F24 /* Images.xcassets */,
 				29A505A51828A7E800F03F24 /* Supporting Files */,
 			);
@@ -316,13 +317,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				296FFF8D1831956B00A78B82 /* Photo.m in Sources */,
 				29BE5FCC1828C1B800FE4D04 /* TPUtils.m in Sources */,
 				29B85EE91829A98300A11192 /* NSDictionary+KeyValueMapping.m in Sources */,
 				29BE5FCF1828C7E500FE4D04 /* TPPhotosImportOperation.m in Sources */,
 				29A505D61828AECB00F03F24 /* TPInitialPhotosViewController.m in Sources */,
 				29B85EF3182CA71000A11192 /* TPCardViewButton.m in Sources */,
 				29B85EED1829E8BC00A11192 /* TPFetchedResultsCollectionViewDataSource.m in Sources */,
-				29BE5FD21828D3B100FE4D04 /* Photo.m in Sources */,
 				29BE5FD51828D41500FE4D04 /* Photo+ImportAdditions.m in Sources */,
 				29BE5FC61828BB3000FE4D04 /* TPPersistence.m in Sources */,
 				29A505D91828B6A300F03F24 /* DataModel.xcdatamodeld in Sources */,
@@ -547,9 +548,10 @@
 		29A505D71828B6A300F03F24 /* DataModel.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				295E381618319B0200EFAAC8 /* DataModel 2.xcdatamodel */,
 				29A505D81828B6A300F03F24 /* DataModel.xcdatamodel */,
 			);
-			currentVersion = 29A505D81828B6A300F03F24 /* DataModel.xcdatamodel */;
+			currentVersion = 295E381618319B0200EFAAC8 /* DataModel 2.xcdatamodel */;
 			path = DataModel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
