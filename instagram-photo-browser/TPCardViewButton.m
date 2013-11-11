@@ -25,8 +25,8 @@
 
 @end
 
-static const CGRect       rectForBackgroundImagesGraphicsContext  = {0, 0, 148, 42};  // We provide this rect in the call to retreive a new bitmap-based graphics context for rendering bg images
-static const UIEdgeInsets resizableBackgroundImageCapInsets       = {21, 22, 20, 22}; // Insets for resizing behavior of UIImage
+static const CGRect       TPRectForBackgroundImagesGraphicsContext  = {0, 0, 148, 42};  // We provide this rect in the call to retreive a new bitmap-based graphics context for rendering bg images
+static const UIEdgeInsets TPResizableBackgroundImageCapInsets       = {21, 22, 20, 22}; // Insets for resizing behavior of UIImage
 
 @implementation TPCardViewButton
 
@@ -85,7 +85,8 @@ static const UIEdgeInsets resizableBackgroundImageCapInsets       = {21, 22, 20,
 
 - (UIImage *)imageForUnselectedBackground
 {
-    UIGraphicsBeginImageContextWithOptions(rectForBackgroundImagesGraphicsContext.size, NO, 0);
+    CGRect rect = TPRectForBackgroundImagesGraphicsContext;
+    UIGraphicsBeginImageContextWithOptions(rect.size, NO, 0);
     CGContextRef context = UIGraphicsGetCurrentContext();
     
     //// General Declarations
@@ -114,20 +115,20 @@ static const UIEdgeInsets resizableBackgroundImageCapInsets       = {21, 22, 20,
     UIBezierPath* roundedRectanglePath = nil;
     
     if (self.side != TPCardViewButtonSideMiddle) {
-        roundedRectanglePath = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(0, 0, rectForBackgroundImagesGraphicsContext.size.width, rectForBackgroundImagesGraphicsContext.size.height) byRoundingCorners: self.corners cornerRadii: CGSizeMake(6, 6)];
+        roundedRectanglePath = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(0, 0, rect.size.width, rect.size.height) byRoundingCorners: self.corners cornerRadii: CGSizeMake(6, 6)];
     } else {
-        roundedRectanglePath = [UIBezierPath bezierPathWithRect: CGRectMake(0, 0, rectForBackgroundImagesGraphicsContext.size.width, rectForBackgroundImagesGraphicsContext.size.height)];
+        roundedRectanglePath = [UIBezierPath bezierPathWithRect: CGRectMake(0, 0, rect.size.width, rect.size.height)];
     }
 
     [roundedRectanglePath closePath];
     CGContextSaveGState(context);
     [roundedRectanglePath addClip];
     
-    CGContextDrawLinearGradient(context, gradient, CGPointMake(50, 0), CGPointMake(50, rectForBackgroundImagesGraphicsContext.size.height), 0);
+    CGContextDrawLinearGradient(context, gradient, CGPointMake(50, 0), CGPointMake(50, rect.size.height), 0);
     CGContextRestoreGState(context);
     
     // Rectangle Drawing
-    UIBezierPath* rectanglePath = [UIBezierPath bezierPathWithRect: CGRectMake(0, 0, rectForBackgroundImagesGraphicsContext.size.width, 1)];
+    UIBezierPath* rectanglePath = [UIBezierPath bezierPathWithRect: CGRectMake(0, 0, rect.size.width, 1)];
     CGContextSaveGState(context);
     CGContextSetShadowWithColor(context, shadowOffset, shadowBlurRadius, shadow.CGColor);
     [color2 setFill];
@@ -137,7 +138,7 @@ static const UIEdgeInsets resizableBackgroundImageCapInsets       = {21, 22, 20,
     [self drawVerticalSpacer];
     
     UIImage *unselectedBackgroundImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIImage *resizableUnselectedBackgroundImage = [unselectedBackgroundImage resizableImageWithCapInsets:resizableBackgroundImageCapInsets];
+    UIImage *resizableUnselectedBackgroundImage = [unselectedBackgroundImage resizableImageWithCapInsets:TPResizableBackgroundImageCapInsets];
     
     UIGraphicsEndImageContext();
     
@@ -148,7 +149,8 @@ static const UIEdgeInsets resizableBackgroundImageCapInsets       = {21, 22, 20,
 
 - (UIImage *)imageForSelectedBackground
 {
-    UIGraphicsBeginImageContextWithOptions(rectForBackgroundImagesGraphicsContext.size, NO, 0);
+    CGRect rect = TPRectForBackgroundImagesGraphicsContext;
+    UIGraphicsBeginImageContextWithOptions(rect.size, NO, 0);
     CGContextRef context = UIGraphicsGetCurrentContext();
     
     //// General Declarations
@@ -178,16 +180,16 @@ static const UIEdgeInsets resizableBackgroundImageCapInsets       = {21, 22, 20,
     UIBezierPath* roundedRectanglePath = nil;
     
     if (self.side != TPCardViewButtonSideMiddle) {
-        roundedRectanglePath = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(0, 0, rectForBackgroundImagesGraphicsContext.size.width, rectForBackgroundImagesGraphicsContext.size.height) byRoundingCorners: self.corners cornerRadii: CGSizeMake(6, 6)];
+        roundedRectanglePath = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(0, 0, rect.size.width, rect.size.height) byRoundingCorners: self.corners cornerRadii: CGSizeMake(6, 6)];
     } else {
-        roundedRectanglePath = [UIBezierPath bezierPathWithRect: CGRectMake(0, 0, rectForBackgroundImagesGraphicsContext.size.width, rectForBackgroundImagesGraphicsContext.size.height)];
+        roundedRectanglePath = [UIBezierPath bezierPathWithRect: CGRectMake(0, 0, rect.size.width, rect.size.height)];
     }
     
     [roundedRectanglePath closePath];
     CGContextSaveGState(context);
     [roundedRectanglePath addClip];
 
-    CGContextDrawLinearGradient(context, gradient, CGPointMake(50, 0), CGPointMake(50, rectForBackgroundImagesGraphicsContext.size.height), 0);
+    CGContextDrawLinearGradient(context, gradient, CGPointMake(50, 0), CGPointMake(50, rect.size.height), 0);
     CGContextRestoreGState(context);
     
     ////// Rounded Rectangle Inner Shadow
@@ -227,7 +229,7 @@ static const UIEdgeInsets resizableBackgroundImageCapInsets       = {21, 22, 20,
     CGColorSpaceRelease(colorSpace);
     
     UIImage *selectedBackgroundImage = UIGraphicsGetImageFromCurrentImageContext();
-    UIImage *resizableSelectedBackgroundImage = [selectedBackgroundImage resizableImageWithCapInsets:resizableBackgroundImageCapInsets];
+    UIImage *resizableSelectedBackgroundImage = [selectedBackgroundImage resizableImageWithCapInsets:TPResizableBackgroundImageCapInsets];
     
     UIGraphicsEndImageContext();
     
@@ -243,8 +245,8 @@ static const UIEdgeInsets resizableBackgroundImageCapInsets       = {21, 22, 20,
     
     // Vertical spacer line
     UIBezierPath* spacerPath = [UIBezierPath bezierPath];
-    CGFloat xOffsetForSpacer = rectForBackgroundImagesGraphicsContext.size.width;
-    CGFloat spacerHeight = rectForBackgroundImagesGraphicsContext.size.height - 1;
+    CGFloat xOffsetForSpacer = TPRectForBackgroundImagesGraphicsContext.size.width;
+    CGFloat spacerHeight = TPRectForBackgroundImagesGraphicsContext.size.height - 1;
     [spacerPath moveToPoint: CGPointMake(xOffsetForSpacer, 1.0)];
     [spacerPath addCurveToPoint: CGPointMake(xOffsetForSpacer, spacerHeight) controlPoint1: CGPointMake(xOffsetForSpacer, spacerHeight) controlPoint2: CGPointMake(xOffsetForSpacer, spacerHeight)];
     [fillColor setStroke];
