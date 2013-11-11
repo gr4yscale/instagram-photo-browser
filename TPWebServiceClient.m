@@ -40,6 +40,7 @@
                                    completion(object);
                                } else {
                                    NSLog(@"There was an error parsing the JSON from the url! %@\r\n%@, %@", URL, errorParsingJSON, [errorParsingJSON userInfo]);
+                                   NSLog(@"Here is the response string: \r\n%@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
                                    return;
                                }
                            }];
