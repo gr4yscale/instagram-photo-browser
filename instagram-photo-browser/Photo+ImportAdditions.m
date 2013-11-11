@@ -17,6 +17,8 @@
 #define kPhotoImportKeyUserFullName         @"userFullName"
 #define kPhotoImportKeyUsername             @"username"
 #define kPhotoImportKeyUserProfilePicURL    @"userProfilePicURL"
+#define kPhotoImportKeyPhotoWidth           @"photoWidth"
+#define kPhotoImportKeyPhotoHeight          @"photoHeight"
 
 
 @implementation Photo (ImportAdditions)
@@ -69,7 +71,9 @@
                                      kPhotoImportKeyUserProfilePicURL: @"user.profile_picture"};
     
     NSDictionary *numbersMapping = @{kPhotoImportKeyLikeCount: @"likes.count",
-                                     kPhotoImportKeyCommentCount: @"comments.count"};
+                                     kPhotoImportKeyCommentCount: @"comments.count",
+                                     kPhotoImportKeyPhotoWidth: @"images.standard_resolution.width",
+                                     kPhotoImportKeyPhotoHeight: @"images.standard_resolution.height"};
     
     [NSDictionary applyMapping:stringsMapping fromDictionary:dict toDictionary:sanitizedDict forClass:[NSString class]];
     [NSDictionary applyMapping:numbersMapping fromDictionary:dict toDictionary:sanitizedDict forClass:[NSNumber class]];
