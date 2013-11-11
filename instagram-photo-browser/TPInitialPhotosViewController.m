@@ -95,6 +95,7 @@
                                                           collectionViewLayout:flowLayout];
     collectionView.delegate = self;
     collectionView.alwaysBounceVertical = YES;
+    collectionView.delaysContentTouches = NO;
     
     [collectionView registerClass:[TPPhotoCollectionViewCell class] forCellWithReuseIdentifier:NSStringFromClass([Photo class])];
  
