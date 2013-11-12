@@ -113,7 +113,13 @@
     
     self.dataSource.updateCellBlock = ^(TPPhotoCollectionViewCell *cell, Photo *photo) {
         
-        cell.nameLabel.text = photo.identifier;
+        NSLog(@"configuring cell %@", cell);
+        
+        cell.usernameLabel.text = photo.username;
+        cell.userFullNameLabel.text = photo.userFullName;
+        cell.captionLabel.text = photo.caption;
+        cell.commentsCountLabel.text = [NSString stringWithFormat:@"%d %@", [photo.commentCount intValue], NSLocalizedString(@"comments", @"comments")];
+        cell.likesCountLabel.text = [NSString stringWithFormat:@"%d %@", [photo.likeCount intValue], NSLocalizedString(@"likes", @"likes")];
     };
 }
 
