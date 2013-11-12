@@ -17,4 +17,6 @@
 @property (nonatomic, strong) UILabel *likesCountLabel;
 @property (nonatomic, strong) UILabel *commentsCountLabel;
 
+@property (nonatomic, assign) BOOL fetchPhotoImage;
+
 @end

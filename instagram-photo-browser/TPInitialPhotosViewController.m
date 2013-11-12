@@ -141,4 +141,30 @@
 }
 
 
+#pragma mark - UICollectionViewFlowLayout
+
+- (CGSize)collectionView:(UICollectionView *)collectionView
+                  layout:(UICollectionViewLayout *)collectionViewLayout
+  sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSLog(@"Asking for size of cell at indexPath: %@", indexPath);
+    
+    TPFetchedResultsCollectionViewDataSource *dataSource = (TPFetchedResultsCollectionViewDataSource *)collectionView.dataSource;
+    Photo *photo = [dataSource objectAtIndexPath:indexPath];
+
+    static TPPhotoCollectionViewCell *cellForComputingSize;
+    if (!cellForComputingSize) {
+        cellForComputingSize = [[TPPhotoCollectionViewCell alloc] initWithFrame:CGRectZero];
+        cellForComputingSize.fetchPhotoImage = NO;
+    }
+   
+    if (dataSource.updateCellBlock) {
+        dataSource.updateCellBlock(cellForComputingSize, photo); // set data on the labels so autolayout makes the right determinations
+    }
+    
+    return [cellForComputingSize.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+}
+
+
+
 @end
