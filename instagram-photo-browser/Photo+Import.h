@@ -8,7 +8,7 @@
 
 #import "Photo.h"
 
-@interface Photo (ImportAdditions)
+@interface Photo (Import)
 
 + (void)importFromDictionary:(NSDictionary *)dict intoMOC:(NSManagedObjectContext *)moc;
 

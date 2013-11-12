@@ -6,7 +6,7 @@
 //  Copyright (c) 2013 Tyler Powers. All rights reserved.
 //
 
-#import "Photo+ImportAdditions.h"
+#import "Photo+Import.h"
 #import "NSDictionary+KeyValueMapping.h"
 
 #define kPhotoImportKeyIdentifier           @"identifier"
@@ -21,7 +21,7 @@
 #define kPhotoImportKeyPhotoHeight          @"photoHeight"
 
 
-@implementation Photo (ImportAdditions)
+@implementation Photo (Import)
 
 
 // this is slow and NOT the way to go for large imports, but for this example it should be fine.

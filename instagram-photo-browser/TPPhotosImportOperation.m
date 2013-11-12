@@ -7,7 +7,7 @@
 //
 
 #import "TPPhotosImportOperation.h"
-#import "Photo+ImportAdditions.h"
+#import "Photo+Import.h"
 
 @interface TPPhotosImportOperation ()
 
