@@ -85,6 +85,8 @@
     photoImageView.layer.shadowOpacity = 0.8;
     photoImageView.layer.rasterizationScale = [[UIScreen mainScreen] scale]; // cache a bitmap of the layer so we're not redrawing shadows; improved performance according to Core Graphics instrument
     photoImageView.layer.shouldRasterize = YES;
+    photoImageView.contentMode = UIViewContentModeScaleAspectFill;
+    
     [self.contentView addSubview:photoImageView];
     
     UILabel *likesCountLabel = [[UILabel alloc] init];
