@@ -47,6 +47,11 @@
 }
 
 
+- (id)objectAtIndexPath:(NSIndexPath *)indexPath
+{
+    return [self.fetchedResultsController objectAtIndexPath:indexPath];
+}
+
 
 #pragma mark - UICollectionViewDataSource
 #pragma mark -

@@ -15,4 +15,6 @@ typedef void (^updateCellBlock)(id cell, id item);
 
 - (id)initWithCollectionView:(UICollectionView *)collectionView fetchedResultsController:(NSFetchedResultsController *)fetchedResultsController;
 
+- (id)objectAtIndexPath:(NSIndexPath *)indexPath;
+
 @end
