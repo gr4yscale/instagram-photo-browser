@@ -67,9 +67,8 @@ static char TPImageURLKey;
         
         if (image && [self.tp_imageURL.absoluteString isEqualToString:URL.absoluteString]) {
             
-            __weak typeof(self)weakSelf = self;
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                weakSelf.image = image;
+                self.image = image;
             }];
         }
     }];

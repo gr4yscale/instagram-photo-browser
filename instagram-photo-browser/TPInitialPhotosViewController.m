@@ -140,13 +140,11 @@
 
 - (void)fetchAndImportPhotosJSON
 {
-    __weak typeof(self)weakSelf = self;
-    
     [TPWebServiceClient getPopularPhotosJSONWithCompletion:^(id data) {
     
         if (data[@"data"]) {    // I know this looks weird, in the instagram JSON the relevant data we want is under a "data" key
             
-            TPPhotosImportOperation *photosImportOp = [[TPPhotosImportOperation alloc] initWithPersistence:weakSelf.persistence
+            TPPhotosImportOperation *photosImportOp = [[TPPhotosImportOperation alloc] initWithPersistence:self.persistence
                                                                                                     photos:data[@"data"]];
             photosImportOp.completionBlock = ^{
                 [[NSOperationQueue mainQueue] addOperationWithBlock:^{ // make sure to update UI on main thread!
@@ -154,7 +152,7 @@
                 }];
             };
             
-            [weakSelf.operationQueue addOperation:photosImportOp];
+            [self.operationQueue addOperation:photosImportOp];
         }
     }];
 }
