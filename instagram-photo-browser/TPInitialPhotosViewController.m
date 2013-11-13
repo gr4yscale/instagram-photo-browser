@@ -19,6 +19,7 @@
 @property (nonatomic, strong) TPWebServiceClient *webserviceClient;
 @property (nonatomic, strong) TPFetchedResultsCollectionViewDataSource *dataSource;
 @property (nonatomic, strong) UICollectionView *collectionView;
+@property (nonatomic, strong) UIRefreshControl *refresh;
 
 - (NSFetchedResultsController *)setupFetchedResultsController;
 - (UICollectionView *)setupCollectionView;
@@ -49,6 +50,11 @@
     
     UICollectionView *cv = [self setupCollectionView];
     self.collectionView = cv;
+    
+    UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
+    [refresh addTarget:self action:@selector(fetchAndImportPhotosJSON) forControlEvents:UIControlEventValueChanged];
+    [cv addSubview:refresh];
+    self.refresh = refresh;
     
     [self.view addSubview:cv];
 }
@@ -141,6 +147,12 @@
             
             TPPhotosImportOperation *photosImportOp = [[TPPhotosImportOperation alloc] initWithPersistence:weakSelf.persistence
                                                                                                     photos:data[@"data"]];
+            photosImportOp.completionBlock = ^{
+                [[NSOperationQueue mainQueue] addOperationWithBlock:^{ // make sure to update UI on main thread!
+                    [self.refresh endRefreshing];
+                }];
+            };
+            
             [weakSelf.operationQueue addOperation:photosImportOp];
         }
     }];
