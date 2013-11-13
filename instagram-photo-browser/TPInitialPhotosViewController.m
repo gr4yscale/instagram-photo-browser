@@ -13,17 +13,18 @@
 #import "TPFetchedResultsCollectionViewDataSource.h"
 #import "TPPhotoCollectionViewCell.h"
 #import "UIImageView+AsyncLoad.h"
+#import "TPCollectionView.h"
 
 @interface TPInitialPhotosViewController ()
 
 @property (nonatomic, strong) NSOperationQueue *operationQueue;
 @property (nonatomic, strong) TPWebServiceClient *webserviceClient;
 @property (nonatomic, strong) TPFetchedResultsCollectionViewDataSource *dataSource;
-@property (nonatomic, strong) UICollectionView *collectionView;
+@property (nonatomic, strong) TPCollectionView *collectionView;
 @property (nonatomic, strong) UIRefreshControl *refresh;
 
 - (NSFetchedResultsController *)setupFetchedResultsController;
-- (UICollectionView *)setupCollectionView;
+- (TPCollectionView *)setupCollectionView;
 - (void)setupDataSource;
 - (void)fetchAndImportPhotosJSON;
 
@@ -49,7 +50,7 @@
     self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.view.backgroundColor = [UIColor purpleColor];
     
-    UICollectionView *cv = [self setupCollectionView];
+    TPCollectionView *cv = [self setupCollectionView];
     self.collectionView = cv;
     
     UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
@@ -87,7 +88,7 @@
 
 
 
-- (UICollectionView *)setupCollectionView
+- (TPCollectionView *)setupCollectionView
 {
     CGRect collectionViewFrame = CGRectMake(0, 20, self.view.frame.size.width, self.view.frame.size.height - 20);
     
@@ -101,7 +102,7 @@
     flowLayout.headerReferenceSize = CGSizeMake(0, 0);
     flowLayout.footerReferenceSize = CGSizeMake(0, 0);
     
-    UICollectionView *collectionView = [[UICollectionView alloc] initWithFrame:collectionViewFrame
+    TPCollectionView *collectionView = [[TPCollectionView alloc] initWithFrame:collectionViewFrame
                                                           collectionViewLayout:flowLayout];
     collectionView.delegate = self;
     collectionView.alwaysBounceVertical = YES;

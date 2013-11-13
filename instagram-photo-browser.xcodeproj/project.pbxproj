@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		295E381C183211B000EFAAC8 /* UIImageView+AsyncLoad.m in Sources */ = {isa = PBXBuildFile; fileRef = 295E381B183211B000EFAAC8 /* UIImageView+AsyncLoad.m */; };
 		295E382318330CDE00EFAAC8 /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 295E382218330CDE00EFAAC8 /* Photo.m */; };
+		295E3826183393AB00EFAAC8 /* TPCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 295E3825183393AB00EFAAC8 /* TPCollectionView.m */; };
 		29A5059F1828A7E800F03F24 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29A5059E1828A7E800F03F24 /* Foundation.framework */; };
 		29A505A11828A7E800F03F24 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29A505A01828A7E800F03F24 /* CoreGraphics.framework */; };
 		29A505A31828A7E800F03F24 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29A505A21828A7E800F03F24 /* UIKit.framework */; };
@@ -51,6 +52,8 @@
 		295E381D1832F98F00EFAAC8 /* DataModel 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DataModel 3.xcdatamodel"; sourceTree = "<group>"; };
 		295E382118330CDE00EFAAC8 /* Photo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Photo.h; sourceTree = "<group>"; };
 		295E382218330CDE00EFAAC8 /* Photo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Photo.m; sourceTree = "<group>"; };
+		295E3824183393AB00EFAAC8 /* TPCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPCollectionView.h; sourceTree = "<group>"; };
+		295E3825183393AB00EFAAC8 /* TPCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPCollectionView.m; sourceTree = "<group>"; };
 		2995ED99182F3274009FD949 /* TPConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPConstants.h; sourceTree = "<group>"; };
 		29A5059B1828A7E800F03F24 /* instagram-photo-browser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "instagram-photo-browser.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		29A5059E1828A7E800F03F24 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -170,6 +173,8 @@
 				29A505D71828B6A300F03F24 /* DataModel.xcdatamodeld */,
 				29A505B01828A7E800F03F24 /* Images.xcassets */,
 				29A505A51828A7E800F03F24 /* Supporting Files */,
+				295E3824183393AB00EFAAC8 /* TPCollectionView.h */,
+				295E3825183393AB00EFAAC8 /* TPCollectionView.m */,
 			);
 			path = "instagram-photo-browser";
 			sourceTree = "<group>";
@@ -331,6 +336,7 @@
 				29A505D61828AECB00F03F24 /* TPInitialPhotosViewController.m in Sources */,
 				29B85EF3182CA71000A11192 /* TPCardViewButton.m in Sources */,
 				29B85EED1829E8BC00A11192 /* TPFetchedResultsCollectionViewDataSource.m in Sources */,
+				295E3826183393AB00EFAAC8 /* TPCollectionView.m in Sources */,
 				29BE5FD51828D41500FE4D04 /* Photo+Import.m in Sources */,
 				29BE5FC61828BB3000FE4D04 /* TPPersistence.m in Sources */,
 				29A505D91828B6A300F03F24 /* DataModel.xcdatamodeld in Sources */,
