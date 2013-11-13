@@ -56,6 +56,10 @@
     Photo *aPhoto = [self findOrCreatePhoto:sanitizedDict[kPhotoImportKeyIdentifier]
                                     context:moc];
     
+    if (!aPhoto.createdTime) {
+        aPhoto.createdTime = [NSDate date];
+    }
+
     [aPhoto setValuesForKeysWithDictionary:sanitizedDict];
 }
 
@@ -79,16 +83,6 @@
     
     [NSDictionary applyMapping:stringsMapping fromDictionary:dict toDictionary:sanitizedDict forClass:[NSString class]];
     [NSDictionary applyMapping:numbersMapping fromDictionary:dict toDictionary:sanitizedDict forClass:[NSNumber class]];
-    
-    // hacked this in for created time, if other dates were needed I'd make a mapping function that lets you explicitly transform
-    // the unix time string to nsdate objects in the returned dict.
-    
-    NSString *createdTimeString = [dict valueForKey:@"created_time"];
-    
-    if (createdTimeString && [createdTimeString isKindOfClass:[NSString class]]) {
-        NSDate *createdTime = [NSDate dateWithTimeIntervalSince1970:[createdTimeString longLongValue]];
-        sanitizedDict[kPhotoImportKeyCreatedTime] = createdTime;
-    }
     
     return sanitizedDict;
 }

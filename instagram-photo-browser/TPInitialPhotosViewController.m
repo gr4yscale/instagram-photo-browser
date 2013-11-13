@@ -75,7 +75,7 @@
 {
     NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:NSStringFromClass([Photo class])];
     
-    fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"likeCount"
+    fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"createdTime"
                                                                    ascending:NO]];
     
     fetchRequest.fetchLimit = kNumberOfPhotosToDisplay;
