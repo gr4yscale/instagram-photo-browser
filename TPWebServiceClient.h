@@ -9,6 +9,7 @@
 
 @interface TPWebServiceClient : NSObject
 
-+ (void)getPopularPhotosJSONWithCompletion:(void (^)(id data))completion;
++ (void)getPopularPhotosJSONWithCompletion:(void (^)(id data))completion
+                                 failBlock:(void (^)(NSError *error))failBlock;
 
 @end

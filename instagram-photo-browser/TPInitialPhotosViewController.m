@@ -130,8 +130,13 @@
         cell.likesCountLabel.text = [NSString stringWithFormat:@"%d %@", [photo.likeCount intValue], NSLocalizedString(@"likes", @"likes")];
         
         if (cell.fetchImages) {
-            NSLog(@"Configuring cell for photo id: %@", photo.identifier);
-            [cell.photoImageView tp_setImageWithURL:[NSURL URLWithString:photo.fullResImageURL]];
+//            NSLog(@"Configuring cell for photo id: %@", photo.identifier);
+            
+            [cell.photoImageView tp_setImageWithURL:[NSURL URLWithString:photo.fullResImageURL]
+                                        placeHolder:nil
+                                          failBlock:^(NSError *error) {
+                                              NSLog(@"ERROR setting image: %@", error);
+             }];
         }
     };
 }
@@ -141,7 +146,7 @@
 - (void)fetchAndImportPhotosJSON
 {
     [TPWebServiceClient getPopularPhotosJSONWithCompletion:^(id data) {
-    
+        
         if (data[@"data"]) {    // I know this looks weird, in the instagram JSON the relevant data we want is under a "data" key
             
             TPPhotosImportOperation *photosImportOp = [[TPPhotosImportOperation alloc] initWithPersistence:self.persistence
@@ -154,7 +159,10 @@
             
             [self.operationQueue addOperation:photosImportOp];
         }
-    }];
+    }
+     failBlock:^(NSError *error) {
+         [self.refresh endRefreshing];
+     }];
 }
 
 

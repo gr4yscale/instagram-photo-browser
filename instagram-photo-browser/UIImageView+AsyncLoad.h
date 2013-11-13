@@ -15,7 +15,7 @@
 - (void)tp_setImageWithURL:(NSURL *)URL;
 
 - (void)tp_setImageWithURL:(NSURL *)URL
-            placeHolder:(UIImage *)placeholder
-              failBlock:(void (^)(NSError *))failBlock;
+               placeHolder:(UIImage *)placeholder
+                 failBlock:(void (^)(NSError *error))failBlock;
 
 @end
