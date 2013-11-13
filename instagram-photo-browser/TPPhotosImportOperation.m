@@ -16,6 +16,7 @@
 @property (nonatomic, strong) NSManagedObjectContext *backgroundMOC;
 
 - (void)importPhotos;
+- (void)deleteOldestPhotos;
 
 @end
 
@@ -55,15 +56,48 @@
     
     for (NSDictionary *photoDict in self.photos) {
         
+        if (!photoDict[@"id"]) return; // safety first!
+        
         [Photo importFromDictionary:photoDict intoMOC:self.backgroundMOC];
-        NSLog(@"imported id: %@", photoDict[@"id"]);
     }
- 
+
     NSError *importError = nil;
+    
+    [self deleteOldestPhotos];
+    
     [self.backgroundMOC save:&importError];
     
     if (importError) {
-        NSLog(@"error during import! %@ %@", importError, [importError userInfo]);
+        NSLog(@"Error saving managed object context during import! %@ %@", importError, [importError userInfo]);
+    }
+}
+
+
+- (void)deleteOldestPhotos
+{
+    NSError *error = nil;
+    
+    NSFetchRequest *fetchRequest = [NSFetchRequest fetchRequestWithEntityName:NSStringFromClass([Photo class])];
+    
+    fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"createdTime" ascending:NO]];
+    fetchRequest.fetchLimit = kNumberOfPhotosToDisplay;
+    fetchRequest.resultType = NSManagedObjectIDResultType;
+    
+    id mostRecentlyCreatedPhotosObjectIDs = [self.backgroundMOC executeFetchRequest:fetchRequest error:&error];
+    
+    // get objects that aren't in the "top x" most recently created
+    
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"NOT (self IN %@)", mostRecentlyCreatedPhotosObjectIDs];
+    fetchRequest.resultType = NSManagedObjectResultType;
+    
+    NSArray *objectsToDelete = [self.backgroundMOC executeFetchRequest:fetchRequest error:&error];
+    
+    if (error) {
+        NSLog(@"Error deleting photos no longger in the list of NSMangedObjectIDs: \r\n%@", mostRecentlyCreatedPhotosObjectIDs);
+    }
+    
+    for (NSManagedObject *object in objectsToDelete) {
+        [self.backgroundMOC deleteObject:object];
     }
 }
 
