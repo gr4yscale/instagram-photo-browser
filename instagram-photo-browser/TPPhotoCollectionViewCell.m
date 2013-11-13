@@ -83,7 +83,7 @@
     photoImageView.clipsToBounds = NO;
     photoImageView.layer.shadowColor = [[UIColor blackColor] CGColor];
     photoImageView.layer.shadowOffset = CGSizeMake(0,2);
-    photoImageView.layer.shadowOpacity = 0.8;
+    photoImageView.layer.shadowOpacity = 0.6;
     photoImageView.layer.rasterizationScale = [[UIScreen mainScreen] scale]; // cache a bitmap of the layer so we're not redrawing shadows; improved performance according to Core Graphics instrument
     photoImageView.layer.shouldRasterize = YES;
     photoImageView.contentMode = UIViewContentModeScaleAspectFill;
@@ -236,7 +236,7 @@
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(spacing)-[commentsCountLabel]-(spacing)-[likesCountLabel]"
                                                                  options:0
                                                                  metrics:metrics
-                                                                   views:views]];    
+                                                                   views:views]];
     // verticals
     
     [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(spacing)-[cardView]-(spacing)-|"

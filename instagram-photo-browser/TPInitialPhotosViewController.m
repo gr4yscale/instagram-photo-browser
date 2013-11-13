@@ -57,6 +57,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
     [self setupDataSource];
     [self fetchAndImportPhotosJSON];
 }
@@ -69,6 +70,8 @@
     fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"likeCount"
                                                                    ascending:NO]];
     
+    fetchRequest.fetchLimit = kNumberOfPhotosToDisplay;
+        
     return [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
                                                managedObjectContext:self.persistence.mainMOC
                                                  sectionNameKeyPath:nil
@@ -79,7 +82,7 @@
 
 - (UICollectionView *)setupCollectionView
 {
-    CGRect collectionViewFrame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+    CGRect collectionViewFrame = CGRectMake(0, 20, self.view.frame.size.width, self.view.frame.size.height - 20);
     
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
     
@@ -134,7 +137,7 @@
     
     [TPWebServiceClient getPopularPhotosJSONWithCompletion:^(id data) {
     
-        if (data[@"data"]) { // I know this looks weird, instagram JSON the relevant data we want under a "data" key
+        if (data[@"data"]) {    // I know this looks weird, in the instagram JSON the relevant data we want is under a "data" key
             
             TPPhotosImportOperation *photosImportOp = [[TPPhotosImportOperation alloc] initWithPersistence:weakSelf.persistence
                                                                                                     photos:data[@"data"]];

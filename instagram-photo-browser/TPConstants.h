@@ -6,6 +6,8 @@
 //  Copyright (c) 2013 Tyler Powers. All rights reserved.
 //
 
+#define kNumberOfPhotosToDisplay                            30
+
 #define kTextColorPrimary                                   [UIColor colorWithRed:0 green:0 blue:0 alpha:0.85]
 #define kTextColorSecondary                                 [UIColor colorWithRed:0 green:0 blue:0 alpha:0.4]
 
