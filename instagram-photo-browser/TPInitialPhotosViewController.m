@@ -113,13 +113,16 @@
     
     self.dataSource.updateCellBlock = ^(TPPhotoCollectionViewCell *cell, Photo *photo) {
         
-        NSLog(@"configuring cell %@", cell);
-        
         cell.usernameLabel.text = photo.username;
         cell.userFullNameLabel.text = photo.userFullName;
         cell.captionLabel.text = photo.caption;
         cell.commentsCountLabel.text = [NSString stringWithFormat:@"%d %@", [photo.commentCount intValue], NSLocalizedString(@"comments", @"comments")];
         cell.likesCountLabel.text = [NSString stringWithFormat:@"%d %@", [photo.likeCount intValue], NSLocalizedString(@"likes", @"likes")];
+        
+        if (cell.fetchImages) {
+            NSLog(@"Configuring cell for photo id: %@", photo.identifier);
+            [cell.photoImageView tp_setImageWithURL:[NSURL URLWithString:photo.fullResImageURL]];
+        }
     };
 }
 
@@ -155,7 +158,7 @@
     static TPPhotoCollectionViewCell *cellForComputingSize;
     if (!cellForComputingSize) {
         cellForComputingSize = [[TPPhotoCollectionViewCell alloc] initWithFrame:CGRectZero];
-        cellForComputingSize.fetchPhotoImage = NO;
+        cellForComputingSize.fetchImages = NO;
     }
    
     if (dataSource.updateCellBlock) {

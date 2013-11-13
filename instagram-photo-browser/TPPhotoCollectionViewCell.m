@@ -30,6 +30,7 @@
     self = [super initWithFrame:frame];
     if (self) {
         self.backgroundColor = [UIColor blueColor];
+        self.fetchImages = YES;
         
         [self setupSubviews];
         [self setupStaticConstraints];
@@ -269,4 +270,13 @@
                                                                    views:views]];
 }
 
+- (void)prepareForReuse
+{
+    self.usernameLabel.text = nil;
+    self.userFullNameLabel.text = nil;
+    self.captionLabel.text = nil;
+    self.photoImageView.image = nil;
+    self.commentsCountLabel.text = nil;
+    self.likesCountLabel.text = nil;
+}
 @end
