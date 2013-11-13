@@ -8,6 +8,14 @@
 
 @interface UIImageView (AsyncLoad)
 
-@property (nonatomic, copy) NSURL *imageURL;
+@property (nonatomic, copy, setter = tp_setImageURL:) NSURL *tp_imageURL;
+
++ (NSOperationQueue *)tp_sharedOperationQueue;
+
+- (void)tp_setImageWithURL:(NSURL *)URL;
+
+- (void)tp_setImageWithURL:(NSURL *)URL
+            placeHolder:(UIImage *)placeholder
+              failBlock:(void (^)(NSError *))failBlock;
 
 @end
