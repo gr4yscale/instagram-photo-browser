@@ -44,9 +44,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		295E381618319B0200EFAAC8 /* DataModel 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DataModel 2.xcdatamodel"; sourceTree = "<group>"; };
-		296FFF8B1831956B00A78B82 /* Photo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Photo.h; sourceTree = "<group>"; };
-		296FFF8C1831956B00A78B82 /* Photo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Photo.m; sourceTree = "<group>"; };
+		295E381618319B0200EFAAC8 /* DataModel 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "DataModel 2.xcdatamodel"; sourceTree = "<group>"; };
+		295E381D1832F98F00EFAAC8 /* DataModel 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DataModel 3.xcdatamodel"; sourceTree = "<group>"; };
 		2995ED99182F3274009FD949 /* TPConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPConstants.h; sourceTree = "<group>"; };
 		29A5059B1828A7E800F03F24 /* instagram-photo-browser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "instagram-photo-browser.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		29A5059E1828A7E800F03F24 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -549,9 +548,10 @@
 			isa = XCVersionGroup;
 			children = (
 				295E381618319B0200EFAAC8 /* DataModel 2.xcdatamodel */,
+				295E381D1832F98F00EFAAC8 /* DataModel 3.xcdatamodel */,
 				29A505D81828B6A300F03F24 /* DataModel.xcdatamodel */,
 			);
-			currentVersion = 295E381618319B0200EFAAC8 /* DataModel 2.xcdatamodel */;
+			currentVersion = 295E381D1832F98F00EFAAC8 /* DataModel 3.xcdatamodel */;
 			path = DataModel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;
