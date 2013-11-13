@@ -12,6 +12,7 @@
 #import "Photo.h"
 #import "TPFetchedResultsCollectionViewDataSource.h"
 #import "TPPhotoCollectionViewCell.h"
+#import "UIImageView+AsyncLoad.h"
 
 @interface TPInitialPhotosViewController ()
 

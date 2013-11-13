@@ -7,7 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		296FFF8D1831956B00A78B82 /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 296FFF8C1831956B00A78B82 /* Photo.m */; };
+		295E381C183211B000EFAAC8 /* UIImageView+AsyncLoad.m in Sources */ = {isa = PBXBuildFile; fileRef = 295E381B183211B000EFAAC8 /* UIImageView+AsyncLoad.m */; };
+		295E382318330CDE00EFAAC8 /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 295E382218330CDE00EFAAC8 /* Photo.m */; };
 		29A5059F1828A7E800F03F24 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29A5059E1828A7E800F03F24 /* Foundation.framework */; };
 		29A505A11828A7E800F03F24 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29A505A01828A7E800F03F24 /* CoreGraphics.framework */; };
 		29A505A31828A7E800F03F24 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29A505A21828A7E800F03F24 /* UIKit.framework */; };
@@ -45,7 +46,11 @@
 
 /* Begin PBXFileReference section */
 		295E381618319B0200EFAAC8 /* DataModel 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "DataModel 2.xcdatamodel"; sourceTree = "<group>"; };
+		295E381A183211B000EFAAC8 /* UIImageView+AsyncLoad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+AsyncLoad.h"; sourceTree = "<group>"; };
+		295E381B183211B000EFAAC8 /* UIImageView+AsyncLoad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+AsyncLoad.m"; sourceTree = "<group>"; };
 		295E381D1832F98F00EFAAC8 /* DataModel 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DataModel 3.xcdatamodel"; sourceTree = "<group>"; };
+		295E382118330CDE00EFAAC8 /* Photo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Photo.h; sourceTree = "<group>"; };
+		295E382218330CDE00EFAAC8 /* Photo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Photo.m; sourceTree = "<group>"; };
 		2995ED99182F3274009FD949 /* TPConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPConstants.h; sourceTree = "<group>"; };
 		29A5059B1828A7E800F03F24 /* instagram-photo-browser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "instagram-photo-browser.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		29A5059E1828A7E800F03F24 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -160,8 +165,8 @@
 				29B85EEC1829E8BC00A11192 /* TPFetchedResultsCollectionViewDataSource.m */,
 				29A505D31828ADC800F03F24 /* views */,
 				29B85EEA1829AE2400A11192 /* categories */,
-				296FFF8B1831956B00A78B82 /* Photo.h */,
-				296FFF8C1831956B00A78B82 /* Photo.m */,
+				295E382118330CDE00EFAAC8 /* Photo.h */,
+				295E382218330CDE00EFAAC8 /* Photo.m */,
 				29A505D71828B6A300F03F24 /* DataModel.xcdatamodeld */,
 				29A505B01828A7E800F03F24 /* Images.xcassets */,
 				29A505A51828A7E800F03F24 /* Supporting Files */,
@@ -216,6 +221,8 @@
 				29BE5FD41828D41500FE4D04 /* Photo+Import.m */,
 				29B85EE71829A98300A11192 /* NSDictionary+KeyValueMapping.h */,
 				29B85EE81829A98300A11192 /* NSDictionary+KeyValueMapping.m */,
+				295E381A183211B000EFAAC8 /* UIImageView+AsyncLoad.h */,
+				295E381B183211B000EFAAC8 /* UIImageView+AsyncLoad.m */,
 			);
 			name = categories;
 			sourceTree = "<group>";
@@ -316,9 +323,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				296FFF8D1831956B00A78B82 /* Photo.m in Sources */,
+				295E381C183211B000EFAAC8 /* UIImageView+AsyncLoad.m in Sources */,
 				29BE5FCC1828C1B800FE4D04 /* TPUtils.m in Sources */,
 				29B85EE91829A98300A11192 /* NSDictionary+KeyValueMapping.m in Sources */,
+				295E382318330CDE00EFAAC8 /* Photo.m in Sources */,
 				29BE5FCF1828C7E500FE4D04 /* TPPhotosImportOperation.m in Sources */,
 				29A505D61828AECB00F03F24 /* TPInitialPhotosViewController.m in Sources */,
 				29B85EF3182CA71000A11192 /* TPCardViewButton.m in Sources */,
