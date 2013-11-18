@@ -68,17 +68,17 @@
 - (void)importPhotos
 {
     if (![self.photos isKindOfClass:[NSArray class]]) return;
+   
+    [self deleteOldestPhotos];
     
     for (NSDictionary *photoDict in self.photos) {
         
-        if (!photoDict[@"id"]) return; // safety first!
+        if (!photoDict[@"id"] || [photoDict[@"type"] isEqualToString:@"video"]) return;
         
         [Photo importFromDictionary:photoDict intoMOC:self.backgroundMOC];
     }
 
     NSError *importError = nil;
-    
-    [self deleteOldestPhotos];
     
     [self.backgroundMOC save:&importError];
     
