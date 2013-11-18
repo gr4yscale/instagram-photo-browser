@@ -25,6 +25,10 @@
 
 + (void)importFromDictionary:(NSDictionary *)dict intoMOC:(NSManagedObjectContext *)moc
 {
+    if (!dict[@"id"] || [dict[@"type"] isEqualToString:@"video"]) {
+        return;
+    }
+    
     NSFetchRequest* fetchRequest = [NSFetchRequest fetchRequestWithEntityName:NSStringFromClass(self)];
     fetchRequest.fetchLimit = 1;
     fetchRequest.predicate = [NSPredicate predicateWithFormat:@"identifier = %@", dict[@"id"]];
