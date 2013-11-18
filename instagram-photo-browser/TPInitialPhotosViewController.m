@@ -149,7 +149,7 @@
                                        }];
             
             [cell.profilePicImageView setImageWithURL:[NSURL URLWithString:photo.userProfilePicURL]
-                                          placeHolder:nil
+                                          placeHolder:NO
                                            completion:nil
                                             failBlock:^(NSError *error) {
                                                 NSLog(@"ERROR setting profile pic image: %@", error);

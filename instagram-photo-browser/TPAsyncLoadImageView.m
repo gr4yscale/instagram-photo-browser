@@ -31,7 +31,7 @@
 }
 
 - (void)setImageWithURL:(NSURL *)URL {
-    [self setImageWithURL:URL placeHolder:nil completion:nil failBlock:nil];
+    [self setImageWithURL:URL placeHolder:NO completion:nil failBlock:nil];
 }
 
 
