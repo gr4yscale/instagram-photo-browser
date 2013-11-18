@@ -8,6 +8,7 @@
 
 #import "TPPhotosImportOperation.h"
 #import "Photo+Import.h"
+#import "TPAssetManager.h"
 
 @interface TPPhotosImportOperation ()
 
@@ -17,6 +18,7 @@
 
 - (void)importPhotos;
 - (void)deleteOldestPhotos;
+- (void)queuePhotoDownloadWithURL:(NSURL *)photoURL;
 
 @end
 
@@ -47,6 +49,19 @@
         
         [self importPhotos];
     }];
+    
+    for (NSDictionary *photoDict in self.photos) {
+        
+        NSString *photoURLString = [photoDict valueForKeyPath:@"images.standard_resolution.url"];
+        NSString *profilePicURLString = [photoDict valueForKey:@"user.profile_picture"];
+        
+        if (isStringWithAnyText(photoURLString)) {
+            [self queuePhotoDownloadWithURL:[NSURL URLWithString:photoURLString]];
+        }
+        if (isStringWithAnyText(profilePicURLString)) {
+            [self queuePhotoDownloadWithURL:[NSURL URLWithString:profilePicURLString]];
+        }
+    }
 }
 
 
@@ -87,19 +102,41 @@
     
     // get objects that aren't in the "top x" most recently created
     
+    fetchRequest = [NSFetchRequest fetchRequestWithEntityName:NSStringFromClass([Photo class])];
     fetchRequest.predicate = [NSPredicate predicateWithFormat:@"NOT (self IN %@)", mostRecentlyCreatedPhotosObjectIDs];
     fetchRequest.resultType = NSManagedObjectResultType;
     
     NSArray *objectsToDelete = [self.backgroundMOC executeFetchRequest:fetchRequest error:&error];
     
     if (error) {
-        NSLog(@"Error deleting photos no longger in the list of NSMangedObjectIDs: \r\n%@", mostRecentlyCreatedPhotosObjectIDs);
+        NSLog(@"Error deleting oldest photos (not in): \r\n%@", mostRecentlyCreatedPhotosObjectIDs);
     }
     
     for (NSManagedObject *object in objectsToDelete) {
+        // delete files at local paths
         [self.backgroundMOC deleteObject:object];
     }
 }
 
+
+- (void)queuePhotoDownloadWithURL:(NSURL *)photoURL
+{
+    NSURL *localURL = [[TPAssetManager shared] localURLForRemoteAssetURL:photoURL];
+    
+    if (photoURL && localURL) {
+        
+        @synchronized([TPAssetManager shared]) {
+            if ([[NSFileManager defaultManager] fileExistsAtPath:[localURL path] isDirectory:NULL]) {
+                return;
+            }
+        }
+        
+        [[TPAssetManager shared] queueAssetDownloadWithURL:photoURL
+                                                completion:nil
+                                                 failBlock:^(NSError *error) {
+                                                     NSLog(@"Error batch fetching photo images during import! \r\n%@\r\n%@", error, [error localizedDescription]);
+        }];
+    }
+}
 
 @end
