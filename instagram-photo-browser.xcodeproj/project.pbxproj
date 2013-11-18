@@ -10,6 +10,7 @@
 		293201011839BBE100570452 /* TPAsyncLoadImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 293201001839BBE100570452 /* TPAsyncLoadImageView.m */; };
 		295E382318330CDE00EFAAC8 /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 295E382218330CDE00EFAAC8 /* Photo.m */; };
 		295E3826183393AB00EFAAC8 /* TPCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 295E3825183393AB00EFAAC8 /* TPCollectionView.m */; };
+		295E38291834702900EFAAC8 /* TPAssetManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 295E38281834702900EFAAC8 /* TPAssetManager.m */; };
 		29A5059F1828A7E800F03F24 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29A5059E1828A7E800F03F24 /* Foundation.framework */; };
 		29A505A11828A7E800F03F24 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29A505A01828A7E800F03F24 /* CoreGraphics.framework */; };
 		29A505A31828A7E800F03F24 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29A505A21828A7E800F03F24 /* UIKit.framework */; };
@@ -46,14 +47,16 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		293200FF1839BBE100570452 /* TPAsyncLoadImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPAsyncLoadImageView.h; sourceTree = "<group>"; };
+		293201001839BBE100570452 /* TPAsyncLoadImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPAsyncLoadImageView.m; sourceTree = "<group>"; };
 		295E381618319B0200EFAAC8 /* DataModel 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "DataModel 2.xcdatamodel"; sourceTree = "<group>"; };
-		295E381A183211B000EFAAC8 /* UIImageView+AsyncLoad.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+AsyncLoad.h"; sourceTree = "<group>"; };
-		295E381B183211B000EFAAC8 /* UIImageView+AsyncLoad.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+AsyncLoad.m"; sourceTree = "<group>"; };
-		295E381D1832F98F00EFAAC8 /* DataModel 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DataModel 3.xcdatamodel"; sourceTree = "<group>"; };
+		295E381D1832F98F00EFAAC8 /* DataModel 3.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "DataModel 3.xcdatamodel"; sourceTree = "<group>"; };
 		295E382118330CDE00EFAAC8 /* Photo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Photo.h; sourceTree = "<group>"; };
 		295E382218330CDE00EFAAC8 /* Photo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Photo.m; sourceTree = "<group>"; };
 		295E3824183393AB00EFAAC8 /* TPCollectionView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPCollectionView.h; sourceTree = "<group>"; };
 		295E3825183393AB00EFAAC8 /* TPCollectionView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPCollectionView.m; sourceTree = "<group>"; };
+		295E38271834702900EFAAC8 /* TPAssetManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPAssetManager.h; sourceTree = "<group>"; };
+		295E38281834702900EFAAC8 /* TPAssetManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPAssetManager.m; sourceTree = "<group>"; };
 		2995ED99182F3274009FD949 /* TPConstants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPConstants.h; sourceTree = "<group>"; };
 		29A5059B1828A7E800F03F24 /* instagram-photo-browser.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "instagram-photo-browser.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		29A5059E1828A7E800F03F24 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -175,6 +178,8 @@
 				29A505A51828A7E800F03F24 /* Supporting Files */,
 				295E3824183393AB00EFAAC8 /* TPCollectionView.h */,
 				295E3825183393AB00EFAAC8 /* TPCollectionView.m */,
+				295E38271834702900EFAAC8 /* TPAssetManager.h */,
+				295E38281834702900EFAAC8 /* TPAssetManager.m */,
 			);
 			path = "instagram-photo-browser";
 			sourceTree = "<group>";
