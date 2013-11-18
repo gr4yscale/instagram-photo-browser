@@ -110,9 +110,27 @@
         NSLog(@"Error deleting oldest photos (not in): \r\n%@", mostRecentlyCreatedPhotosObjectIDs);
     }
     
-    for (NSManagedObject *object in objectsToDelete) {
-        // delete files at local paths
-        [self.backgroundMOC deleteObject:object];
+    for (Photo *photo in objectsToDelete) {
+        
+        NSString *photoRemoteURL = [photo.fullResImageURL copy];
+        NSString *userProfPicRemoteURL = [photo.userProfilePicURL copy];
+        
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0), ^{
+            
+            if (isStringWithAnyText(photoRemoteURL)) {
+                NSURL *remotePhotoURL = [NSURL URLWithString:photoRemoteURL];
+                NSURL *localPhotoURL = [[TPAssetManager shared] localURLForRemoteAssetURL:remotePhotoURL];
+                [[NSFileManager defaultManager] removeItemAtURL:localPhotoURL error:NULL];
+            }
+            
+            if (isStringWithAnyText(userProfPicRemoteURL)) {
+                NSURL *remoteProfPicURL = [NSURL URLWithString:userProfPicRemoteURL];
+                NSURL *localProfPicURL = [[TPAssetManager shared] localURLForRemoteAssetURL:remoteProfPicURL];
+                [[NSFileManager defaultManager] removeItemAtURL:localProfPicURL error:NULL];
+            }
+        });
+        
+        [self.backgroundMOC deleteObject:photo];
     }
 }
 
