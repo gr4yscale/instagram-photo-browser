@@ -7,6 +7,8 @@
 //
 
 #import "TPFetchedResultsCollectionViewDataSource.h"
+#import "TPPhotoCollectionViewCell.h"
+#import "Photo.h"
 
 // Handling the change sets from NSFetchedResultsController in batches to use UICollectionView's performBatchUpdates with
 // came from Ash Furrow's example here: https://github.com/AshFurrow/UICollectionView-NSFetchedResultsController which is based
@@ -37,7 +39,7 @@
         
         self.collectionView = collectionView;
         self.fetchedResultsController = fetchedResultsController;
- 
+        
         self.objectChanges = [NSMutableArray array];
         self.sectionChanges = [NSMutableArray array];
         
@@ -96,7 +98,6 @@
 - (void)controller:(NSFetchedResultsController *)controller didChangeSection:(id <NSFetchedResultsSectionInfo>)sectionInfo
            atIndex:(NSUInteger)sectionIndex forChangeType:(NSFetchedResultsChangeType)type
 {
-    
     NSMutableDictionary *change = [NSMutableDictionary new];
     
     switch(type) {
@@ -116,7 +117,7 @@
        atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type
       newIndexPath:(NSIndexPath *)newIndexPath
 {
-    
+   
     NSMutableDictionary *change = [NSMutableDictionary new];
     switch(type)
     {
@@ -244,6 +245,34 @@
     
     return shouldReload;
 }
+
+
+- (CGSize)collectionView:(UICollectionView *)collectionView
+                  layout:(UICollectionViewLayout *)collectionViewLayout
+  sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+//    NSLog(@"Asking for size of cell at indexPath: %@", indexPath);
+    
+    TPFetchedResultsCollectionViewDataSource *dataSource = (TPFetchedResultsCollectionViewDataSource *)collectionView.dataSource;
+    Photo *photo = [dataSource objectAtIndexPath:indexPath];
+    
+    static TPPhotoCollectionViewCell *cellForComputingSize;
+    if (!cellForComputingSize) {
+        cellForComputingSize = [[TPPhotoCollectionViewCell alloc] initWithFrame:CGRectZero];
+        cellForComputingSize.fetchImages = NO;
+    }
+    
+    if (dataSource.updateCellBlock) {
+        dataSource.updateCellBlock(cellForComputingSize, photo); // set data on the labels so autolayout makes the right determinations
+    }
+    
+    CGSize captionLabelSize = [cellForComputingSize.captionLabel systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+    
+    
+    return CGSizeMake(320, captionLabelSize.height + 460);
+    
+}
+
 
 
 @end
