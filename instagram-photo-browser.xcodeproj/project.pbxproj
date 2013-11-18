@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		295E381C183211B000EFAAC8 /* UIImageView+AsyncLoad.m in Sources */ = {isa = PBXBuildFile; fileRef = 295E381B183211B000EFAAC8 /* UIImageView+AsyncLoad.m */; };
+		293201011839BBE100570452 /* TPAsyncLoadImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 293201001839BBE100570452 /* TPAsyncLoadImageView.m */; };
 		295E382318330CDE00EFAAC8 /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 295E382218330CDE00EFAAC8 /* Photo.m */; };
 		295E3826183393AB00EFAAC8 /* TPCollectionView.m in Sources */ = {isa = PBXBuildFile; fileRef = 295E3825183393AB00EFAAC8 /* TPCollectionView.m */; };
 		29A5059F1828A7E800F03F24 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29A5059E1828A7E800F03F24 /* Foundation.framework */; };
@@ -215,6 +215,8 @@
 				29B85EEF182A07D500A11192 /* TPPhotoCollectionViewCell.m */,
 				29B85EF1182CA71000A11192 /* TPCardViewButton.h */,
 				29B85EF2182CA71000A11192 /* TPCardViewButton.m */,
+				293200FF1839BBE100570452 /* TPAsyncLoadImageView.h */,
+				293201001839BBE100570452 /* TPAsyncLoadImageView.m */,
 			);
 			name = views;
 			sourceTree = "<group>";
@@ -226,8 +228,6 @@
 				29BE5FD41828D41500FE4D04 /* Photo+Import.m */,
 				29B85EE71829A98300A11192 /* NSDictionary+KeyValueMapping.h */,
 				29B85EE81829A98300A11192 /* NSDictionary+KeyValueMapping.m */,
-				295E381A183211B000EFAAC8 /* UIImageView+AsyncLoad.h */,
-				295E381B183211B000EFAAC8 /* UIImageView+AsyncLoad.m */,
 			);
 			name = categories;
 			sourceTree = "<group>";
@@ -328,10 +328,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				295E381C183211B000EFAAC8 /* UIImageView+AsyncLoad.m in Sources */,
+				295E38291834702900EFAAC8 /* TPAssetManager.m in Sources */,
 				29BE5FCC1828C1B800FE4D04 /* TPUtils.m in Sources */,
 				29B85EE91829A98300A11192 /* NSDictionary+KeyValueMapping.m in Sources */,
 				295E382318330CDE00EFAAC8 /* Photo.m in Sources */,
+				293201011839BBE100570452 /* TPAsyncLoadImageView.m in Sources */,
 				29BE5FCF1828C7E500FE4D04 /* TPPhotosImportOperation.m in Sources */,
 				29A505D61828AECB00F03F24 /* TPInitialPhotosViewController.m in Sources */,
 				29B85EF3182CA71000A11192 /* TPCardViewButton.m in Sources */,
