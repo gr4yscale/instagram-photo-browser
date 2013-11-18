@@ -10,6 +10,12 @@
 #import "TPAssetManager.h"
 
 
+@interface TPAsyncLoadImageView ()
+
+@property (nonatomic, strong) UIImageView *placeholderImageView;
+
+@end
+
 
 @implementation TPAsyncLoadImageView
 
@@ -50,11 +56,17 @@
                 UIImage *image = [UIImage imageWithContentsOfFile:[localURL path]];
                 
                 dispatch_async(dispatch_get_main_queue(), ^{
+                    [self.placeholderImageView.layer removeAllAnimations];
+                    self.placeholderImageView.hidden = YES;
                     self.image = image;
                 });
             });
             return;
         }
+    }
+    
+    if (placeholder) {
+        [self setupPlaceholder];
     }
     
     NSURLSessionDownloadTask *downloadTask = [[TPAssetManager shared] downloadAssetWithURL:URL
@@ -65,6 +77,8 @@
                                                                                     if (image && [self.imageURL.absoluteString isEqualToString:[URL absoluteString]]) {
                                                                                         
                                                                                         dispatch_async(dispatch_get_main_queue(), ^{
+                                                                                            [self.placeholderImageView.layer removeAllAnimations];
+                                                                                            self.placeholderImageView.hidden = YES;
                                                                                             self.image = image;
                                                                                         });
                                                                                         if (completion) completion();
@@ -80,6 +94,40 @@
 }
 
 
+- (void)setupPlaceholder
+{
+    if (!_placeholderImageView) {
+        UIImage *loadingIndicatorImage = [UIImage imageNamed:@"loading-indicator"];
+        _placeholderImageView = [[UIImageView alloc] initWithImage:loadingIndicatorImage];
+        _placeholderImageView.contentMode = UIViewContentModeCenter;
+        [_placeholderImageView setTranslatesAutoresizingMaskIntoConstraints:NO];
+        
+        [self addSubview:_placeholderImageView];
+        
+        NSDictionary *views = @{@"placeholderImageView" : _placeholderImageView};
+        
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[placeholderImageView]-|"
+                                                                     options:NSLayoutFormatAlignAllCenterY
+                                                                     metrics:nil
+                                                                       views:views]];
+        
+        [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-[placeholderImageView]-|"
+                                                                     options:NSLayoutFormatAlignAllCenterX
+                                                                     metrics:nil
+                                                                       views:views]];
+    }
+    
+    _placeholderImageView.hidden = NO;
+    
+    CABasicAnimation* rotationAnimation;
+    rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
+    rotationAnimation.toValue = [NSNumber numberWithFloat: M_PI];
+    rotationAnimation.duration = 0;
+    rotationAnimation.cumulative = YES;
+    rotationAnimation.repeatCount = HUGE_VALF;
+    
+    [_placeholderImageView.layer addAnimation:rotationAnimation forKey:@"rotationAnimation"];
+}
 
 
 @end
