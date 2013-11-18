@@ -73,7 +73,9 @@
     
     for (NSDictionary *photoDict in self.photos) {
         
-        if (!photoDict[@"id"] || [photoDict[@"type"] isEqualToString:@"video"]) return;
+        if (!photoDict[@"id"] || [photoDict[@"type"] isEqualToString:@"video"]) {
+            return;
+        }
         
         [Photo importFromDictionary:photoDict intoMOC:self.backgroundMOC];
     }
