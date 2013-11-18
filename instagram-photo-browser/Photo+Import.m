@@ -17,50 +17,30 @@
 #define kPhotoImportKeyUserFullName         @"userFullName"
 #define kPhotoImportKeyUsername             @"username"
 #define kPhotoImportKeyUserProfilePicURL    @"userProfilePicURL"
-#define kPhotoImportKeyPhotoWidth           @"photoWidth"
-#define kPhotoImportKeyPhotoHeight          @"photoHeight"
 #define kPhotoImportKeyCreatedTime          @"createdTime"
 
 
 
 @implementation Photo (Import)
 
-
-// this is slow and NOT the way to go for large imports, but for this example it should be fine.
-// will replace with Apple's recommended implementation if this becomes a performance bottleneck:
-// http://developer.apple.com/library/ios/#documentation/Cocoa/Conceptual/CoreData/Articles/cdImporting.html
-
-+ (instancetype)findOrCreatePhoto:(NSString *)identifier
-                          context:(NSManagedObjectContext*)moc
-{
-    
-    NSFetchRequest* fetchRequest = [NSFetchRequest fetchRequestWithEntityName:NSStringFromClass(self)];
-    fetchRequest.fetchLimit = 1;
-    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"identifier = %@", identifier];
-    
-    id object = [[moc executeFetchRequest:fetchRequest error:NULL] lastObject];
-    
-    if (!object) {
-        object = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass(self)
-                                               inManagedObjectContext:moc];
-    }
-    return object;
-}
-
-
-
 + (void)importFromDictionary:(NSDictionary *)dict intoMOC:(NSManagedObjectContext *)moc
 {
-    NSDictionary *sanitizedDict = [self sanitizedDictionaryFromDictionary:dict];
+    NSFetchRequest* fetchRequest = [NSFetchRequest fetchRequestWithEntityName:NSStringFromClass(self)];
+    fetchRequest.fetchLimit = 1;
+    fetchRequest.predicate = [NSPredicate predicateWithFormat:@"identifier = %@", dict[@"id"]];
+    fetchRequest.resultType = NSManagedObjectIDResultType;
     
-    Photo *aPhoto = [self findOrCreatePhoto:sanitizedDict[kPhotoImportKeyIdentifier]
-                                    context:moc];
-    
-    if (!aPhoto.createdTime) {
-        aPhoto.createdTime = [NSDate date];
+    if ([[moc executeFetchRequest:fetchRequest error:NULL] lastObject]) {
+        return;
+    } else {
+        Photo *photo = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass(self)
+                                                  inManagedObjectContext:moc];
+        
+        NSDictionary *sanitizedDict = [self sanitizedDictionaryFromDictionary:dict];
+        
+        [photo setValuesForKeysWithDictionary:sanitizedDict];
+        photo.createdTime = [NSDate date];
     }
-
-    [aPhoto setValuesForKeysWithDictionary:sanitizedDict];
 }
 
 
@@ -68,7 +48,7 @@
 + (NSDictionary *)sanitizedDictionaryFromDictionary:(NSDictionary *)dict {
 
     NSMutableDictionary *sanitizedDict = [NSMutableDictionary dictionary];
-
+    
     NSDictionary *stringsMapping = @{kPhotoImportKeyIdentifier: @"id",
                                      kPhotoImportKeyCaption: @"caption.text",
                                      kPhotoImportKeyFullResImageURL: @"images.standard_resolution.url",
@@ -77,9 +57,7 @@
                                      kPhotoImportKeyUserProfilePicURL: @"user.profile_picture"};
     
     NSDictionary *numbersMapping = @{kPhotoImportKeyLikeCount: @"likes.count",
-                                     kPhotoImportKeyCommentCount: @"comments.count",
-                                     kPhotoImportKeyPhotoWidth: @"images.standard_resolution.width",
-                                     kPhotoImportKeyPhotoHeight: @"images.standard_resolution.height"};
+                                     kPhotoImportKeyCommentCount: @"comments.count"};
     
     [NSDictionary applyMapping:stringsMapping fromDictionary:dict toDictionary:sanitizedDict forClass:[NSString class]];
     [NSDictionary applyMapping:numbersMapping fromDictionary:dict toDictionary:sanitizedDict forClass:[NSNumber class]];
