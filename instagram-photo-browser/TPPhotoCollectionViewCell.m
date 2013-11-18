@@ -61,10 +61,10 @@
     captionLabel.textColor = kTextColorPrimary;
     [cardView addSubview:captionLabel];
     
-    UIImageView *userProfilePicImageView = [[UIImageView alloc] init];
-    userProfilePicImageView.backgroundColor = [UIColor purpleColor];
-    userProfilePicImageView.layer.cornerRadius = 2.0;
-    [cardView addSubview:userProfilePicImageView];
+    TPAsyncLoadImageView *profilePicImageView = [[TPAsyncLoadImageView alloc] init];
+    profilePicImageView.backgroundColor = [UIColor purpleColor];
+    profilePicImageView.layer.cornerRadius = 2.0;
+    [cardView addSubview:profilePicImageView];
 
     UILabel *usernameLabel = [[UILabel alloc] init];
 //    usernameLabel.backgroundColor = [UIColor greenColor];
@@ -77,8 +77,8 @@
     userFullNameLabel.textColor = kTextColorSecondary;
     [cardView addSubview:userFullNameLabel];
     
-    UIImageView *photoImageView = [[UIImageView alloc] init];
-    photoImageView.backgroundColor = [UIColor greenColor];
+    TPAsyncLoadImageView *photoImageView = [[TPAsyncLoadImageView alloc] init];
+
     photoImageView.layer.cornerRadius = 2.0;
     photoImageView.clipsToBounds = NO;
     photoImageView.layer.shadowColor = [[UIColor blackColor] CGColor];
@@ -104,7 +104,7 @@
     
     self.cardView = cardView;
     self.captionLabel = captionLabel;
-    self.userProfilePicImageView = userProfilePicImageView;
+    self.profilePicImageView = profilePicImageView;
     self.usernameLabel = usernameLabel;
     self.userFullNameLabel = userFullNameLabel;
     self.photoImageView = photoImageView;
@@ -176,7 +176,7 @@
 {
     NSDictionary *views = @{@"cardView" : self.cardView,
                             @"captionLabel" : self.captionLabel,
-                            @"userProfilePicImageView" : self.userProfilePicImageView,
+                            @"profilePicImageView" : self.profilePicImageView,
                             @"usernameLabel" : self.usernameLabel,
                             @"userFullNameLabel" : self.userFullNameLabel,
                             @"photoImageView" : self.photoImageView,
@@ -203,17 +203,17 @@
                                                                  metrics:metrics
                                                                    views:views]];
     
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(spacing)-[userProfilePicImageView(profilePictureWidthAndHeight)]"
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(spacing)-[profilePicImageView(profilePictureWidthAndHeight)]"
                                                                  options:0
                                                                  metrics:metrics
                                                                    views:views]];
     
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(spacing)-[userProfilePicImageView]-(spacing)-[usernameLabel]-(spacing)-|"
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(spacing)-[profilePicImageView]-(spacing)-[usernameLabel]-(spacing)-|"
                                                                  options:0
                                                                  metrics:metrics
                                                                    views:views]];
     
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(spacing)-[userProfilePicImageView]-(spacing)-[userFullNameLabel]-(spacing)-|"
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-(spacing)-[profilePicImageView]-(spacing)-[userFullNameLabel]-(spacing)-|"
                                                                  options:0
                                                                  metrics:metrics
                                                                    views:views]];
@@ -244,7 +244,7 @@
                                                                  metrics:metrics
                                                                    views:views]];
     
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(spacing)-[userProfilePicImageView(profilePictureWidthAndHeight)]"
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(spacing)-[profilePicImageView(profilePictureWidthAndHeight)]"
                                                                  options:0
                                                                  metrics:metrics
                                                                    views:views]];
@@ -276,6 +276,7 @@
     self.userFullNameLabel.text = nil;
     self.captionLabel.text = nil;
     self.photoImageView.image = nil;
+    self.profilePicImageView.image = nil;
     self.commentsCountLabel.text = nil;
     self.likesCountLabel.text = nil;
 }

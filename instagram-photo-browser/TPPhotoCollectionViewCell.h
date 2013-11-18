@@ -6,13 +6,15 @@
 //  Copyright (c) 2013 Tyler Powers. All rights reserved.
 //
 
+#import "TPAsyncLoadImageView.h"
+
 @interface TPPhotoCollectionViewCell : UICollectionViewCell
 
 @property (nonatomic, strong) UIView *cardView;
-@property (nonatomic, strong) UIImageView *userProfilePicImageView;
+@property (nonatomic, strong) TPAsyncLoadImageView *profilePicImageView;
 @property (nonatomic, strong) UILabel *usernameLabel;
 @property (nonatomic, strong) UILabel *userFullNameLabel;
-@property (nonatomic, strong) UIImageView *photoImageView;
+@property (nonatomic, strong) TPAsyncLoadImageView *photoImageView;
 @property (nonatomic, strong) UILabel *captionLabel;
 @property (nonatomic, strong) UILabel *likesCountLabel;
 @property (nonatomic, strong) UILabel *commentsCountLabel;

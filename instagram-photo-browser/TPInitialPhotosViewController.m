@@ -10,10 +10,12 @@
 #import "TPWebServiceClient.h"
 #import "TPPhotosImportOperation.h"
 #import "Photo.h"
-#import "TPFetchedResultsCollectionViewDataSource.h"
 #import "TPPhotoCollectionViewCell.h"
-#import "UIImageView+AsyncLoad.h"
+#import "TPFetchedResultsCollectionViewDataSource.h"
+
+#import "TPAsyncLoadImageView.h"
 #import "TPCollectionView.h"
+#import "TPAssetManager.h"
 
 @interface TPInitialPhotosViewController ()
 
@@ -22,6 +24,7 @@
 @property (nonatomic, strong) TPFetchedResultsCollectionViewDataSource *dataSource;
 @property (nonatomic, strong) TPCollectionView *collectionView;
 @property (nonatomic, strong) UIRefreshControl *refresh;
+@property (nonatomic, assign) NSUInteger photoDownloadCount;
 
 - (NSFetchedResultsController *)setupFetchedResultsController;
 - (TPCollectionView *)setupCollectionView;
@@ -96,7 +99,7 @@
     
     flowLayout.sectionInset = UIEdgeInsetsMake(0, 0, 0, 0);
     flowLayout.minimumInteritemSpacing = 0;
-    flowLayout.minimumLineSpacing = 6.0f;
+    flowLayout.minimumLineSpacing = kSpacingBetweenPhotos;
     flowLayout.itemSize = CGSizeMake(self.view.frame.size.width, 10); // this will vary based on the data
     
     flowLayout.headerReferenceSize = CGSizeMake(0, 0);
@@ -131,13 +134,21 @@
         cell.likesCountLabel.text = [NSString stringWithFormat:@"%d %@", [photo.likeCount intValue], NSLocalizedString(@"likes", @"likes")];
         
         if (cell.fetchImages) {
-//            NSLog(@"Configuring cell for photo id: %@", photo.identifier);
             
-            [cell.photoImageView tp_setImageWithURL:[NSURL URLWithString:photo.fullResImageURL]
-                                        placeHolder:nil
-                                          failBlock:^(NSError *error) {
-                                              NSLog(@"ERROR setting image: %@", error);
-             }];
+            [cell.photoImageView setImageWithURL:[NSURL URLWithString:photo.fullResImageURL]
+                                     placeHolder:YES
+                                      completion:^{
+                                      }
+                                       failBlock:^(NSError *error) {
+                                           NSLog(@"ERROR setting photo image: %@", error);
+                                       }];
+            
+            [cell.profilePicImageView setImageWithURL:[NSURL URLWithString:photo.userProfilePicURL]
+                                          placeHolder:nil
+                                           completion:nil
+                                            failBlock:^(NSError *error) {
+                                                NSLog(@"ERROR setting profile pic image: %@", error);
+                                            }];
         }
     };
 }
