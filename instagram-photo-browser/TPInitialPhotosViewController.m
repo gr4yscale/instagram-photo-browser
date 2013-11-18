@@ -29,6 +29,7 @@
 - (NSFetchedResultsController *)setupFetchedResultsController;
 - (TPCollectionView *)setupCollectionView;
 - (void)setupDataSource;
+- (void)startQueuedDownloadTasksIfReady;
 - (void)fetchAndImportPhotosJSON;
 
 @end
@@ -80,7 +81,6 @@
     
     fetchRequest.sortDescriptors = @[[NSSortDescriptor sortDescriptorWithKey:@"createdTime"
                                                                    ascending:NO]];
-    
     fetchRequest.fetchLimit = kNumberOfPhotosToDisplay;
         
     return [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest
@@ -125,6 +125,10 @@
                                                                       fetchedResultsController:frc];
     self.dataSource.cellIdentifier = NSStringFromClass([Photo class]);
     
+    // this block gets called on the data source to update the cell with data on cellForItemAtIndexPath:
+    
+    __weak typeof(self) weakSelf = self;
+    
     self.dataSource.updateCellBlock = ^(TPPhotoCollectionViewCell *cell, Photo *photo) {
         
         cell.usernameLabel.text = photo.username;
@@ -138,6 +142,7 @@
             [cell.photoImageView setImageWithURL:[NSURL URLWithString:photo.fullResImageURL]
                                      placeHolder:YES
                                       completion:^{
+                                          [weakSelf startQueuedDownloadTasksIfReady];
                                       }
                                        failBlock:^(NSError *error) {
                                            NSLog(@"ERROR setting photo image: %@", error);
@@ -154,9 +159,19 @@
 }
 
 
+- (void)startQueuedDownloadTasksIfReady
+{
+    if (self.photoDownloadCount == 1) {
+        [[TPAssetManager shared] resumeQueuedDownloadTasks];
+    } else {
+        self.photoDownloadCount++;
+    }
+}
+
 
 - (void)fetchAndImportPhotosJSON
 {
+    self.photoDownloadCount = 0;
     [TPWebServiceClient getPopularPhotosJSONWithCompletion:^(id data) {
         
         if (data[@"data"]) {    // I know this looks weird, in the instagram JSON the relevant data we want is under a "data" key
