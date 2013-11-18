@@ -95,7 +95,7 @@
 		29BE5FD41828D41500FE4D04 /* Photo+Import.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Photo+Import.m"; sourceTree = "<group>"; };
 		29FD08931839EC57001E72F1 /* Photo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Photo.h; sourceTree = "<group>"; };
 		29FD08941839EC57001E72F1 /* Photo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Photo.m; sourceTree = "<group>"; };
-		29FD08961839ECA9001E72F1 /* DataModel 4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DataModel 4.xcdatamodel"; sourceTree = "<group>"; };
+		29FD08961839ECA9001E72F1 /* DataModel 4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "DataModel 4.xcdatamodel"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
