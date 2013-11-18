@@ -173,6 +173,10 @@
 - (void)fetchAndImportPhotosJSON
 {
     self.photoDownloadCount = 0;
+    self.dataSource.importInProgress = YES;
+    
+    self.collectionView.userInteractionEnabled = NO;
+    
     [TPWebServiceClient getPopularPhotosJSONWithCompletion:^(id data) {
         
         if (data[@"data"]) {    // I know this looks weird, in the instagram JSON the relevant data we want is under a "data" key
@@ -181,6 +185,10 @@
                                                                                                     photos:data[@"data"]];
             photosImportOp.completionBlock = ^{
                 [[NSOperationQueue mainQueue] addOperationWithBlock:^{ // make sure to update UI on main thread!
+                    
+                    self.dataSource.importInProgress = NO;
+                    self.collectionView.userInteractionEnabled = YES;
+                    
                     [self.refresh endRefreshing];
                 }];
             };

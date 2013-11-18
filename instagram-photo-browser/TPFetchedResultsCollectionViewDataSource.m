@@ -23,7 +23,10 @@
 @property (nonatomic, strong) NSMutableArray *objectChanges;
 @property (nonatomic, strong) NSMutableArray *sectionChanges;
 
-- (BOOL)shouldReloadCollectionViewToPreventKnownIssue;
+@property (nonatomic, assign) BOOL userWasScrollingDuringImport;
+
+@property (nonatomic, assign) CGFloat totalHeightOfNewlyInsertedCells;
+@property (atomic, assign) NSUInteger insertsCountSinceCVReload;
 
 @end
 
@@ -53,6 +56,7 @@
 {
     return [self.fetchedResultsController objectAtIndexPath:indexPath];
 }
+
 
 
 #pragma mark - UICollectionViewDataSource
@@ -117,7 +121,7 @@
        atIndexPath:(NSIndexPath *)indexPath forChangeType:(NSFetchedResultsChangeType)type
       newIndexPath:(NSIndexPath *)newIndexPath
 {
-   
+    
     NSMutableDictionary *change = [NSMutableDictionary new];
     switch(type)
     {
@@ -140,110 +144,71 @@
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
 {
-    if ([self.sectionChanges count] > 0)
+    NSLog(@"didChangeContent");
+    
+    self.collectionView.userInteractionEnabled = NO;
+    
+    [CATransaction begin];
+    [CATransaction setValue:(id)kCFBooleanTrue forKey:kCATransactionDisableActions];
+    
+    if ([self.objectChanges count] > 0 && [self.sectionChanges count] == 0)
     {
         [self.collectionView performBatchUpdates:^{
             
-            for (NSDictionary *change in self.sectionChanges)
+            for (NSDictionary *change in self.objectChanges)
             {
                 [change enumerateKeysAndObjectsUsingBlock:^(NSNumber *key, id obj, BOOL *stop) {
                     
                     NSFetchedResultsChangeType type = [key unsignedIntegerValue];
                     switch (type)
                     {
-                        case NSFetchedResultsChangeInsert:
-                            [self.collectionView insertSections:[NSIndexSet indexSetWithIndex:[obj unsignedIntegerValue]]];
+                        case NSFetchedResultsChangeInsert: {
+                            
+                            self.insertsCountSinceCVReload++;
+                            [self.collectionView insertItemsAtIndexPaths:@[obj]];
+                            
+                            CGSize itemSize = [self collectionView:self.collectionView
+                                                            layout:self.collectionView.collectionViewLayout
+                                            sizeForItemAtIndexPath:obj];
+                            
+//                            NSLog(@"Cell size calculated: %@ || %@ ***newly inserted ***", obj, NSStringFromCGSize(itemSize));
+                            
+                            self.totalHeightOfNewlyInsertedCells += itemSize.height;
+                        }
                             break;
                         case NSFetchedResultsChangeDelete:
-                            [self.collectionView deleteSections:[NSIndexSet indexSetWithIndex:[obj unsignedIntegerValue]]];
+                            [self.collectionView deleteItemsAtIndexPaths:@[obj]];
                             break;
                         case NSFetchedResultsChangeUpdate:
-                            [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:[obj unsignedIntegerValue]]];
+                            [self.collectionView reloadItemsAtIndexPaths:@[obj]];
+                            break;
+                        case NSFetchedResultsChangeMove:
+                            [self.collectionView moveItemAtIndexPath:obj[0] toIndexPath:obj[1]];
                             break;
                     }
                 }];
             }
-        } completion:nil];
-    }
-    
-    if ([self.objectChanges count] > 0 && [self.sectionChanges count] == 0)
-    {
-        
-        if ([self shouldReloadCollectionViewToPreventKnownIssue] || self.collectionView.window == nil) {
-            // This is to prevent a bug in UICollectionView from occurring.
-            // The bug presents itself when inserting the first object or deleting the last object in a collection view.
-            // http://stackoverflow.com/questions/12611292/uicollectionview-assertion-failure
-            // This code should be removed once the bug has been fixed, it is tracked in OpenRadar
-            // http://openradar.appspot.com/12954582
-            [self.collectionView reloadData];
+        } completion:^(BOOL success) {
             
-        } else {
-            
-            [self.collectionView performBatchUpdates:^{
+            if (self.totalHeightOfNewlyInsertedCells > 0) {
                 
-                for (NSDictionary *change in self.objectChanges)
-                {
-                    [change enumerateKeysAndObjectsUsingBlock:^(NSNumber *key, id obj, BOOL *stop) {
-                        
-                        NSFetchedResultsChangeType type = [key unsignedIntegerValue];
-                        switch (type)
-                        {
-                            case NSFetchedResultsChangeInsert:
-                                [self.collectionView insertItemsAtIndexPaths:@[obj]];
-                                break;
-                            case NSFetchedResultsChangeDelete:
-                                [self.collectionView deleteItemsAtIndexPaths:@[obj]];
-                                break;
-                            case NSFetchedResultsChangeUpdate:
-                                [self.collectionView reloadItemsAtIndexPaths:@[obj]];
-                                break;
-                            case NSFetchedResultsChangeMove:
-                                [self.collectionView moveItemAtIndexPath:obj[0] toIndexPath:obj[1]];
-                                break;
-                        }
-                    }];
-                }
-            } completion:nil];
-        }
+                CGFloat paddingOfNewlyInsertedCells = self.insertsCountSinceCVReload * kSpacingBetweenPhotos;
+                CGPoint newContentOffset = CGPointMake(self.collectionView.contentOffset.x, self.collectionView.contentOffset.y + self.totalHeightOfNewlyInsertedCells + paddingOfNewlyInsertedCells);
+                
+                [self.collectionView setContentOffset:newContentOffset animated:NO];
+                
+                self.totalHeightOfNewlyInsertedCells = 0;
+                self.insertsCountSinceCVReload = 0;
+            }
+            
+            
+        }];
     }
     
     [self.sectionChanges removeAllObjects];
     [self.objectChanges removeAllObjects];
-}
-
-
-- (BOOL)shouldReloadCollectionViewToPreventKnownIssue {
-    __block BOOL shouldReload = NO;
-    for (NSDictionary *change in self.objectChanges) {
-        [change enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
-            NSFetchedResultsChangeType type = [key unsignedIntegerValue];
-            NSIndexPath *indexPath = obj;
-            switch (type) {
-                case NSFetchedResultsChangeInsert:
-                    if ([self.collectionView numberOfItemsInSection:indexPath.section] == 0) {
-                        shouldReload = YES;
-                    } else {
-                        shouldReload = NO;
-                    }
-                    break;
-                case NSFetchedResultsChangeDelete:
-                    if ([self.collectionView numberOfItemsInSection:indexPath.section] == 1) {
-                        shouldReload = YES;
-                    } else {
-                        shouldReload = NO;
-                    }
-                    break;
-                case NSFetchedResultsChangeUpdate:
-                    shouldReload = NO;
-                    break;
-                case NSFetchedResultsChangeMove:
-                    shouldReload = NO;
-                    break;
-            }
-        }];
-    }
     
-    return shouldReload;
+    [CATransaction commit];
 }
 
 
@@ -251,8 +216,6 @@
                   layout:(UICollectionViewLayout *)collectionViewLayout
   sizeForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-//    NSLog(@"Asking for size of cell at indexPath: %@", indexPath);
-    
     Photo *photo = [self objectAtIndexPath:indexPath];
     
     static TPPhotoCollectionViewCell *cellForComputingSize;
@@ -267,8 +230,30 @@
     
     CGSize captionLabelSize = [cellForComputingSize.captionLabel systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
     
+    CGSize size = CGSizeMake(320, captionLabelSize.height + 460);
+//    NSLog(@"Cell size calculated: %@ || %@", indexPath, NSStringFromCGSize(size));
     
-    return CGSizeMake(320, captionLabelSize.height + 460);
+    return size;
+}
+
+
+
+#pragma UIScrollViewDelegate
+
+- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
+{
+    if (self.importInProgress) {
+        self.userWasScrollingDuringImport = YES;
+    }
+}
+
+
+- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+    if (self.userWasScrollingDuringImport) {
+        self.userWasScrollingDuringImport = NO;
+        self.collectionView.userInteractionEnabled = YES;
+    }
     
 }
 
