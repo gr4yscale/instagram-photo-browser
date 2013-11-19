@@ -33,7 +33,7 @@
 		29BE5FCC1828C1B800FE4D04 /* TPUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 29BE5FCB1828C1B800FE4D04 /* TPUtils.m */; };
 		29BE5FCF1828C7E500FE4D04 /* TPPhotosImportOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 29BE5FCE1828C7E500FE4D04 /* TPPhotosImportOperation.m */; };
 		29BE5FD51828D41500FE4D04 /* Photo+Import.m in Sources */ = {isa = PBXBuildFile; fileRef = 29BE5FD41828D41500FE4D04 /* Photo+Import.m */; };
-		29FD08951839EC57001E72F1 /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 29FD08941839EC57001E72F1 /* Photo.m */; };
+		29BEB703183B0089003C46B7 /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 29BEB702183B0089003C46B7 /* Photo.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -93,8 +93,9 @@
 		29BE5FCE1828C7E500FE4D04 /* TPPhotosImportOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPPhotosImportOperation.m; sourceTree = "<group>"; };
 		29BE5FD31828D41500FE4D04 /* Photo+Import.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Photo+Import.h"; sourceTree = "<group>"; };
 		29BE5FD41828D41500FE4D04 /* Photo+Import.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Photo+Import.m"; sourceTree = "<group>"; };
-		29FD08931839EC57001E72F1 /* Photo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Photo.h; sourceTree = "<group>"; };
-		29FD08941839EC57001E72F1 /* Photo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Photo.m; sourceTree = "<group>"; };
+		29BEB700183B002F003C46B7 /* DataModel 5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DataModel 5.xcdatamodel"; sourceTree = "<group>"; };
+		29BEB701183B0089003C46B7 /* Photo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Photo.h; sourceTree = "<group>"; };
+		29BEB702183B0089003C46B7 /* Photo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Photo.m; sourceTree = "<group>"; };
 		29FD08961839ECA9001E72F1 /* DataModel 4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "DataModel 4.xcdatamodel"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -172,9 +173,9 @@
 				29B85EEC1829E8BC00A11192 /* TPFetchedResultsCollectionViewDataSource.m */,
 				29A505D31828ADC800F03F24 /* views */,
 				29B85EEA1829AE2400A11192 /* categories */,
+				29BEB701183B0089003C46B7 /* Photo.h */,
+				29BEB702183B0089003C46B7 /* Photo.m */,
 				29A505D71828B6A300F03F24 /* DataModel.xcdatamodeld */,
-				29FD08931839EC57001E72F1 /* Photo.h */,
-				29FD08941839EC57001E72F1 /* Photo.m */,
 				29A505B01828A7E800F03F24 /* Images.xcassets */,
 				29A505A51828A7E800F03F24 /* Supporting Files */,
 				295E3824183393AB00EFAAC8 /* TPCollectionView.h */,
@@ -343,7 +344,7 @@
 				29B85EF3182CA71000A11192 /* TPCardViewButton.m in Sources */,
 				29B85EED1829E8BC00A11192 /* TPFetchedResultsCollectionViewDataSource.m in Sources */,
 				295E3826183393AB00EFAAC8 /* TPCollectionView.m in Sources */,
-				29FD08951839EC57001E72F1 /* Photo.m in Sources */,
+				29BEB703183B0089003C46B7 /* Photo.m in Sources */,
 				29BE5FD51828D41500FE4D04 /* Photo+Import.m in Sources */,
 				29BE5FC61828BB3000FE4D04 /* TPPersistence.m in Sources */,
 				29A505D91828B6A300F03F24 /* DataModel.xcdatamodeld in Sources */,
@@ -571,9 +572,10 @@
 				295E381618319B0200EFAAC8 /* DataModel 2.xcdatamodel */,
 				295E381D1832F98F00EFAAC8 /* DataModel 3.xcdatamodel */,
 				29FD08961839ECA9001E72F1 /* DataModel 4.xcdatamodel */,
+				29BEB700183B002F003C46B7 /* DataModel 5.xcdatamodel */,
 				29A505D81828B6A300F03F24 /* DataModel.xcdatamodel */,
 			);
-			currentVersion = 29FD08961839ECA9001E72F1 /* DataModel 4.xcdatamodel */;
+			currentVersion = 29BEB700183B002F003C46B7 /* DataModel 5.xcdatamodel */;
 			path = DataModel.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

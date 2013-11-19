@@ -18,7 +18,7 @@
 #define kPhotoImportKeyUsername             @"username"
 #define kPhotoImportKeyUserProfilePicURL    @"userProfilePicURL"
 #define kPhotoImportKeyCreatedTime          @"createdTime"
-
+#define kPhotoImportKeyLink                 @"link"
 
 
 @implementation Photo (Import)
@@ -58,7 +58,8 @@
                                      kPhotoImportKeyFullResImageURL: @"images.standard_resolution.url",
                                      kPhotoImportKeyUserFullName: @"user.full_name",
                                      kPhotoImportKeyUsername: @"user.username",
-                                     kPhotoImportKeyUserProfilePicURL: @"user.profile_picture"};
+                                     kPhotoImportKeyUserProfilePicURL: @"user.profile_picture",
+                                     kPhotoImportKeyLink: @"link"};
     
     NSDictionary *numbersMapping = @{kPhotoImportKeyLikeCount: @"likes.count",
                                      kPhotoImportKeyCommentCount: @"comments.count"};

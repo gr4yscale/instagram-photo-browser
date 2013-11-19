@@ -19,6 +19,7 @@
 @property (nonatomic, strong) UILabel *likesCountLabel;
 @property (nonatomic, strong) UILabel *commentsCountLabel;
 
+@property (nonatomic, strong) NSString *link;
 @property (nonatomic, assign) BOOL fetchImages;
 
 @end
