@@ -24,7 +24,7 @@
 {
     self = [super init];
     if (self) {
-        self.backgroundColor = kPhotoImageViewBGColor;
+        self.backgroundColor = kPrimaryBackgroundColor;
         self.opaque = YES;
     }
     return self;

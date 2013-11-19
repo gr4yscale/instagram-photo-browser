@@ -52,7 +52,7 @@
 - (void)loadView
 {
     self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    self.view.backgroundColor = [UIColor purpleColor];
+    self.view.backgroundColor = kPrimaryBackgroundColor;
     
     TPCollectionView *cv = [self setupCollectionView];
     self.collectionView = cv;
@@ -93,7 +93,7 @@
 
 - (TPCollectionView *)setupCollectionView
 {
-    CGRect collectionViewFrame = CGRectMake(0, 20, self.view.frame.size.width, self.view.frame.size.height - 20);
+    CGRect collectionViewFrame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
     
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
     
@@ -109,6 +109,7 @@
                                                           collectionViewLayout:flowLayout];
     collectionView.alwaysBounceVertical = YES;
     collectionView.delaysContentTouches = NO;
+    collectionView.backgroundColor = [UIColor clearColor];
     
     [collectionView registerClass:[TPPhotoCollectionViewCell class] forCellWithReuseIdentifier:NSStringFromClass([Photo class])];
  

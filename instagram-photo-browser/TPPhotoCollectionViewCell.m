@@ -29,7 +29,9 @@
 {
     self = [super initWithFrame:frame];
     if (self) {
-        self.backgroundColor = [UIColor blueColor];
+        self.backgroundColor = [UIColor clearColor];
+        self.opaque = NO;
+        
         self.fetchImages = YES;
         
         [self setupSubviews];
@@ -45,24 +47,30 @@
 
     UIView *cardView = [[UIView alloc] init];
     cardView.backgroundColor = [UIColor whiteColor];
-    cardView.layer.cornerRadius = 6.0;
     cardView.clipsToBounds = NO;
-    cardView.layer.shadowColor = [[UIColor blackColor] CGColor];
-    cardView.layer.shadowOffset = CGSizeMake(0,2);
-    cardView.layer.shadowOpacity = 0.8;
     cardView.userInteractionEnabled = YES;
+    
+    CALayer *cardViewLayer = cardView.layer;
+    cardViewLayer.shadowColor = [[UIColor blackColor] CGColor];
+    cardViewLayer.shadowOffset = CGSizeMake(0,2);
+    cardViewLayer.shadowOpacity = 0.6;
+    cardViewLayer.shadowRadius = 2.0;
+    cardViewLayer.cornerRadius = 6.0;
+    cardViewLayer.rasterizationScale = [[UIScreen mainScreen] scale]; // cache a bitmap of the layer so we're not redrawing shadows; improved performance according to Core Graphics instrument
+    cardViewLayer.shouldRasterize = YES;
+    
     [self.contentView addSubview:cardView];
     
     UILabel *captionLabel = [[UILabel alloc] init];
 //    captionLabel.backgroundColor = [UIColor redColor];
-    captionLabel.preferredMaxLayoutWidth = 284.0;
+    captionLabel.preferredMaxLayoutWidth = 284.0; // un-hardcode this!
     captionLabel.numberOfLines = 3;
-    captionLabel.font = kFontTitle;
+    captionLabel.font = kFontSubtitle;
     captionLabel.textColor = kTextColorPrimary;
     [cardView addSubview:captionLabel];
     
     TPAsyncLoadImageView *profilePicImageView = [[TPAsyncLoadImageView alloc] init];
-    profilePicImageView.backgroundColor = [UIColor purpleColor];
+    profilePicImageView.backgroundColor = [UIColor clearColor];
     profilePicImageView.layer.cornerRadius = 2.0;
     [cardView addSubview:profilePicImageView];
 
@@ -78,15 +86,16 @@
     [cardView addSubview:userFullNameLabel];
     
     TPAsyncLoadImageView *photoImageView = [[TPAsyncLoadImageView alloc] init];
-
-    photoImageView.layer.cornerRadius = 2.0;
-    photoImageView.clipsToBounds = NO;
-    photoImageView.layer.shadowColor = [[UIColor blackColor] CGColor];
-    photoImageView.layer.shadowOffset = CGSizeMake(0,2);
-    photoImageView.layer.shadowOpacity = 0.6;
-    photoImageView.layer.rasterizationScale = [[UIScreen mainScreen] scale]; // cache a bitmap of the layer so we're not redrawing shadows; improved performance according to Core Graphics instrument
-    photoImageView.layer.shouldRasterize = YES;
     photoImageView.contentMode = UIViewContentModeScaleAspectFill;
+    photoImageView.clipsToBounds = NO;
+    
+    CALayer *photoImageViewLayer = photoImageView.layer;
+    
+    photoImageViewLayer.shadowColor = [[UIColor blackColor] CGColor];
+    photoImageViewLayer.shadowOffset = CGSizeMake(0,1);
+    photoImageViewLayer.shadowOpacity = 0.8;
+    photoImageViewLayer.shadowRadius = 4.0;
+    photoImageViewLayer.masksToBounds = NO;
     
     [self.contentView addSubview:photoImageView];
     
@@ -187,9 +196,9 @@
                             @"likesCountLabel" : self.likesCountLabel
                             };
     
-    NSDictionary *metrics = @{@"spacing": @6,
-                              @"profilePictureWidthAndHeight": @50,
-                              @"buttonRowHeight" : @42
+    NSDictionary *metrics = @{@"spacing": @(kSpacing),
+                              @"profilePictureWidthAndHeight": @(kProfilePicWidthAndHeight),
+                              @"buttonRowHeight" : @(kButtonRowHeight)
                               };
     
     for (UIView *view in [views allValues]) {
