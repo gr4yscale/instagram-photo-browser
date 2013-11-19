@@ -20,7 +20,7 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
-    // Override point for customization after application launch.
+
     self.window.backgroundColor = [UIColor whiteColor];
     
     if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7) {
@@ -35,7 +35,10 @@
     TPInitialPhotosViewController *initialPhotosVC = [[TPInitialPhotosViewController alloc] init];
     initialPhotosVC.persistence = self.persistence;
     
-    self.window.rootViewController = initialPhotosVC;
+    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:initialPhotosVC];
+    [navController setNavigationBarHidden:YES];
+    
+    self.window.rootViewController = navController;
     [self.window makeKeyAndVisible];
     
     return YES;
