@@ -111,28 +111,23 @@ static const UIEdgeInsets TPResizableBackgroundImageCapInsets       = {21, 22, 2
     UIColor* shadow = strokeColor2;
     CGSize shadowOffset = CGSizeMake(0.1, 1.1);
     CGFloat shadowBlurRadius = 0.5;
-    
-    UIBezierPath* roundedRectanglePath = nil;
-    
-    if (self.side != TPCardViewButtonSideMiddle) {
-        roundedRectanglePath = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(0, 0, rect.size.width, rect.size.height) byRoundingCorners: self.corners cornerRadii: CGSizeMake(6, 6)];
-    } else {
-        roundedRectanglePath = [UIBezierPath bezierPathWithRect: CGRectMake(0, 0, rect.size.width, rect.size.height)];
-    }
 
-    [roundedRectanglePath closePath];
+    // Rectangle Drawing
+    UIBezierPath *rectanglePath = [UIBezierPath bezierPathWithRect: CGRectMake(0, 0, rect.size.width, rect.size.height)];
+
+    [rectanglePath closePath];
     CGContextSaveGState(context);
-    [roundedRectanglePath addClip];
+    [rectanglePath addClip];
     
     CGContextDrawLinearGradient(context, gradient, CGPointMake(50, 0), CGPointMake(50, rect.size.height), 0);
     CGContextRestoreGState(context);
     
-    // Rectangle Drawing
-    UIBezierPath* rectanglePath = [UIBezierPath bezierPathWithRect: CGRectMake(0, 0, rect.size.width, 1)];
+    // "Inset" on top of button drawing
+    UIBezierPath* insetRectanglePath = [UIBezierPath bezierPathWithRect: CGRectMake(0, 0, rect.size.width, 1)];
     CGContextSaveGState(context);
     CGContextSetShadowWithColor(context, shadowOffset, shadowBlurRadius, shadow.CGColor);
     [color2 setFill];
-    [rectanglePath fill];
+    [insetRectanglePath fill];
     CGContextRestoreGState(context);
     
     [self drawVerticalSpacer];
@@ -175,52 +170,46 @@ static const UIEdgeInsets TPResizableBackgroundImageCapInsets       = {21, 22, 2
     CGSize shadow2Offset = CGSizeMake(0, 2);
     CGFloat shadow2BlurRadius = 2;
     
-    //// Rounded Rectangle Drawing
+    //// Rectangle Drawing
     
-    UIBezierPath* roundedRectanglePath = nil;
+    UIBezierPath *rectanglePath = [UIBezierPath bezierPathWithRect: CGRectMake(0, 0, rect.size.width, rect.size.height)];
     
-    if (self.side != TPCardViewButtonSideMiddle) {
-        roundedRectanglePath = [UIBezierPath bezierPathWithRoundedRect: CGRectMake(0, 0, rect.size.width, rect.size.height) byRoundingCorners: self.corners cornerRadii: CGSizeMake(6, 6)];
-    } else {
-        roundedRectanglePath = [UIBezierPath bezierPathWithRect: CGRectMake(0, 0, rect.size.width, rect.size.height)];
-    }
-    
-    [roundedRectanglePath closePath];
+    [rectanglePath closePath];
     CGContextSaveGState(context);
-    [roundedRectanglePath addClip];
+    [rectanglePath addClip];
 
     CGContextDrawLinearGradient(context, gradient, CGPointMake(50, 0), CGPointMake(50, rect.size.height), 0);
     CGContextRestoreGState(context);
     
-    ////// Rounded Rectangle Inner Shadow
-    CGRect roundedRectangleBorderRect = CGRectInset([roundedRectanglePath bounds], -shadow2BlurRadius, -shadow2BlurRadius);
-    roundedRectangleBorderRect = CGRectOffset(roundedRectangleBorderRect, -shadow2Offset.width, -shadow2Offset.height);
-    roundedRectangleBorderRect = CGRectInset(CGRectUnion(roundedRectangleBorderRect, [roundedRectanglePath bounds]), -1, -1);
+    ////// Rectangle Inner Shadow
+    CGRect rectangleBorderRect = CGRectInset([rectanglePath bounds], -shadow2BlurRadius, -shadow2BlurRadius);
+    rectangleBorderRect = CGRectOffset(rectangleBorderRect, -shadow2Offset.width, -shadow2Offset.height);
+    rectangleBorderRect = CGRectInset(CGRectUnion(rectangleBorderRect, [rectanglePath bounds]), -1, -1);
     
-    UIBezierPath* roundedRectangleNegativePath = [UIBezierPath bezierPathWithRect: roundedRectangleBorderRect];
-    [roundedRectangleNegativePath appendPath: roundedRectanglePath];
-    roundedRectangleNegativePath.usesEvenOddFillRule = YES;
+    UIBezierPath* rectangleNegativePath = [UIBezierPath bezierPathWithRect: rectangleBorderRect];
+    [rectangleNegativePath appendPath: rectanglePath];
+    rectangleNegativePath.usesEvenOddFillRule = YES;
     
     CGContextSaveGState(context);
     {
-        CGFloat xOffset = shadow2Offset.width + round(roundedRectangleBorderRect.size.width);
+        CGFloat xOffset = shadow2Offset.width + round(rectangleBorderRect.size.width);
         CGFloat yOffset = shadow2Offset.height;
         CGContextSetShadowWithColor(context,
                                     CGSizeMake(xOffset + copysign(0.1, xOffset), yOffset + copysign(0.1, yOffset)),
                                     shadow2BlurRadius,
                                     shadow2.CGColor);
         
-        [roundedRectanglePath addClip];
-        CGAffineTransform transform = CGAffineTransformMakeTranslation(-round(roundedRectangleBorderRect.size.width), 0);
-        [roundedRectangleNegativePath applyTransform: transform];
+        [rectanglePath addClip];
+        CGAffineTransform transform = CGAffineTransformMakeTranslation(-round(rectangleBorderRect.size.width), 0);
+        [rectangleNegativePath applyTransform: transform];
         [[UIColor grayColor] setFill];
-        [roundedRectangleNegativePath fill];
+        [rectangleNegativePath fill];
     }
     CGContextRestoreGState(context);
     
     [color4 setStroke];
-    roundedRectanglePath.lineWidth = 1;
-    [roundedRectanglePath stroke];
+    rectanglePath.lineWidth = 1;
+    [rectanglePath stroke];
     
     [self drawVerticalSpacer];
     
