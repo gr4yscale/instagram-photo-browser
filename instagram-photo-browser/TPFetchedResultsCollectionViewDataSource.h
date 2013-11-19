@@ -13,8 +13,6 @@ typedef void (^updateCellBlock)(id cell, id item);
 @property (nonatomic, strong) NSString *cellIdentifier;
 @property (nonatomic, copy) updateCellBlock updateCellBlock;
 
-@property (nonatomic, assign) BOOL importInProgress;
-
 - (id)initWithCollectionView:(UICollectionView *)collectionView fetchedResultsController:(NSFetchedResultsController *)fetchedResultsController;
 
 - (id)objectAtIndexPath:(NSIndexPath *)indexPath;

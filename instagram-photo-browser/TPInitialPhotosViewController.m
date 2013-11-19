@@ -173,23 +173,16 @@
 - (void)fetchAndImportPhotosJSON
 {
     self.photoDownloadCount = 0;
-    self.dataSource.importInProgress = YES;
-    
-    self.collectionView.userInteractionEnabled = NO;
     
     [TPWebServiceClient fetchPopularPhotosJSONWithCompletion:^(id data) {
         
         id photos = data[@"data"];
-        if ([photos isKindOfClass:[NSDictionary class]]) {
+        if ([photos isKindOfClass:[NSArray class]]) {
             
             TPPhotosImportOperation *photosImportOp = [[TPPhotosImportOperation alloc] initWithPersistence:self.persistence
                                                                                                     photos:photos];
             photosImportOp.completionBlock = ^{
                 [[NSOperationQueue mainQueue] addOperationWithBlock:^{ // make sure to update UI on main thread!
-                    
-                    self.dataSource.importInProgress = NO;
-                    self.collectionView.userInteractionEnabled = YES;
-                    
                     [self.refresh endRefreshing];
                 }];
             };

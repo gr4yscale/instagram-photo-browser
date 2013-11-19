@@ -23,10 +23,10 @@
 @property (nonatomic, strong) NSMutableArray *objectChanges;
 @property (nonatomic, strong) NSMutableArray *sectionChanges;
 
-@property (nonatomic, assign) BOOL userWasScrollingDuringImport;
-
 @property (nonatomic, assign) CGFloat totalHeightOfNewlyInsertedCells;
 @property (atomic, assign) NSUInteger insertsCountSinceCVReload;
+
+- (void)updateCollectionViewContentOffsetForNewlyInsertedCells;
 
 @end
 
@@ -57,6 +57,20 @@
     return [self.fetchedResultsController objectAtIndexPath:indexPath];
 }
 
+
+- (void)updateCollectionViewContentOffsetForNewlyInsertedCells
+{
+    if (self.totalHeightOfNewlyInsertedCells > 0) {
+        
+        CGFloat paddingOfNewlyInsertedCells = self.insertsCountSinceCVReload * kSpacingBetweenPhotos;
+        CGPoint newContentOffset = CGPointMake(self.collectionView.contentOffset.x, self.collectionView.contentOffset.y + self.totalHeightOfNewlyInsertedCells + paddingOfNewlyInsertedCells);
+        
+        [self.collectionView setContentOffset:newContentOffset animated:NO];
+        
+        self.totalHeightOfNewlyInsertedCells = 0;
+        self.insertsCountSinceCVReload = 0;
+    }
+}
 
 
 #pragma mark - UICollectionViewDataSource
@@ -188,20 +202,12 @@
                     }
                 }];
             }
+            
+            [self updateCollectionViewContentOffsetForNewlyInsertedCells];
+            
         } completion:^(BOOL success) {
             
-            if (self.totalHeightOfNewlyInsertedCells > 0) {
-                
-                CGFloat paddingOfNewlyInsertedCells = self.insertsCountSinceCVReload * kSpacingBetweenPhotos;
-                CGPoint newContentOffset = CGPointMake(self.collectionView.contentOffset.x, self.collectionView.contentOffset.y + self.totalHeightOfNewlyInsertedCells + paddingOfNewlyInsertedCells);
-                
-                [self.collectionView setContentOffset:newContentOffset animated:NO];
-                
-                self.totalHeightOfNewlyInsertedCells = 0;
-                self.insertsCountSinceCVReload = 0;
-            }
-            
-            
+            self.collectionView.userInteractionEnabled = YES;
         }];
     }
     
@@ -231,32 +237,11 @@
     CGSize captionLabelSize = [cellForComputingSize.captionLabel systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
     
     CGSize size = CGSizeMake(320, captionLabelSize.height + 460);
+    
 //    NSLog(@"Cell size calculated: %@ || %@", indexPath, NSStringFromCGSize(size));
     
     return size;
 }
-
-
-
-#pragma UIScrollViewDelegate
-
-- (void)scrollViewWillBeginDragging:(UIScrollView *)scrollView
-{
-    if (self.importInProgress) {
-        self.userWasScrollingDuringImport = YES;
-    }
-}
-
-
-- (void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
-{
-    if (self.userWasScrollingDuringImport) {
-        self.userWasScrollingDuringImport = NO;
-        self.collectionView.userInteractionEnabled = YES;
-    }
-    
-}
-
 
 
 @end
