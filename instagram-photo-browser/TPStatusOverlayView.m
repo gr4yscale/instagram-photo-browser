@@ -27,21 +27,15 @@
 
 @implementation TPStatusOverlayView
 
-- (id)init
-{
-    self = [super init];
-    if (self) {
-        [self setupSubviews];
-        [self setupStaticConstraints];
-    }
-    return self;
-}
 
 
 - (id)initWithStatusType:(TPStatusType)type
 {
     self = [super init];
     if (self) {
+        self.backgroundColor = kPrimaryBackgroundColor;
+        [self setupSubviews];
+        [self setupStaticConstraints];
         [self switchStatusType:type];
     }
     return self;
@@ -69,7 +63,10 @@
             self.statusSubtextLabel.hidden = NO;
             self.reloadButton.hidden = NO;
             self.statusTextLabel.text = NSLocalizedString(@"No Data", nil);
-            self.statusSubtextLabel.text = NSLocalizedString(@"Unable to fetch new photos.", nil);
+            self.statusSubtextLabel.text = NSLocalizedString(@"I couldn't find what you're looking for!", nil);
+            
+            [self.reloadButton setTitle:NSLocalizedString(@"Reload", nil)
+                               forState:UIControlStateNormal];
         }
             break;
         case TPStatusTypeOffline: {
@@ -80,7 +77,7 @@
             self.statusSubtextLabel.hidden = NO;
             self.reloadButton.hidden = YES;
             self.statusTextLabel.text = NSLocalizedString(@"No Internet Connection.", nil);
-            self.statusSubtextLabel.text = NSLocalizedString(@"You are offline. Please connect to a network and try again.", nil);
+            self.statusSubtextLabel.text = NSLocalizedString(@"You are offline.\r\nPlease connect to a network.", nil);
         }
             break;
         case TPStatusTypeError: {
@@ -90,7 +87,10 @@
             self.statusTextLabel.hidden = NO;
             self.statusSubtextLabel.hidden = NO;
             self.statusTextLabel.text = NSLocalizedString(@"Error Fetching Data", nil);
-            self.statusSubtextLabel.text = NSLocalizedString(@"Something bad happened. Try reloading.", nil);
+            self.statusSubtextLabel.text = nil;
+            
+            [self.reloadButton setTitle:NSLocalizedString(@"Try Again", nil)
+                               forState:UIControlStateNormal];
         }
             break;
         default:
@@ -105,23 +105,28 @@
     [self addSubview:imageView];
     
     UILabel *statusTextLabel = [[UILabel alloc] init];
-    statusTextLabel.font = kFontStatusText;
-    statusTextLabel.textColor = kTextColorPrimary;
-    
+    statusTextLabel.font = kFontHeading;
+    statusTextLabel.textColor = kPlaceHolderTintColor;
+    statusTextLabel.textAlignment = NSTextAlignmentCenter;
     [self addSubview:statusTextLabel];
     
     UILabel *statusSubtextLabel = [[UILabel alloc] init];
-    statusSubtextLabel.font = kFontTitle;
-    statusSubtextLabel.textColor = kTextColorSecondary;
+    statusSubtextLabel.font = kFontSubtitle;
+    statusSubtextLabel.textColor = kPlaceHolderTintColor;
+    statusSubtextLabel.textAlignment = NSTextAlignmentCenter;
+    statusSubtextLabel.numberOfLines = 0;
     
     [self addSubview:statusSubtextLabel];
     
-    //    UIButton *reloadButton = [[UIButton alloc] init];
+    UIButton *reloadButton = [[UIButton alloc] init];
+    [reloadButton setTitleColor:kPlaceHolderTintColor forState:UIControlStateNormal];
+    
+    [self addSubview:reloadButton];
     
     self.imageView = imageView;
     self.statusTextLabel = statusTextLabel;
     self.statusSubtextLabel = statusSubtextLabel;
-    
+    self.reloadButton = reloadButton;
 }
 
 
@@ -129,10 +134,27 @@
 - (void)setupStaticConstraints
 {
     
+        NSDictionary *views = @{@"self" : self,
+                                @"imageView" : self.imageView,
+                                @"statusTextLabel" : self.statusTextLabel,
+                                @"statusSubtextLabel" : self.statusSubtextLabel,
+                                @"reloadButton" : self.reloadButton};
+        
+        NSDictionary *metrics = @{@"spacing": @(20)};
+        
+        for (UIView *view in [views allValues]) {
+            [view setTranslatesAutoresizingMaskIntoConstraints:NO];
+        }
     
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(160)-[imageView]-(spacing)-[statusTextLabel]-(60)-[statusSubtextLabel]-(60)-[reloadButton]-(spacing)-|"
+                                                                 options:NSLayoutFormatAlignAllCenterX
+                                                                 metrics:metrics
+                                                                   views:views]];
     
-    
-    
+    [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-[statusTextLabel]-|"
+                                                                 options:0
+                                                                 metrics:metrics
+                                                                   views:views]];
 }
 
 

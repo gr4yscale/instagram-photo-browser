@@ -21,6 +21,7 @@
 #define kTextColorPrimary                                   [UIColor colorWithRed:0 green:0 blue:0 alpha:0.85]
 #define kTextColorSecondary                                 [UIColor colorWithRed:0 green:0 blue:0 alpha:0.4]
 #define kPrimaryBackgroundColor                             [UIColor colorWithRed:230/255.0 green:230/255.0 blue:230/255.0 alpha:1.0]
+#define kPlaceHolderTintColor                               [UIColor colorWithRed:178/255.0 green:178/255.0 blue:178/255.0 alpha:1.0]
 
 #define kFontHeading                                        [UIFont fontWithName:@"EuphemiaUCAS-Bold" size:14.0]
 #define kFontTitle                                          [UIFont fontWithName:@"EuphemiaUCAS" size:14.0]

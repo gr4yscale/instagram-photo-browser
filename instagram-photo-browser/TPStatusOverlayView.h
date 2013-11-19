@@ -16,5 +16,6 @@ typedef NS_ENUM(NSInteger, TPStatusType) {
 @interface TPStatusOverlayView : UIView
 
 - (id)initWithStatusType:(TPStatusType)type;
+- (void)switchStatusType:(TPStatusType)type;
 
 @end
