@@ -34,6 +34,7 @@
 		29BE5FCF1828C7E500FE4D04 /* TPPhotosImportOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 29BE5FCE1828C7E500FE4D04 /* TPPhotosImportOperation.m */; };
 		29BE5FD51828D41500FE4D04 /* Photo+Import.m in Sources */ = {isa = PBXBuildFile; fileRef = 29BE5FD41828D41500FE4D04 /* Photo+Import.m */; };
 		29BEB703183B0089003C46B7 /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 29BEB702183B0089003C46B7 /* Photo.m */; };
+		29BEB706183B5EA2003C46B7 /* TPStatusOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 29BEB705183B5EA2003C46B7 /* TPStatusOverlayView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -96,6 +97,8 @@
 		29BEB700183B002F003C46B7 /* DataModel 5.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = file; path = "DataModel 5.xcdatamodel"; sourceTree = "<group>"; };
 		29BEB701183B0089003C46B7 /* Photo.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Photo.h; sourceTree = "<group>"; };
 		29BEB702183B0089003C46B7 /* Photo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Photo.m; sourceTree = "<group>"; };
+		29BEB704183B5EA2003C46B7 /* TPStatusOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPStatusOverlayView.h; sourceTree = "<group>"; };
+		29BEB705183B5EA2003C46B7 /* TPStatusOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPStatusOverlayView.m; sourceTree = "<group>"; };
 		29FD08961839ECA9001E72F1 /* DataModel 4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "DataModel 4.xcdatamodel"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -224,6 +227,8 @@
 				29B85EF2182CA71000A11192 /* TPCardViewButton.m */,
 				293200FF1839BBE100570452 /* TPAsyncLoadImageView.h */,
 				293201001839BBE100570452 /* TPAsyncLoadImageView.m */,
+				29BEB704183B5EA2003C46B7 /* TPStatusOverlayView.h */,
+				29BEB705183B5EA2003C46B7 /* TPStatusOverlayView.m */,
 			);
 			name = views;
 			sourceTree = "<group>";
@@ -336,6 +341,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				295E38291834702900EFAAC8 /* TPAssetManager.m in Sources */,
+				29BEB706183B5EA2003C46B7 /* TPStatusOverlayView.m in Sources */,
 				29BE5FCC1828C1B800FE4D04 /* TPUtils.m in Sources */,
 				29B85EE91829A98300A11192 /* NSDictionary+KeyValueMapping.m in Sources */,
 				293201011839BBE100570452 /* TPAsyncLoadImageView.m in Sources */,
