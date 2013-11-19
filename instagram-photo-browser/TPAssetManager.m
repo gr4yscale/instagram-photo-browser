@@ -148,8 +148,8 @@ static dispatch_once_t onceToken = 0;
     }
 }
 
-
-#pragma Helpers
+#pragma mark -
+#pragma mark Helpers
 
 - (NSURL *)assetCacheURL
 {

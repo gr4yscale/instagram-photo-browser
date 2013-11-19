@@ -8,6 +8,7 @@
 
 @interface TPAsyncLoadImageView : UIImageView
 
+@property (nonatomic, strong) UIImageView *placeholderImageView;
 @property (nonatomic, copy) NSURL *imageURL;
 @property (nonatomic, weak) NSURLSessionDownloadTask *downloadTask;
 

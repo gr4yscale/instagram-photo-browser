@@ -292,13 +292,15 @@
     self.userFullNameLabel.text = nil;
     self.captionLabel.text = nil;
     self.photoImageView.image = nil;
+    self.photoImageView.placeholderImageView.image = nil;
     self.profilePicImageView.image = nil;
     self.commentsCountLabel.text = nil;
     self.likesCountLabel.text = nil;
 }
 
 
-#pragma Target-Action
+#pragma mark -
+#pragma mark Target-Action
 
 - (void)sharePressed:(id)sender
 {

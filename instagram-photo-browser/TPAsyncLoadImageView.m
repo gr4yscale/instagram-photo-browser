@@ -10,13 +10,6 @@
 #import "TPAssetManager.h"
 
 
-@interface TPAsyncLoadImageView ()
-
-@property (nonatomic, strong) UIImageView *placeholderImageView;
-
-@end
-
-
 @implementation TPAsyncLoadImageView
 
 
@@ -87,9 +80,11 @@
                                                           }
                                                           
                                                       } failBlock:^(NSError *error) {
+                                                          
                                                           dispatch_async(dispatch_get_main_queue(), ^{
                                                               [self.placeholderImageView.layer removeAllAnimations];
-                                                              if (placeholder) {
+                                                              
+                                                              if (placeholder && error.code != NSURLErrorCancelled) {
                                                                   self.placeholderImageView.hidden = NO;
                                                                   self.placeholderImageView.image = [UIImage imageNamed:@"loading-indicator-error"];
                                                               } else {
