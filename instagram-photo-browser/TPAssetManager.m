@@ -56,8 +56,8 @@ static dispatch_once_t onceToken = 0;
         self.queuedDownloadTasks = [NSMutableArray array];
         
         NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
-        sessionConfiguration.timeoutIntervalForRequest = 10.0;
-        sessionConfiguration.timeoutIntervalForResource = 30.0;
+        sessionConfiguration.timeoutIntervalForRequest = kNetworkTimeoutIntervalForAssetRequest;
+        sessionConfiguration.timeoutIntervalForResource = kNetworkTimeoutIntervalForAssetResource;
         
         self.urlSession = [NSURLSession sessionWithConfiguration:sessionConfiguration];
     }

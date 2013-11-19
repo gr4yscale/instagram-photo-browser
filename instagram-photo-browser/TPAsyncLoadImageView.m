@@ -61,6 +61,7 @@
                     self.image = image;
                 });
             });
+            if (completion) completion();
             return;
         }
     }
@@ -69,32 +70,58 @@
         [self setupPlaceholder];
     }
     
-    NSURLSessionDownloadTask *downloadTask = [[TPAssetManager shared] downloadAssetWithURL:URL
-                                                                                completion:^(NSURL *localURL) {
-                                                                                    
-                                                                                    UIImage *image = [UIImage imageWithContentsOfFile:[localURL path]];
-                                                                                    
-                                                                                    if (image && [self.imageURL.absoluteString isEqualToString:[URL absoluteString]]) {
-                                                                                        
-                                                                                        dispatch_async(dispatch_get_main_queue(), ^{
-                                                                                            [self.placeholderImageView.layer removeAllAnimations];
-                                                                                            self.placeholderImageView.hidden = YES;
-                                                                                            self.image = image;
-                                                                                        });
-                                                                                        if (completion) completion();
-                                                                                    }
-                                                                                    
-                                                                                } failBlock:^(NSError *error) {
-                                                                                    if (failBlock) {
-                                                                                        failBlock(error);
-                                                                                    }
-                                                                                }];
+    NSURLSessionDownloadTask *downloadTask;
+    downloadTask = [[TPAssetManager shared] downloadAssetWithURL:URL
+                                                      completion:^(NSURL *localURL) {
+                                                          
+                                                          UIImage *image = [UIImage imageWithContentsOfFile:[localURL path]];
+                                                          
+                                                          if (image && [self.imageURL.absoluteString isEqualToString:[URL absoluteString]]) {
+                                                              
+                                                              dispatch_async(dispatch_get_main_queue(), ^{
+                                                                  [self.placeholderImageView.layer removeAllAnimations];
+                                                                  self.placeholderImageView.hidden = YES;
+                                                                  self.image = image;
+                                                              });
+                                                              if (completion) completion();
+                                                          }
+                                                          
+                                                      } failBlock:^(NSError *error) {
+                                                          dispatch_async(dispatch_get_main_queue(), ^{
+                                                              [self.placeholderImageView.layer removeAllAnimations];
+                                                              if (placeholder) {
+                                                                  self.placeholderImageView.hidden = NO;
+                                                                  self.placeholderImageView.image = [UIImage imageNamed:@"loading-indicator-error"];
+                                                              } else {
+                                                                  self.placeholderImageView.hidden = YES;
+                                                              }
+                                                          });
+                                                          if (failBlock) {
+                                                              failBlock(error);
+                                                          }
+                                                      }];
     [downloadTask resume];
     self.downloadTask = downloadTask;
 }
 
 
 - (void)setupPlaceholder
+{
+    self.placeholderImageView.image = [UIImage imageNamed:@"loading-indicator"];
+    self.placeholderImageView.hidden = NO;
+    
+    CABasicAnimation* rotationAnimation;
+    rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
+    rotationAnimation.toValue = [NSNumber numberWithFloat: M_PI];
+    rotationAnimation.duration = 0;
+    rotationAnimation.cumulative = YES;
+    rotationAnimation.repeatCount = HUGE_VALF;
+    
+    [self.placeholderImageView.layer addAnimation:rotationAnimation forKey:@"rotationAnimation"];
+}
+
+
+- (UIImageView *)placeholderImageView
 {
     if (!_placeholderImageView) {
         UIImage *loadingIndicatorImage = [UIImage imageNamed:@"loading-indicator"];
@@ -116,18 +143,6 @@
                                                                      metrics:nil
                                                                        views:views]];
     }
-    
-    _placeholderImageView.hidden = NO;
-    
-    CABasicAnimation* rotationAnimation;
-    rotationAnimation = [CABasicAnimation animationWithKeyPath:@"transform.rotation.z"];
-    rotationAnimation.toValue = [NSNumber numberWithFloat: M_PI];
-    rotationAnimation.duration = 0;
-    rotationAnimation.cumulative = YES;
-    rotationAnimation.repeatCount = HUGE_VALF;
-    
-    [_placeholderImageView.layer addAnimation:rotationAnimation forKey:@"rotationAnimation"];
+    return _placeholderImageView;
 }
-
-
 @end
