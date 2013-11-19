@@ -126,7 +126,8 @@
 
 - (void)setupButtons
 {
-    TPCardViewButton *commentButton = [[TPCardViewButton alloc] initWithSide:TPCardViewButtonSideLeft title:@"Comment"];
+    NSString *commentButtonTitle = NSLocalizedString(@"Comment", nil);
+    TPCardViewButton *commentButton = [[TPCardViewButton alloc] initWithSide:TPCardViewButtonSideLeft title:commentButtonTitle];
     
     UIImage *commentButtonUnselectedImage = [UIImage imageNamed:@"comment-unselected"];
     UIImage *commentButtonSelectedImage = [UIImage imageNamed:@"comment-selected"];
@@ -140,8 +141,8 @@
     
     [self.cardView addSubview:commentButton];
     
-    
-    TPCardViewButton *likeButton = [[TPCardViewButton alloc] initWithSide:TPCardViewButtonSideMiddle title:@"Like"];
+    NSString *likeButtonTitle = NSLocalizedString(@"Like", nil);
+    TPCardViewButton *likeButton = [[TPCardViewButton alloc] initWithSide:TPCardViewButtonSideMiddle title:likeButtonTitle];
     
     UIImage *likeButtonUnselectedImage = [UIImage imageNamed:@"like-unselected"];
     UIImage *likeButtonSelectedImage = [UIImage imageNamed:@"like-selected"];
@@ -156,7 +157,8 @@
     
     [self.cardView addSubview:likeButton];
     
-    TPCardViewButton *shareButton = [[TPCardViewButton alloc] initWithSide:TPCardViewButtonSideRight title:@"Share"];
+    NSString *shareButtonString = NSLocalizedString(@"Share", nil);
+    TPCardViewButton *shareButton = [[TPCardViewButton alloc] initWithSide:TPCardViewButtonSideRight title:shareButtonString];
     
     UIImage *shareButtonUnselectedImage = [UIImage imageNamed:@"share-unselected"];
     UIImage *shareButtonSelectedImage = [UIImage imageNamed:@"share-selected"];
