@@ -7,18 +7,17 @@
 //
 
 #import "TPPhotoCollectionViewCell.h"
-#import "TPCardViewButton.h"
 #import "TPConstants.h"
 
 @interface TPPhotoCollectionViewCell ()
 
 @property (nonatomic, strong) TPCardViewButton *commentButton;
 @property (nonatomic, strong) TPCardViewButton *likeButton;
-@property (nonatomic, strong) TPCardViewButton *shareButton;
 
 - (void)setupSubviews;
 - (void)setupButtons;
 - (void)setupStaticConstraints;
+- (void)sharePressed:(id)sender;
 
 @end
 
@@ -136,7 +135,8 @@
     [commentButton setImage:commentButtonSelectedImage forState:UIControlStateSelected];
     [commentButton setImage:commentButtonSelectedImage forState:UIControlStateHighlighted];
     
-    [commentButton setImageEdgeInsets:UIEdgeInsetsMake(2.0, 0, 0, 0)];
+    commentButton.imageEdgeInsets = UIEdgeInsetsMake(2.0, 0, 0, 0);
+    commentButton.userInteractionEnabled = NO;
     
     [self.cardView addSubview:commentButton];
     
@@ -150,8 +150,9 @@
     [likeButton setImage:likeButtonSelectedImage forState:UIControlStateSelected];
     [likeButton setImage:likeButtonSelectedImage forState:UIControlStateHighlighted];
     
-    [likeButton setImageEdgeInsets:UIEdgeInsetsMake(0.0, -4.0, 0, 0)];
-    [likeButton setTitleEdgeInsets:UIEdgeInsetsMake(0, 4.0, 0, 0)];
+    likeButton.imageEdgeInsets = UIEdgeInsetsMake(0.0, -4.0, 0, 0);
+    likeButton.titleEdgeInsets = UIEdgeInsetsMake(0, 4.0, 0, 0);
+    likeButton.userInteractionEnabled = NO;
     
     [self.cardView addSubview:likeButton];
     
@@ -164,8 +165,11 @@
     [shareButton setImage:shareButtonSelectedImage forState:UIControlStateSelected];
     [shareButton setImage:shareButtonSelectedImage forState:UIControlStateHighlighted];
 
-    [shareButton setImageEdgeInsets:UIEdgeInsetsMake(-2.0, 0, 0, 2.0)];
-    [shareButton setTitleEdgeInsets:UIEdgeInsetsMake(0, 4.0, 0, 0)];
+    shareButton.imageEdgeInsets = UIEdgeInsetsMake(-2.0, 0, 0, 2.0);
+    shareButton.titleEdgeInsets = UIEdgeInsetsMake(0, 4.0, 0, 0);
+    shareButton.userInteractionEnabled = NO;
+    
+    [shareButton addTarget:self action:@selector(sharePressed:) forControlEvents:UIControlEventTouchUpInside];
     
     [self.cardView addSubview:shareButton];
     
@@ -279,6 +283,7 @@
                                                                    views:views]];
 }
 
+
 - (void)prepareForReuse
 {
     self.usernameLabel.text = nil;
@@ -289,4 +294,15 @@
     self.commentsCountLabel.text = nil;
     self.likesCountLabel.text = nil;
 }
+
+
+#pragma Target-Action
+
+- (void)sharePressed:(id)sender
+{
+    if ([self.delegate respondsToSelector:@selector(photoCellDidShare:)]) {
+        [self.delegate photoCellDidShare:self];
+    }
+}
+
 @end

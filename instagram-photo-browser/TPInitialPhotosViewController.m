@@ -10,7 +10,6 @@
 #import "TPWebServiceClient.h"
 #import "TPPhotosImportOperation.h"
 #import "Photo.h"
-#import "TPPhotoCollectionViewCell.h"
 #import "TPFetchedResultsCollectionViewDataSource.h"
 #import "TPAsyncLoadImageView.h"
 #import "TPCollectionView.h"
@@ -129,30 +128,33 @@
     __weak typeof(self) weakSelf = self;
     
     self.dataSource.updateCellBlock = ^(TPPhotoCollectionViewCell *cell, Photo *photo) {
-        
+       
+        cell.delegate = weakSelf;
+        cell.fullResImageURL = photo.fullResImageURL;
         cell.usernameLabel.text = photo.username;
         cell.userFullNameLabel.text = photo.userFullName;
         cell.captionLabel.text = photo.caption;
         cell.commentsCountLabel.text = [NSString stringWithFormat:@"%d %@", [photo.commentCount intValue], NSLocalizedString(@"comments", @"comments")];
         cell.likesCountLabel.text = [NSString stringWithFormat:@"%d %@", [photo.likeCount intValue], NSLocalizedString(@"likes", @"likes")];
+        cell.link = photo.link;
+        cell.shareButton.userInteractionEnabled = NO;
         
         if (cell.fetchImages) {
+        
+            __weak typeof(cell) weakCell = cell;
+            NSURL *photoURL = [NSURL URLWithString:photo.fullResImageURL];
             
-            [cell.photoImageView setImageWithURL:[NSURL URLWithString:photo.fullResImageURL]
+            [cell.photoImageView setImageWithURL:photoURL
                                      placeHolder:YES
                                       completion:^{
                                           [weakSelf startQueuedDownloadTasksIfReady];
+                                          weakCell.shareButton.userInteractionEnabled = YES;
                                       }
-                                       failBlock:^(NSError *error) {
-                                           NSLog(@"ERROR setting photo image: %@", error);
-                                       }];
+                                       failBlock:nil];
             
-            [cell.profilePicImageView setImageWithURL:[NSURL URLWithString:photo.userProfilePicURL]
-                                          placeHolder:NO
-                                           completion:nil
-                                            failBlock:^(NSError *error) {
-                                                NSLog(@"ERROR setting profile pic image: %@", error);
-                                            }];
+            NSURL *userProfilePicURL = [NSURL URLWithString:photo.userProfilePicURL];
+            
+            [cell.profilePicImageView setImageWithURL:userProfilePicURL placeHolder:NO completion:nil failBlock:nil];
         }
     };
     
@@ -193,6 +195,19 @@
      failBlock:^(NSError *error) {
          [self.refresh endRefreshing];
      }];
+}
+
+
+#pragma TPPhotoCollectionViewCellDelegate
+
+- (void)photoCellDidShare:(TPPhotoCollectionViewCell *)cell
+{
+    if (!cell.photoImageView.image || !isStringWithAnyText(cell.link)) return;
+    
+    NSArray *activityItems = @[cell.photoImageView.image, cell.link];
+
+    UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:nil];
+    [self presentViewController:activityVC animated:YES completion:nil];
 }
 
 

@@ -7,8 +7,9 @@
 //
 
 #import "TPPersistence.h"
+#import "TPPhotoCollectionViewCell.h"
 
-@interface TPInitialPhotosViewController : UIViewController
+@interface TPInitialPhotosViewController : UIViewController <TPPhotoCollectionViewCellDelegate>
 
 @property (nonatomic, strong) TPPersistence *persistence;
 
