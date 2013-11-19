@@ -6,10 +6,12 @@
 //  Copyright (c) 2013 Tyler Powers. All rights reserved.
 //
 
+typedef void (^fetchJSONCompletionBlock)(id data);
+typedef void (^fetchJSONFailBlock)(NSError *error);
 
 @interface TPWebServiceClient : NSObject
 
-+ (void)getPopularPhotosJSONWithCompletion:(void (^)(id data))completion
-                                 failBlock:(void (^)(NSError *error))failBlock;
++ (void)fetchPopularPhotosJSONWithCompletion:(fetchJSONCompletionBlock)completion
+                                   failBlock:(fetchJSONFailBlock)failBlock;
 
 @end

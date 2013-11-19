@@ -8,25 +8,21 @@
 
 #import "TPWebServiceClient.h"
 
-#define kInstagramPopularPhotosURLKey           @"https://api.instagram.com/v1/media/popular?client_id=50c0e12b64a84dd0b9bbf334ba7f6bf6"
-
-
 @interface TPWebServiceClient ()
 
-+ (void)getJSONAtURL:(NSURL *)URL
-          completion:(void (^)(id data))completion // it's probably a party foul that I'm not typedef'ing these blocks
-           failBlock:(void (^)(NSError *error))failBlock;
++ (void)fetchJSONAtURL:(NSURL *)URL
+            completion:(fetchJSONCompletionBlock)completion
+             failBlock:(fetchJSONFailBlock)failBlock;
 @end
 
 
 @implementation TPWebServiceClient
 
 
-+ (void)getJSONAtURL:(NSURL *)URL
-          completion:(void (^)(id data))completion
-           failBlock:(void (^)(NSError *error))failBlock;
++ (void)fetchJSONAtURL:(NSURL *)URL
+            completion:(fetchJSONCompletionBlock)completion
+             failBlock:(fetchJSONFailBlock)failBlock;
 {
-    
     [NSURLConnection sendAsynchronousRequest:[NSURLRequest requestWithURL:URL]
                                        queue:[NSOperationQueue mainQueue]
                            completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
@@ -56,14 +52,14 @@
 }
 
 
-+ (void)getPopularPhotosJSONWithCompletion:(void (^)(id data))completion
-                                 failBlock:(void (^)(NSError *error))failBlock;
++ (void)fetchPopularPhotosJSONWithCompletion:(fetchJSONCompletionBlock)completion
+                                   failBlock:(fetchJSONFailBlock)failBlock;
 {
     NSURL *popularPhotosURL = [NSURL URLWithString:kInstagramPopularPhotosURLKey];
     
-    [self getJSONAtURL:popularPhotosURL
-            completion:completion
-             failBlock:failBlock];
+    [self fetchJSONAtURL:popularPhotosURL
+              completion:completion
+               failBlock:failBlock];
 }
 
 @end

@@ -12,7 +12,6 @@
 #import "Photo.h"
 #import "TPPhotoCollectionViewCell.h"
 #import "TPFetchedResultsCollectionViewDataSource.h"
-
 #import "TPAsyncLoadImageView.h"
 #import "TPCollectionView.h"
 #import "TPAssetManager.h"
@@ -178,12 +177,13 @@
     
     self.collectionView.userInteractionEnabled = NO;
     
-    [TPWebServiceClient getPopularPhotosJSONWithCompletion:^(id data) {
+    [TPWebServiceClient fetchPopularPhotosJSONWithCompletion:^(id data) {
         
-        if (data[@"data"]) {    // I know this looks weird, in the instagram JSON the relevant data we want is under a "data" key
+        id photos = data[@"data"];
+        if ([photos isKindOfClass:[NSDictionary class]]) {
             
             TPPhotosImportOperation *photosImportOp = [[TPPhotosImportOperation alloc] initWithPersistence:self.persistence
-                                                                                                    photos:data[@"data"]];
+                                                                                                    photos:photos];
             photosImportOp.completionBlock = ^{
                 [[NSOperationQueue mainQueue] addOperationWithBlock:^{ // make sure to update UI on main thread!
                     
