@@ -12,6 +12,10 @@
 
 @property (nonatomic, strong) Reachability *reachability;
 
+@property (nonatomic, copy) void (^wentOfflineBlock)();
+@property (nonatomic, copy) void (^wentOnlineBlock)();
+
++ (instancetype)shared;
 - (BOOL)isOnline;
 
 @end
