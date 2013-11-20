@@ -12,7 +12,6 @@
 
 
 #import "TPCardViewButton.h"
-#import "TPConstants.h"
 
 @interface TPCardViewButton ()
 
@@ -72,7 +71,7 @@ static const UIEdgeInsets TPResizableBackgroundImageCapInsets       = {21, 22, 2
         [self setTitleColor:kTextColorPrimary forState:UIControlStateSelected];
         [self setTitleColor:kTextColorPrimary forState:UIControlStateHighlighted];
         
-        self.titleLabel.font = kFontButtonTitle;
+        self.titleLabel.font = [UIFont preferredEuphemiaFontForTextStyle:UIFontTextStyleCaption1];
         
         [self setContentEdgeInsets:UIEdgeInsetsMake(0, 8, 0, 8)];
         [self setTitleEdgeInsets:UIEdgeInsetsMake(0, 4, 0, -4)];

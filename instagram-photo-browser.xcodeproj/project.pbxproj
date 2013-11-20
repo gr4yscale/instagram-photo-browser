@@ -35,6 +35,7 @@
 		29BE5FD51828D41500FE4D04 /* Photo+Import.m in Sources */ = {isa = PBXBuildFile; fileRef = 29BE5FD41828D41500FE4D04 /* Photo+Import.m */; };
 		29BEB703183B0089003C46B7 /* Photo.m in Sources */ = {isa = PBXBuildFile; fileRef = 29BEB702183B0089003C46B7 /* Photo.m */; };
 		29BEB706183B5EA2003C46B7 /* TPStatusOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 29BEB705183B5EA2003C46B7 /* TPStatusOverlayView.m */; };
+		29BEB709183C85D9003C46B7 /* UIFont+DynamicTypeEuphemia.m in Sources */ = {isa = PBXBuildFile; fileRef = 29BEB708183C85D9003C46B7 /* UIFont+DynamicTypeEuphemia.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -99,6 +100,8 @@
 		29BEB702183B0089003C46B7 /* Photo.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Photo.m; sourceTree = "<group>"; };
 		29BEB704183B5EA2003C46B7 /* TPStatusOverlayView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPStatusOverlayView.h; sourceTree = "<group>"; };
 		29BEB705183B5EA2003C46B7 /* TPStatusOverlayView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPStatusOverlayView.m; sourceTree = "<group>"; };
+		29BEB707183C85D9003C46B7 /* UIFont+DynamicTypeEuphemia.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIFont+DynamicTypeEuphemia.h"; sourceTree = "<group>"; };
+		29BEB708183C85D9003C46B7 /* UIFont+DynamicTypeEuphemia.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+DynamicTypeEuphemia.m"; sourceTree = "<group>"; };
 		29FD08961839ECA9001E72F1 /* DataModel 4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "DataModel 4.xcdatamodel"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -240,6 +243,8 @@
 				29BE5FD41828D41500FE4D04 /* Photo+Import.m */,
 				29B85EE71829A98300A11192 /* NSDictionary+KeyValueMapping.h */,
 				29B85EE81829A98300A11192 /* NSDictionary+KeyValueMapping.m */,
+				29BEB707183C85D9003C46B7 /* UIFont+DynamicTypeEuphemia.h */,
+				29BEB708183C85D9003C46B7 /* UIFont+DynamicTypeEuphemia.m */,
 			);
 			name = categories;
 			sourceTree = "<group>";
@@ -348,6 +353,7 @@
 				29BE5FCF1828C7E500FE4D04 /* TPPhotosImportOperation.m in Sources */,
 				29A505D61828AECB00F03F24 /* TPInitialPhotosViewController.m in Sources */,
 				29B85EF3182CA71000A11192 /* TPCardViewButton.m in Sources */,
+				29BEB709183C85D9003C46B7 /* UIFont+DynamicTypeEuphemia.m in Sources */,
 				29B85EED1829E8BC00A11192 /* TPFetchedResultsCollectionViewDataSource.m in Sources */,
 				295E3826183393AB00EFAAC8 /* TPCollectionView.m in Sources */,
 				29BEB703183B0089003C46B7 /* Photo.m in Sources */,

@@ -139,6 +139,16 @@
         cell.link = photo.link;
         cell.shareButton.userInteractionEnabled = NO;
         
+        cell.captionLabel.font = [UIFont preferredEuphemiaFontForTextStyle:UIFontTextStyleCaption1];
+        cell.usernameLabel.font = [UIFont preferredEuphemiaFontForTextStyle:UIFontTextStyleSubheadline];
+        cell.userFullNameLabel.font = [UIFont preferredEuphemiaFontForTextStyle:UIFontTextStyleCaption1];
+        cell.likesCountLabel.font = [UIFont preferredEuphemiaFontForTextStyle:UIFontTextStyleCaption2];
+        cell.commentsCountLabel.font = [UIFont preferredEuphemiaFontForTextStyle:UIFontTextStyleCaption2];
+        
+        cell.commentButton.titleLabel.font = [UIFont preferredEuphemiaFontForTextStyle:UIFontTextStyleCaption1];
+        cell.likeButton.titleLabel.font = [UIFont preferredEuphemiaFontForTextStyle:UIFontTextStyleCaption1];
+        cell.shareButton.titleLabel.font = [UIFont preferredEuphemiaFontForTextStyle:UIFontTextStyleCaption1];
+        
         if (cell.fetchImages) {
         
             __weak typeof(cell) weakCell = cell;
@@ -198,7 +208,8 @@
 }
 
 
-#pragma TPPhotoCollectionViewCellDelegate
+#pragma mark -
+#pragma mark TPPhotoCollectionViewCellDelegate
 
 - (void)photoCellDidShare:(TPPhotoCollectionViewCell *)cell
 {
@@ -209,7 +220,6 @@
     UIActivityViewController *activityVC = [[UIActivityViewController alloc] initWithActivityItems:activityItems applicationActivities:nil];
     [self presentViewController:activityVC animated:YES completion:nil];
 }
-
 
 
 @end

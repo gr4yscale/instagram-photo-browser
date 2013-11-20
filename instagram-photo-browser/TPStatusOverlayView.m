@@ -105,13 +105,13 @@
     [self addSubview:imageView];
     
     UILabel *statusTextLabel = [[UILabel alloc] init];
-    statusTextLabel.font = kFontHeading;
+    statusTextLabel.font = [UIFont preferredEuphemiaFontForTextStyle:UIFontTextStyleSubheadline];
     statusTextLabel.textColor = kPlaceHolderTintColor;
     statusTextLabel.textAlignment = NSTextAlignmentCenter;
     [self addSubview:statusTextLabel];
     
     UILabel *statusSubtextLabel = [[UILabel alloc] init];
-    statusSubtextLabel.font = kFontSubtitle;
+    statusSubtextLabel.font = [UIFont preferredEuphemiaFontForTextStyle:UIFontTextStyleCaption1];
     statusSubtextLabel.textColor = kPlaceHolderTintColor;
     statusSubtextLabel.textAlignment = NSTextAlignmentCenter;
     statusSubtextLabel.numberOfLines = 0;

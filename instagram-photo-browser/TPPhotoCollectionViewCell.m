@@ -8,11 +8,9 @@
 
 #import "TPPhotoCollectionViewCell.h"
 #import "TPConstants.h"
+#import "UIFont+DynamicTypeEuphemia.h"
 
 @interface TPPhotoCollectionViewCell ()
-
-@property (nonatomic, strong) TPCardViewButton *commentButton;
-@property (nonatomic, strong) TPCardViewButton *likeButton;
 
 - (void)setupSubviews;
 - (void)setupButtons;
@@ -61,10 +59,8 @@
     [self.contentView addSubview:cardView];
     
     UILabel *captionLabel = [[UILabel alloc] init];
-//    captionLabel.backgroundColor = [UIColor redColor];
     captionLabel.preferredMaxLayoutWidth = 284.0; // un-hardcode this!
     captionLabel.numberOfLines = 3;
-    captionLabel.font = kFontSubtitle;
     captionLabel.textColor = kTextColorPrimary;
     [cardView addSubview:captionLabel];
     
@@ -74,14 +70,9 @@
     [cardView addSubview:profilePicImageView];
 
     UILabel *usernameLabel = [[UILabel alloc] init];
-//    usernameLabel.backgroundColor = [UIColor greenColor];
-    usernameLabel.font = kFontHeading;
     [cardView addSubview:usernameLabel];
     
     UILabel *userFullNameLabel = [[UILabel alloc] init];
-//    userFullNameLabel.backgroundColor = [UIColor purpleColor];
-    userFullNameLabel.font = kFontTitle;
-    userFullNameLabel.textColor = kTextColorSecondary;
     [cardView addSubview:userFullNameLabel];
     
     TPAsyncLoadImageView *photoImageView = [[TPAsyncLoadImageView alloc] init];
@@ -99,14 +90,10 @@
     [self.contentView addSubview:photoImageView];
     
     UILabel *likesCountLabel = [[UILabel alloc] init];
-//    likesCountLabel.backgroundColor = [UIColor redColor];
-    likesCountLabel.font = kFontSubtitle;
     likesCountLabel.textColor = kTextColorSecondary;
     [cardView addSubview:likesCountLabel];
     
     UILabel *commentsCountLabel = [[UILabel alloc] init];
-//    commentsCountLabel.backgroundColor = [UIColor redColor];
-    commentsCountLabel.font = kFontSubtitle;
     commentsCountLabel.textColor = kTextColorSecondary;
     [cardView addSubview:commentsCountLabel];
     

@@ -234,14 +234,14 @@
         self.updateCellBlock(cellForComputingSize, photo); // set data on the labels so autolayout makes the right determinations
     }
     
-    CGSize captionLabelSize = [cellForComputingSize.captionLabel systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+    return [cellForComputingSize.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
     
-    CGSize size = CGSizeMake(320, captionLabelSize.height + 460);
+//    Cutting out size computations with Auto Layout for only the content that will dynamically change size, effecting the overall size of the cell to change.
+//    Doing this for performance optimization.
+//
+//    CGSize captionLabelSize = [cellForComputingSize.captionLabel systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+//    return CGSizeMake(320, captionLabelSize.height + 460);
     
-//    NSLog(@"Cell size calculated: %@ || %@", indexPath, NSStringFromCGSize(size));
-    
-    return size;
 }
-
 
 @end

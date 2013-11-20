@@ -23,11 +23,13 @@
 @property (nonatomic, strong) UILabel *likesCountLabel;
 @property (nonatomic, strong) UILabel *commentsCountLabel;
 
+@property (nonatomic, strong) TPCardViewButton *commentButton;
+@property (nonatomic, strong) TPCardViewButton *likeButton;
+@property (nonatomic, strong) TPCardViewButton *shareButton;
+
 @property (nonatomic, strong) NSString *link;
 @property (nonatomic, assign) BOOL fetchImages;
 @property (nonatomic, weak) id<TPPhotoCollectionViewCellDelegate>delegate;
-
-@property (nonatomic, strong) TPCardViewButton *shareButton;
 
 @end
 
