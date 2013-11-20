@@ -246,22 +246,22 @@
                                                                  metrics:metrics
                                                                    views:views]];
     
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(spacing)-[profilePicImageView(profilePictureWidthAndHeight)]"
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(spacing)-[profilePicImageView(profilePictureWidthAndHeight)]-(spacing)-[captionLabel]"
                                                                  options:0
                                                                  metrics:metrics
                                                                    views:views]];
     
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(spacing)-[usernameLabel(25)]-0-[userFullNameLabel(25)]-(spacing)-[captionLabel]-(spacing)-[photoImageView(==308)]-(spacing)-[commentsCountLabel]-(spacing)-[commentButton(buttonRowHeight)]|"
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(spacing)-[usernameLabel][userFullNameLabel]-(spacing)-[captionLabel]-(spacing)-[photoImageView(==308)]-[commentsCountLabel]-(spacing)-[commentButton(buttonRowHeight)]|"
                                                                  options:0
                                                                  metrics:metrics
                                                                    views:views]];
 
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[photoImageView]-(spacing)-[commentsCountLabel]-(spacing)-[likeButton(buttonRowHeight)]|"
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[photoImageView]-[commentsCountLabel]-(spacing)-[likeButton(buttonRowHeight)]|"
                                                                  options:0
                                                                  metrics:metrics
                                                                    views:views]];
 
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[photoImageView]-(spacing)-[commentsCountLabel]-(spacing)-[shareButton(buttonRowHeight)]|"
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[photoImageView]-[commentsCountLabel]-(spacing)-[shareButton(buttonRowHeight)]|"
                                                                  options:0
                                                                  metrics:metrics
                                                                    views:views]];
