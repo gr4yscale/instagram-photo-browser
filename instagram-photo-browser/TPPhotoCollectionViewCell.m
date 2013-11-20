@@ -116,8 +116,8 @@
     NSString *commentButtonTitle = NSLocalizedString(@"Comment", nil);
     TPCardViewButton *commentButton = [[TPCardViewButton alloc] initWithSide:TPCardViewButtonSideLeft title:commentButtonTitle];
     
-    UIImage *commentButtonUnselectedImage = [UIImage imageNamed:@"comment-unselected"];
-    UIImage *commentButtonSelectedImage = [UIImage imageNamed:@"comment-selected"];
+    UIImage *commentButtonUnselectedImage = [UIImage imageNamed:kImageNameCommentUnselected];
+    UIImage *commentButtonSelectedImage = [UIImage imageNamed:kImageNameCommentSelected];
     
     [commentButton setImage:commentButtonUnselectedImage forState:UIControlStateNormal];
     [commentButton setImage:commentButtonSelectedImage forState:UIControlStateSelected];
@@ -131,8 +131,8 @@
     NSString *likeButtonTitle = NSLocalizedString(@"Like", nil);
     TPCardViewButton *likeButton = [[TPCardViewButton alloc] initWithSide:TPCardViewButtonSideMiddle title:likeButtonTitle];
     
-    UIImage *likeButtonUnselectedImage = [UIImage imageNamed:@"like-unselected"];
-    UIImage *likeButtonSelectedImage = [UIImage imageNamed:@"like-selected"];
+    UIImage *likeButtonUnselectedImage = [UIImage imageNamed:kImageNameLikeUnselected];
+    UIImage *likeButtonSelectedImage = [UIImage imageNamed:kImageNameLikeSelected];
     
     [likeButton setImage:likeButtonUnselectedImage forState:UIControlStateNormal];
     [likeButton setImage:likeButtonSelectedImage forState:UIControlStateSelected];
@@ -147,8 +147,8 @@
     NSString *shareButtonString = NSLocalizedString(@"Share", nil);
     TPCardViewButton *shareButton = [[TPCardViewButton alloc] initWithSide:TPCardViewButtonSideRight title:shareButtonString];
     
-    UIImage *shareButtonUnselectedImage = [UIImage imageNamed:@"share-unselected"];
-    UIImage *shareButtonSelectedImage = [UIImage imageNamed:@"share-selected"];
+    UIImage *shareButtonUnselectedImage = [UIImage imageNamed:kImageNameShareUnselected];
+    UIImage *shareButtonSelectedImage = [UIImage imageNamed:kImageNameShareSelected];
     
     [shareButton setImage:shareButtonUnselectedImage forState:UIControlStateNormal];
     [shareButton setImage:shareButtonSelectedImage forState:UIControlStateSelected];

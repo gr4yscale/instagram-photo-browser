@@ -31,3 +31,15 @@
 #define kSpacing                                            6
 #define kProfilePicWidthAndHeight                           46
 #define kButtonRowHeight                                    42
+
+// asset keys for UIImage imageNamed: calls
+#define kImageNameLoadingIndicator                          @"loading-indicator"
+#define kImageNameLoadingIndicatorError                     @"loading-indicator-error"
+#define kImageNameLoadingIndicatorNoData                    @"loading-indicator-no-data"
+#define kImageNameNoInternet                                @"no-internet"
+#define kImageNameCommentSelected                           @"comment-selected"
+#define kImageNameCommentUnselected                         @"comment-unselected"
+#define kImageNameLikeSelected                              @"like-selected"
+#define kImageNameLikeUnselected                            @"like-unselected"
+#define kImageNameShareSelected                             @"share-selected"
+#define kImageNameShareUnselected                           @"share-unselected"

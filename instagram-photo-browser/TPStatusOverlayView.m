@@ -47,7 +47,7 @@
     switch (type) {
         case TPStatusTypeLoading: {
             self.imageView.hidden = NO;
-            self.imageView.image = [UIImage imageNamed:@"loading-indicator"];
+            self.imageView.image = [UIImage imageNamed:kImageNameLoadingIndicator];
             [self addRotationToImageView];
             self.statusTextLabel.hidden = NO;
             self.statusSubtextLabel.hidden = YES;
@@ -57,7 +57,7 @@
             break;
         case TPStatusTypeNoData: {
             self.imageView.hidden = NO;
-            self.imageView.image = [UIImage imageNamed:@"loading-indicator-no-data"];
+            self.imageView.image = [UIImage imageNamed:kImageNameLoadingIndicatorNoData];
             [self.imageView.layer removeAllAnimations];
             self.statusTextLabel.hidden = NO;
             self.statusSubtextLabel.hidden = NO;
@@ -72,7 +72,7 @@
         case TPStatusTypeOffline: {
             [self.imageView.layer removeAllAnimations];
             self.imageView.hidden = NO;
-            self.imageView.image = [UIImage imageNamed:@"no-internet"];
+            self.imageView.image = [UIImage imageNamed:kImageNameNoInternet];
             self.statusTextLabel.hidden = NO;
             self.statusSubtextLabel.hidden = NO;
             self.reloadButton.hidden = YES;
@@ -83,7 +83,7 @@
         case TPStatusTypeError: {
             [self.imageView.layer removeAllAnimations];
             self.imageView.hidden = NO;
-            self.imageView.image = [UIImage imageNamed:@"loading-indicator-error"];
+            self.imageView.image = [UIImage imageNamed:kImageNameLoadingIndicatorError];
             self.statusTextLabel.hidden = NO;
             self.statusSubtextLabel.hidden = NO;
             self.statusTextLabel.text = NSLocalizedString(@"Error Fetching Data", nil);

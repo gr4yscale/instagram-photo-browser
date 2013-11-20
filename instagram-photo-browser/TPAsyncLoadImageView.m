@@ -86,7 +86,7 @@
                                                               
                                                               if (placeholder && error.code != NSURLErrorCancelled) {
                                                                   self.placeholderImageView.hidden = NO;
-                                                                  self.placeholderImageView.image = [UIImage imageNamed:@"loading-indicator-error"];
+                                                                  self.placeholderImageView.image = [UIImage imageNamed:kImageNameLoadingIndicatorError];
                                                               } else {
                                                                   self.placeholderImageView.hidden = YES;
                                                               }
@@ -102,7 +102,7 @@
 
 - (void)setupPlaceholder
 {
-    self.placeholderImageView.image = [UIImage imageNamed:@"loading-indicator"];
+    self.placeholderImageView.image = [UIImage imageNamed:kImageNameLoadingIndicator];
     self.placeholderImageView.hidden = NO;
     
     CABasicAnimation* rotationAnimation;
@@ -119,7 +119,7 @@
 - (UIImageView *)placeholderImageView
 {
     if (!_placeholderImageView) {
-        UIImage *loadingIndicatorImage = [UIImage imageNamed:@"loading-indicator"];
+        UIImage *loadingIndicatorImage = [UIImage imageNamed:kImageNameLoadingIndicator];
         _placeholderImageView = [[UIImageView alloc] initWithImage:loadingIndicatorImage];
         _placeholderImageView.contentMode = UIViewContentModeCenter;
         [_placeholderImageView setTranslatesAutoresizingMaskIntoConstraints:NO];
