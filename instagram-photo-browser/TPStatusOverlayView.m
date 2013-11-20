@@ -134,17 +134,17 @@
 - (void)setupStaticConstraints
 {
     
-        NSDictionary *views = @{@"self" : self,
-                                @"imageView" : self.imageView,
-                                @"statusTextLabel" : self.statusTextLabel,
-                                @"statusSubtextLabel" : self.statusSubtextLabel,
-                                @"reloadButton" : self.reloadButton};
-        
-        NSDictionary *metrics = @{@"spacing": @(20)};
-        
-        for (UIView *view in [views allValues]) {
-            [view setTranslatesAutoresizingMaskIntoConstraints:NO];
-        }
+    NSDictionary *views = @{@"self" : self,
+                            @"imageView" : self.imageView,
+                            @"statusTextLabel" : self.statusTextLabel,
+                            @"statusSubtextLabel" : self.statusSubtextLabel,
+                            @"reloadButton" : self.reloadButton};
+    
+    NSDictionary *metrics = @{@"spacing": @(20)};
+    
+    for (UIView *view in [views allValues]) {
+        [view setTranslatesAutoresizingMaskIntoConstraints:NO];
+    }
     
     [self addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(160)-[imageView]-(spacing)-[statusTextLabel]-(60)-[statusSubtextLabel]-(60)-[reloadButton]-(spacing)-|"
                                                                  options:NSLayoutFormatAlignAllCenterX

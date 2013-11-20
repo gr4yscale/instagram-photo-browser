@@ -14,6 +14,7 @@
 #import "TPAsyncLoadImageView.h"
 #import "TPCollectionView.h"
 #import "TPAssetManager.h"
+#import "TPStatusOverlayView.h"
 
 @interface TPInitialPhotosViewController ()
 
@@ -46,6 +47,11 @@
     return self;
 }
 
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
 
 - (void)loadView
 {
@@ -110,6 +116,13 @@
     collectionView.backgroundColor = [UIColor clearColor];
     
     [collectionView registerClass:[TPPhotoCollectionViewCell class] forCellWithReuseIdentifier:NSStringFromClass([Photo class])];
+    
+    [[NSNotificationCenter defaultCenter] addObserverForName:UIContentSizeCategoryDidChangeNotification
+                                                      object:nil
+                                                       queue:nil
+                                                  usingBlock:^(NSNotification *notification) {
+                                                      [collectionView reloadData];
+                                                  }];
  
     return collectionView;
 }
