@@ -37,6 +37,8 @@
 		29BEB706183B5EA2003C46B7 /* TPStatusOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 29BEB705183B5EA2003C46B7 /* TPStatusOverlayView.m */; };
 		29BEB709183C85D9003C46B7 /* UIFont+DynamicTypeEuphemia.m in Sources */ = {isa = PBXBuildFile; fileRef = 29BEB708183C85D9003C46B7 /* UIFont+DynamicTypeEuphemia.m */; };
 		29BEB70D183CC633003C46B7 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 29BEB70C183CC633003C46B7 /* Reachability.m */; };
+		29BEB710183CC99B003C46B7 /* TPReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 29BEB70F183CC99B003C46B7 /* TPReachability.m */; };
+		29BEB712183CCA65003C46B7 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29BEB711183CCA65003C46B7 /* SystemConfiguration.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -105,6 +107,9 @@
 		29BEB708183C85D9003C46B7 /* UIFont+DynamicTypeEuphemia.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+DynamicTypeEuphemia.m"; sourceTree = "<group>"; };
 		29BEB70B183CC633003C46B7 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		29BEB70C183CC633003C46B7 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
+		29BEB70E183CC99B003C46B7 /* TPReachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPReachability.h; sourceTree = "<group>"; };
+		29BEB70F183CC99B003C46B7 /* TPReachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPReachability.m; sourceTree = "<group>"; };
+		29BEB711183CCA65003C46B7 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		29FD08961839ECA9001E72F1 /* DataModel 4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "DataModel 4.xcdatamodel"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -113,6 +118,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				29BEB712183CCA65003C46B7 /* SystemConfiguration.framework in Frameworks */,
 				29A505A11828A7E800F03F24 /* CoreGraphics.framework in Frameworks */,
 				29A505A31828A7E800F03F24 /* UIKit.framework in Frameworks */,
 				29A5059F1828A7E800F03F24 /* Foundation.framework in Frameworks */,
@@ -154,6 +160,7 @@
 		29A5059D1828A7E800F03F24 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				29BEB711183CCA65003C46B7 /* SystemConfiguration.framework */,
 				29A5059E1828A7E800F03F24 /* Foundation.framework */,
 				29A505A01828A7E800F03F24 /* CoreGraphics.framework */,
 				29A505A21828A7E800F03F24 /* UIKit.framework */,
@@ -192,6 +199,8 @@
 				295E3825183393AB00EFAAC8 /* TPCollectionView.m */,
 				295E38271834702900EFAAC8 /* TPAssetManager.h */,
 				295E38281834702900EFAAC8 /* TPAssetManager.m */,
+				29BEB70E183CC99B003C46B7 /* TPReachability.h */,
+				29BEB70F183CC99B003C46B7 /* TPReachability.m */,
 			);
 			path = "instagram-photo-browser";
 			sourceTree = "<group>";
