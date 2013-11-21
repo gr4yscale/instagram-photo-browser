@@ -74,9 +74,8 @@ static dispatch_once_t onceToken = 0;
                                                             } else if (failBlock) {
                                                                 failBlock(errorParsingJSON);
                                                             }
-                                                            
-                                                            NSLog(@"There was an error parsing the JSON from the url! %@\r\n%@, %@", URL, errorParsingJSON, [errorParsingJSON userInfo]);
-                                                            NSLog(@"Here is the response string: \r\n%@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+//                                                            NSLog(@"There was an error parsing the JSON from the url! %@\r\n%@, %@", URL, errorParsingJSON, [errorParsingJSON userInfo]);
+//                                                            NSLog(@"Here is the response string: \r\n%@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
                                                         }];
     [dataTask resume];
 }

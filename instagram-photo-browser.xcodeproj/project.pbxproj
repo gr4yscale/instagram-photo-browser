@@ -23,7 +23,7 @@
 		29A505C21828A7E800F03F24 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 29A505C01828A7E800F03F24 /* InfoPlist.strings */; };
 		29A505C41828A7E800F03F24 /* instagram_photo_browserTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 29A505C31828A7E800F03F24 /* instagram_photo_browserTests.m */; };
 		29A505D21828ADA500F03F24 /* TPWebServiceClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 29A505D11828ADA500F03F24 /* TPWebServiceClient.m */; };
-		29A505D61828AECB00F03F24 /* TPInitialPhotosViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 29A505D51828AECB00F03F24 /* TPInitialPhotosViewController.m */; };
+		29A505D61828AECB00F03F24 /* TPPhotosViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 29A505D51828AECB00F03F24 /* TPPhotosViewController.m */; };
 		29A505D91828B6A300F03F24 /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 29A505D71828B6A300F03F24 /* DataModel.xcdatamodeld */; };
 		29B85EE91829A98300A11192 /* NSDictionary+KeyValueMapping.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B85EE81829A98300A11192 /* NSDictionary+KeyValueMapping.m */; };
 		29B85EED1829E8BC00A11192 /* TPFetchedResultsCollectionViewDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B85EEC1829E8BC00A11192 /* TPFetchedResultsCollectionViewDataSource.m */; };
@@ -79,8 +79,8 @@
 		29A505C31828A7E800F03F24 /* instagram_photo_browserTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = instagram_photo_browserTests.m; sourceTree = "<group>"; };
 		29A505D01828ADA500F03F24 /* TPWebServiceClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TPWebServiceClient.h; path = ../TPWebServiceClient.h; sourceTree = "<group>"; };
 		29A505D11828ADA500F03F24 /* TPWebServiceClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TPWebServiceClient.m; path = ../TPWebServiceClient.m; sourceTree = "<group>"; };
-		29A505D41828AECB00F03F24 /* TPInitialPhotosViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPInitialPhotosViewController.h; sourceTree = "<group>"; };
-		29A505D51828AECB00F03F24 /* TPInitialPhotosViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPInitialPhotosViewController.m; sourceTree = "<group>"; };
+		29A505D41828AECB00F03F24 /* TPPhotosViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPPhotosViewController.h; sourceTree = "<group>"; };
+		29A505D51828AECB00F03F24 /* TPPhotosViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPPhotosViewController.m; sourceTree = "<group>"; };
 		29A505D81828B6A300F03F24 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
 		29B85EE71829A98300A11192 /* NSDictionary+KeyValueMapping.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDictionary+KeyValueMapping.h"; sourceTree = "<group>"; };
 		29B85EE81829A98300A11192 /* NSDictionary+KeyValueMapping.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+KeyValueMapping.m"; sourceTree = "<group>"; };
@@ -177,8 +177,8 @@
 				29A505AE1828A7E800F03F24 /* TPAppDelegate.m */,
 				29BE5FCA1828C1B800FE4D04 /* TPUtils.h */,
 				29BE5FCB1828C1B800FE4D04 /* TPUtils.m */,
-				29A505D41828AECB00F03F24 /* TPInitialPhotosViewController.h */,
-				29A505D51828AECB00F03F24 /* TPInitialPhotosViewController.m */,
+				29A505D41828AECB00F03F24 /* TPPhotosViewController.h */,
+				29A505D51828AECB00F03F24 /* TPPhotosViewController.m */,
 				29B85EEA1829AE2400A11192 /* categories */,
 				29BEB717183E6C5E003C46B7 /* data */,
 				29BEB716183E6C2B003C46B7 /* net */,
@@ -389,7 +389,7 @@
 				29B85EE91829A98300A11192 /* NSDictionary+KeyValueMapping.m in Sources */,
 				293201011839BBE100570452 /* TPAsyncLoadImageView.m in Sources */,
 				29BE5FCF1828C7E500FE4D04 /* TPPhotosImportOperation.m in Sources */,
-				29A505D61828AECB00F03F24 /* TPInitialPhotosViewController.m in Sources */,
+				29A505D61828AECB00F03F24 /* TPPhotosViewController.m in Sources */,
 				29B85EF3182CA71000A11192 /* TPCardViewButton.m in Sources */,
 				29BEB709183C85D9003C46B7 /* UIFont+DynamicTypeEuphemia.m in Sources */,
 				29B85EED1829E8BC00A11192 /* TPFetchedResultsCollectionViewDataSource.m in Sources */,
