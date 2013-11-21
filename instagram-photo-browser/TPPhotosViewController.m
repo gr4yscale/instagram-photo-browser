@@ -82,9 +82,12 @@
 {
     [super viewDidLoad];
 
+    __weak typeof(self) weakSelf = self;
+    
     [TPReachabilityWrapper shared].wentOnlineBlock = ^{
-        if (self.currentStatus == TPStatusTypeOffline && !self.importInProgress) {
-            [self fetchAndImportPhotosJSON];
+
+        if (weakSelf.currentStatus == TPStatusTypeOffline && !weakSelf.importInProgress) {
+            [weakSelf fetchAndImportPhotosJSON];
         }
     };
     
