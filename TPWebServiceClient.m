@@ -56,32 +56,6 @@ static dispatch_once_t onceToken = 0;
             completion:(fetchJSONCompletionBlock)completion
              failBlock:(fetchJSONFailBlock)failBlock;
 {
-//    [NSURLConnection sendAsynchronousRequest:[NSURLRequest requestWithURL:URL]
-//                                       queue:[NSOperationQueue mainQueue]
-//                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-//                               
-//                               if (connectionError && failBlock) {
-//                                   failBlock(connectionError);
-//                                   NSLog(@"There was an error with the connection: %@, %@", connectionError, [connectionError userInfo]);
-//                                   return;
-//                               }
-//                               
-//                               NSError *errorParsingJSON = nil;
-//                               id object = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers
-//                                                                             error:&errorParsingJSON];
-//                               if (!errorParsingJSON) {
-//                                   if (completion) {
-//                                       completion(object);
-//                                   }
-//                               } else {
-//                                   if (failBlock) {
-//                                       failBlock(errorParsingJSON);
-//                                   }
-//                                   NSLog(@"There was an error parsing the JSON from the url! %@\r\n%@, %@", URL, errorParsingJSON, [errorParsingJSON userInfo]);
-//                                   NSLog(@"Here is the response string: \r\n%@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
-//                               }
-//                           }];
-    
     NSURLSessionDataTask *dataTask = [self.urlSession dataTaskWithRequest:[NSURLRequest requestWithURL:URL]
                                                         completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
                                                             
