@@ -175,32 +175,18 @@
 				2995ED99182F3274009FD949 /* TPConstants.h */,
 				29A505AD1828A7E800F03F24 /* TPAppDelegate.h */,
 				29A505AE1828A7E800F03F24 /* TPAppDelegate.m */,
-				29BE5FC41828BB3000FE4D04 /* TPPersistence.h */,
-				29BE5FC51828BB3000FE4D04 /* TPPersistence.m */,
-				29A505D01828ADA500F03F24 /* TPWebServiceClient.h */,
-				29A505D11828ADA500F03F24 /* TPWebServiceClient.m */,
-				29BE5FCD1828C7E500FE4D04 /* TPPhotosImportOperation.h */,
-				29BE5FCE1828C7E500FE4D04 /* TPPhotosImportOperation.m */,
 				29BE5FCA1828C1B800FE4D04 /* TPUtils.h */,
 				29BE5FCB1828C1B800FE4D04 /* TPUtils.m */,
 				29A505D41828AECB00F03F24 /* TPInitialPhotosViewController.h */,
 				29A505D51828AECB00F03F24 /* TPInitialPhotosViewController.m */,
-				29B85EEB1829E8BC00A11192 /* TPFetchedResultsCollectionViewDataSource.h */,
-				29B85EEC1829E8BC00A11192 /* TPFetchedResultsCollectionViewDataSource.m */,
-				29A505D31828ADC800F03F24 /* views */,
 				29B85EEA1829AE2400A11192 /* categories */,
-				29BEB701183B0089003C46B7 /* Photo.h */,
-				29BEB702183B0089003C46B7 /* Photo.m */,
+				29BEB717183E6C5E003C46B7 /* data */,
+				29BEB716183E6C2B003C46B7 /* net */,
+				29A505D31828ADC800F03F24 /* views */,
+				29BEB70A183CC608003C46B7 /* apple */,
 				29A505D71828B6A300F03F24 /* DataModel.xcdatamodeld */,
 				29A505B01828A7E800F03F24 /* Images.xcassets */,
-				29BEB70A183CC608003C46B7 /* apple */,
 				29A505A51828A7E800F03F24 /* Supporting Files */,
-				295E3824183393AB00EFAAC8 /* TPCollectionView.h */,
-				295E3825183393AB00EFAAC8 /* TPCollectionView.m */,
-				295E38271834702900EFAAC8 /* TPAssetManager.h */,
-				295E38281834702900EFAAC8 /* TPAssetManager.m */,
-				29BEB70E183CC99B003C46B7 /* TPReachabilityWrapper.h */,
-				29BEB70F183CC99B003C46B7 /* TPReachabilityWrapper.m */,
 			);
 			path = "instagram-photo-browser";
 			sourceTree = "<group>";
@@ -245,6 +231,8 @@
 				293201001839BBE100570452 /* TPAsyncLoadImageView.m */,
 				29BEB704183B5EA2003C46B7 /* TPStatusOverlayView.h */,
 				29BEB705183B5EA2003C46B7 /* TPStatusOverlayView.m */,
+				295E3824183393AB00EFAAC8 /* TPCollectionView.h */,
+				295E3825183393AB00EFAAC8 /* TPCollectionView.m */,
 			);
 			name = views;
 			sourceTree = "<group>";
@@ -269,6 +257,34 @@
 				29BEB70C183CC633003C46B7 /* Reachability.m */,
 			);
 			name = apple;
+			sourceTree = "<group>";
+		};
+		29BEB716183E6C2B003C46B7 /* net */ = {
+			isa = PBXGroup;
+			children = (
+				29A505D01828ADA500F03F24 /* TPWebServiceClient.h */,
+				29A505D11828ADA500F03F24 /* TPWebServiceClient.m */,
+				295E38271834702900EFAAC8 /* TPAssetManager.h */,
+				295E38281834702900EFAAC8 /* TPAssetManager.m */,
+				29BEB70E183CC99B003C46B7 /* TPReachabilityWrapper.h */,
+				29BEB70F183CC99B003C46B7 /* TPReachabilityWrapper.m */,
+			);
+			name = net;
+			sourceTree = "<group>";
+		};
+		29BEB717183E6C5E003C46B7 /* data */ = {
+			isa = PBXGroup;
+			children = (
+				29B85EEB1829E8BC00A11192 /* TPFetchedResultsCollectionViewDataSource.h */,
+				29B85EEC1829E8BC00A11192 /* TPFetchedResultsCollectionViewDataSource.m */,
+				29BE5FC41828BB3000FE4D04 /* TPPersistence.h */,
+				29BE5FC51828BB3000FE4D04 /* TPPersistence.m */,
+				29BE5FCD1828C7E500FE4D04 /* TPPhotosImportOperation.h */,
+				29BE5FCE1828C7E500FE4D04 /* TPPhotosImportOperation.m */,
+				29BEB701183B0089003C46B7 /* Photo.h */,
+				29BEB702183B0089003C46B7 /* Photo.m */,
+			);
+			name = data;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
