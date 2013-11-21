@@ -26,6 +26,8 @@
 @property (nonatomic, assign) CGFloat totalHeightOfNewlyInsertedCells;
 @property (atomic, assign) NSUInteger insertsCountSinceCVReload;
 
+@property (nonatomic, strong) NSMutableDictionary *cellSizeCache;
+
 - (void)updateCollectionViewContentOffsetForNewlyInsertedCells;
 
 @end
@@ -49,10 +51,26 @@
         
         self.objectChanges = [NSMutableArray array];
         self.sectionChanges = [NSMutableArray array];
+        self.cellSizeCache = [NSMutableDictionary dictionary];
         
         [self.fetchedResultsController performFetch:NULL];
+        
+        // invalidate our cell size cache if a user adusts the text size in iOS
+
+        [[NSNotificationCenter defaultCenter] addObserverForName:UIContentSizeCategoryDidChangeNotification
+                                                          object:nil
+                                                           queue:nil
+                                                      usingBlock:^(NSNotification *notification) {
+                                                          [self.cellSizeCache removeAllObjects];
+                                                      }];
     }
     return self;
+}
+
+
+- (void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
 }
 
 
@@ -114,7 +132,6 @@
     
     UICollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:self.cellIdentifier
                                                                            forIndexPath:indexPath];
-    
     id item = [self.fetchedResultsController objectAtIndexPath:indexPath];
     
     if(self.updateCellBlock) {
@@ -176,8 +193,6 @@
 
 - (void)controllerDidChangeContent:(NSFetchedResultsController *)controller
 {
-    NSLog(@"didChangeContent");
-    
     self.collectionView.userInteractionEnabled = NO;
     
     [CATransaction begin];
@@ -202,8 +217,6 @@
                             CGSize itemSize = [self collectionView:self.collectionView
                                                             layout:self.collectionView.collectionViewLayout
                                             sizeForItemAtIndexPath:obj];
-                            
-//                            NSLog(@"Cell size calculated: %@ || %@ ***newly inserted ***", obj, NSStringFromCGSize(itemSize));
                             
                             self.totalHeightOfNewlyInsertedCells += itemSize.height;
                         }
@@ -242,6 +255,13 @@
 {
     Photo *photo = [self objectAtIndexPath:indexPath];
     
+    if (!isStringWithAnyText(photo.identifier)) return CGSizeZero;
+    
+    NSValue *cachedValue = self.cellSizeCache[photo.identifier];
+    if (cachedValue) {
+        return [cachedValue CGSizeValue];
+    }
+    
     static TPPhotoCollectionViewCell *cellForComputingSize;
     if (!cellForComputingSize) {
         cellForComputingSize = [[TPPhotoCollectionViewCell alloc] initWithFrame:CGRectZero];
@@ -252,15 +272,13 @@
         self.updateCellBlock(cellForComputingSize, photo); // set data on the labels so autolayout makes the right determinations
     }
     
-//    return [cellForComputingSize.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+    CGSize sizeComputedWithAutoLayout = [cellForComputingSize.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
     
-//    Cutting out size computations with Auto Layout for only the content that will dynamically change size, effecting the overall size of the cell to change.
-//    Doing this for performance optimization.
-//
-    CGSize captionLabelSize = [cellForComputingSize.captionLabel systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-    return CGSizeMake(320, captionLabelSize.height + 460);
-//    NSLog(@"Cell size calculated: %@ || %@", indexPath, NSStringFromCGSize(size));
+    self.cellSizeCache[photo.identifier] = [NSValue valueWithCGSize:sizeComputedWithAutoLayout];
     
+//    NSLog(@"Cell size calculated: %@ || %@", indexPath, NSStringFromCGSize(sizeComputedWithAutoLayout));
+    
+    return sizeComputedWithAutoLayout;
 }
 
 @end
