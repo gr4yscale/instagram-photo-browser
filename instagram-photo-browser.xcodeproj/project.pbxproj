@@ -37,7 +37,7 @@
 		29BEB706183B5EA2003C46B7 /* TPStatusOverlayView.m in Sources */ = {isa = PBXBuildFile; fileRef = 29BEB705183B5EA2003C46B7 /* TPStatusOverlayView.m */; };
 		29BEB709183C85D9003C46B7 /* UIFont+DynamicTypeEuphemia.m in Sources */ = {isa = PBXBuildFile; fileRef = 29BEB708183C85D9003C46B7 /* UIFont+DynamicTypeEuphemia.m */; };
 		29BEB70D183CC633003C46B7 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 29BEB70C183CC633003C46B7 /* Reachability.m */; };
-		29BEB710183CC99B003C46B7 /* TPReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 29BEB70F183CC99B003C46B7 /* TPReachability.m */; };
+		29BEB710183CC99B003C46B7 /* TPReachabilityWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 29BEB70F183CC99B003C46B7 /* TPReachabilityWrapper.m */; };
 		29BEB712183CCA65003C46B7 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29BEB711183CCA65003C46B7 /* SystemConfiguration.framework */; };
 /* End PBXBuildFile section */
 
@@ -107,8 +107,8 @@
 		29BEB708183C85D9003C46B7 /* UIFont+DynamicTypeEuphemia.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIFont+DynamicTypeEuphemia.m"; sourceTree = "<group>"; };
 		29BEB70B183CC633003C46B7 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		29BEB70C183CC633003C46B7 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
-		29BEB70E183CC99B003C46B7 /* TPReachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPReachability.h; sourceTree = "<group>"; };
-		29BEB70F183CC99B003C46B7 /* TPReachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPReachability.m; sourceTree = "<group>"; };
+		29BEB70E183CC99B003C46B7 /* TPReachabilityWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPReachabilityWrapper.h; sourceTree = "<group>"; };
+		29BEB70F183CC99B003C46B7 /* TPReachabilityWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPReachabilityWrapper.m; sourceTree = "<group>"; };
 		29BEB711183CCA65003C46B7 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		29FD08961839ECA9001E72F1 /* DataModel 4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "DataModel 4.xcdatamodel"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -199,8 +199,8 @@
 				295E3825183393AB00EFAAC8 /* TPCollectionView.m */,
 				295E38271834702900EFAAC8 /* TPAssetManager.h */,
 				295E38281834702900EFAAC8 /* TPAssetManager.m */,
-				29BEB70E183CC99B003C46B7 /* TPReachability.h */,
-				29BEB70F183CC99B003C46B7 /* TPReachability.m */,
+				29BEB70E183CC99B003C46B7 /* TPReachabilityWrapper.h */,
+				29BEB70F183CC99B003C46B7 /* TPReachabilityWrapper.m */,
 			);
 			path = "instagram-photo-browser";
 			sourceTree = "<group>";
@@ -378,6 +378,7 @@
 				29BEB709183C85D9003C46B7 /* UIFont+DynamicTypeEuphemia.m in Sources */,
 				29B85EED1829E8BC00A11192 /* TPFetchedResultsCollectionViewDataSource.m in Sources */,
 				295E3826183393AB00EFAAC8 /* TPCollectionView.m in Sources */,
+				29BEB710183CC99B003C46B7 /* TPReachabilityWrapper.m in Sources */,
 				29BEB703183B0089003C46B7 /* Photo.m in Sources */,
 				29BE5FD51828D41500FE4D04 /* Photo+Import.m in Sources */,
 				29BE5FC61828BB3000FE4D04 /* TPPersistence.m in Sources */,

@@ -43,3 +43,14 @@
 #define kImageNameLikeUnselected                            @"like-unselected"
 #define kImageNameShareSelected                             @"share-selected"
 #define kImageNameShareUnselected                           @"share-unselected"
+
+
+// application state enums
+
+typedef NS_ENUM(NSInteger, TPStatusType) {
+    TPStatusTypeLoading,
+    TPStatusTypeNoData,
+    TPStatusTypeOffline,
+    TPStatusTypeError,
+    TPStatusTypeDataExists
+};

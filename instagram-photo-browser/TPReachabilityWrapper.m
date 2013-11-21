@@ -1,25 +1,25 @@
 //
-//  TPReachability.m
+//  TPReachabilityWrapper.m
 //  instagram-photo-browser
 //
 //  Created by Tyler Powers on 11/20/13.
 //  Copyright (c) 2013 Tyler Powers. All rights reserved.
 //
 
-#import "TPReachability.h"
+#import "TPReachabilityWrapper.h"
 
 // let's make this a little more coherent. Are we online? If not, do something when we come online. If we go offline, do something else.
 
-@implementation TPReachability
+@implementation TPReachabilityWrapper
 
-static TPReachability *_sharedInstance = nil;
+static TPReachabilityWrapper *_sharedInstance = nil;
 static dispatch_once_t onceToken = 0;
 
 + (instancetype)shared {
     
     dispatch_once(&onceToken, ^{
         if (!_sharedInstance) {
-            _sharedInstance = [[TPReachability alloc] init];
+            _sharedInstance = [[TPReachabilityWrapper alloc] init];
         }
     });
     
@@ -27,7 +27,7 @@ static dispatch_once_t onceToken = 0;
 }
 
 
-+ (void)setShared:(TPReachability *)instance {
++ (void)setShared:(TPReachabilityWrapper *)instance {
     onceToken = 0;
     _sharedInstance = instance;
 }
@@ -57,7 +57,6 @@ static dispatch_once_t onceToken = 0;
 
 - (BOOL)isOnline
 {
-
     if ([self.reachability currentReachabilityStatus] == NotReachable) {
         return NO;
     } else {
@@ -83,7 +82,6 @@ static dispatch_once_t onceToken = 0;
             self.wentOnlineBlock();
         }
     }
-
 }
 
 

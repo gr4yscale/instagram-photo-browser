@@ -1,5 +1,5 @@
 //
-//  TPReachability.h
+//  TPReachabilityWrapper.h
 //  instagram-photo-browser
 //
 //  Created by Tyler Powers on 11/20/13.
@@ -8,7 +8,7 @@
 
 #import "Reachability.h"
 
-@interface TPReachability : NSObject
+@interface TPReachabilityWrapper : NSObject
 
 @property (nonatomic, strong) Reachability *reachability;
 

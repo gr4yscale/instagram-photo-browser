@@ -13,10 +13,8 @@
 @property (nonatomic, strong) UIImageView *imageView;
 @property (nonatomic, strong) UILabel *statusTextLabel;
 @property (nonatomic, strong) UILabel *statusSubtextLabel;
-@property (nonatomic, strong) UIButton *reloadButton;
 
 - (void)setupSubviews;
-- (void)setupStaticConstraints;
 - (void)addRotationToImageView;
 
 @end
@@ -33,9 +31,9 @@
 {
     self = [super init];
     if (self) {
+        self.opaque = YES;
         self.backgroundColor = kPrimaryBackgroundColor;
         [self setupSubviews];
-        [self setupStaticConstraints];
         [self switchStatusType:type];
     }
     return self;
@@ -44,6 +42,8 @@
 
 - (void)switchStatusType:(TPStatusType)type
 {
+    self.hidden = NO;
+    
     switch (type) {
         case TPStatusTypeLoading: {
             self.imageView.hidden = NO;
@@ -88,8 +88,9 @@
             self.statusSubtextLabel.hidden = NO;
             self.statusTextLabel.text = NSLocalizedString(@"Error Fetching Data", nil);
             self.statusSubtextLabel.text = nil;
+            self.reloadButton.hidden = NO;
             
-            [self.reloadButton setTitle:NSLocalizedString(@"Try Again", nil)
+            [self.reloadButton setTitle:NSLocalizedString(@"Dismiss", nil)
                                forState:UIControlStateNormal];
         }
             break;
