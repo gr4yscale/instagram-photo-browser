@@ -302,7 +302,8 @@
     self.userFullNameLabel.text = nil;
     self.captionLabel.text = nil;
     self.photoImageView.image = nil;
-    self.photoImageView.placeholderImageView.image = nil;
+    self.photoImageView.placeholderImageView.hidden = YES;
+    [self.photoImageView.placeholderImageView.layer removeAllAnimations];
     self.profilePicImageView.image = nil;
     self.commentsCountLabel.text = nil;
     self.likesCountLabel.text = nil;
