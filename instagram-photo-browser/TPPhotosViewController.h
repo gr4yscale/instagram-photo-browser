@@ -1,5 +1,5 @@
 //
-//  TPInitialPhotosViewController.h
+//  TPPhotosViewController.h
 //  instagram-photo-browser
 //
 //  Created by Tyler Powers on 11/4/13.
@@ -9,7 +9,7 @@
 #import "TPPersistence.h"
 #import "TPPhotoCollectionViewCell.h"
 
-@interface TPInitialPhotosViewController : UIViewController <TPPhotoCollectionViewCellDelegate>
+@interface TPPhotosViewController : UIViewController <TPPhotoCollectionViewCellDelegate>
 
 @property (nonatomic, weak) TPPersistence *persistence;
 

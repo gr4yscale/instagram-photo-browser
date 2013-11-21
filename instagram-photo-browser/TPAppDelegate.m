@@ -7,7 +7,7 @@
 //
 
 #import "TPAppDelegate.h"
-#import "TPInitialPhotosViewController.h"
+#import "TPPhotosViewController.h"
 #import "TPPersistence.h"
 
 @interface TPAppDelegate ()
@@ -32,13 +32,10 @@
     
     self.persistence = [[TPPersistence alloc] init];
     
-    TPInitialPhotosViewController *initialPhotosVC = [[TPInitialPhotosViewController alloc] init];
-    initialPhotosVC.persistence = self.persistence;
+    TPPhotosViewController *photosViewController = [[TPPhotosViewController alloc] init];
+    photosViewController.persistence = self.persistence;
     
-    UINavigationController *navController = [[UINavigationController alloc] initWithRootViewController:initialPhotosVC];
-    [navController setNavigationBarHidden:YES];
-    
-    self.window.rootViewController = navController;
+    self.window.rootViewController = photosViewController;
     [self.window makeKeyAndVisible];
     
     return YES;

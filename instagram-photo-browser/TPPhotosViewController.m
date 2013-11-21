@@ -1,12 +1,12 @@
 //
-//  TPInitialPhotosViewController.m
+//  TPPhotosViewController.m
 //  instagram-photo-browser
 //
 //  Created by Tyler Powers on 11/4/13.
 //  Copyright (c) 2013 Tyler Powers. All rights reserved.
 //
 
-#import "TPInitialPhotosViewController.h"
+#import "TPPhotosViewController.h"
 #import "TPWebServiceClient.h"
 #import "TPPhotosImportOperation.h"
 #import "Photo.h"
@@ -16,7 +16,7 @@
 #import "TPAssetManager.h"
 #import "TPStatusOverlayView.h"
 
-@interface TPInitialPhotosViewController ()
+@interface TPPhotosViewController ()
 
 @property (nonatomic, strong) NSOperationQueue *operationQueue;
 @property (nonatomic, strong) TPWebServiceClient *webserviceClient;
@@ -40,7 +40,7 @@
 @end
 
 
-@implementation TPInitialPhotosViewController
+@implementation TPPhotosViewController
 
 
 - (id)init
@@ -112,7 +112,7 @@
 
 - (TPCollectionView *)setupCollectionView
 {
-    CGRect collectionViewFrame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
+    CGRect collectionViewFrame = CGRectMake(0, 20, self.view.frame.size.width, self.view.frame.size.height - 20);
     
     UICollectionViewFlowLayout *flowLayout = [[UICollectionViewFlowLayout alloc] init];
     
