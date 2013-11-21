@@ -22,7 +22,6 @@
 		29A505BA1828A7E800F03F24 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29A505A21828A7E800F03F24 /* UIKit.framework */; };
 		29A505C21828A7E800F03F24 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 29A505C01828A7E800F03F24 /* InfoPlist.strings */; };
 		29A505C41828A7E800F03F24 /* instagram_photo_browserTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 29A505C31828A7E800F03F24 /* instagram_photo_browserTests.m */; };
-		29A505D21828ADA500F03F24 /* TPWebServiceClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 29A505D11828ADA500F03F24 /* TPWebServiceClient.m */; };
 		29A505D61828AECB00F03F24 /* TPPhotosViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 29A505D51828AECB00F03F24 /* TPPhotosViewController.m */; };
 		29A505D91828B6A300F03F24 /* DataModel.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 29A505D71828B6A300F03F24 /* DataModel.xcdatamodeld */; };
 		29B85EE91829A98300A11192 /* NSDictionary+KeyValueMapping.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B85EE81829A98300A11192 /* NSDictionary+KeyValueMapping.m */; };
@@ -39,6 +38,7 @@
 		29BEB70D183CC633003C46B7 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 29BEB70C183CC633003C46B7 /* Reachability.m */; };
 		29BEB710183CC99B003C46B7 /* TPReachabilityWrapper.m in Sources */ = {isa = PBXBuildFile; fileRef = 29BEB70F183CC99B003C46B7 /* TPReachabilityWrapper.m */; };
 		29BEB712183CCA65003C46B7 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 29BEB711183CCA65003C46B7 /* SystemConfiguration.framework */; };
+		29BEB71A183E8D84003C46B7 /* TPWebServiceClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 29BEB719183E8D84003C46B7 /* TPWebServiceClient.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -77,8 +77,6 @@
 		29A505BF1828A7E800F03F24 /* instagram-photo-browserTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "instagram-photo-browserTests-Info.plist"; sourceTree = "<group>"; };
 		29A505C11828A7E800F03F24 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		29A505C31828A7E800F03F24 /* instagram_photo_browserTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = instagram_photo_browserTests.m; sourceTree = "<group>"; };
-		29A505D01828ADA500F03F24 /* TPWebServiceClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = TPWebServiceClient.h; path = ../TPWebServiceClient.h; sourceTree = "<group>"; };
-		29A505D11828ADA500F03F24 /* TPWebServiceClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = TPWebServiceClient.m; path = ../TPWebServiceClient.m; sourceTree = "<group>"; };
 		29A505D41828AECB00F03F24 /* TPPhotosViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPPhotosViewController.h; sourceTree = "<group>"; };
 		29A505D51828AECB00F03F24 /* TPPhotosViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPPhotosViewController.m; sourceTree = "<group>"; };
 		29A505D81828B6A300F03F24 /* DataModel.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = DataModel.xcdatamodel; sourceTree = "<group>"; };
@@ -110,6 +108,8 @@
 		29BEB70E183CC99B003C46B7 /* TPReachabilityWrapper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPReachabilityWrapper.h; sourceTree = "<group>"; };
 		29BEB70F183CC99B003C46B7 /* TPReachabilityWrapper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPReachabilityWrapper.m; sourceTree = "<group>"; };
 		29BEB711183CCA65003C46B7 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		29BEB718183E8D84003C46B7 /* TPWebServiceClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TPWebServiceClient.h; sourceTree = "<group>"; };
+		29BEB719183E8D84003C46B7 /* TPWebServiceClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TPWebServiceClient.m; sourceTree = "<group>"; };
 		29FD08961839ECA9001E72F1 /* DataModel 4.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "DataModel 4.xcdatamodel"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -262,8 +262,8 @@
 		29BEB716183E6C2B003C46B7 /* net */ = {
 			isa = PBXGroup;
 			children = (
-				29A505D01828ADA500F03F24 /* TPWebServiceClient.h */,
-				29A505D11828ADA500F03F24 /* TPWebServiceClient.m */,
+				29BEB718183E8D84003C46B7 /* TPWebServiceClient.h */,
+				29BEB719183E8D84003C46B7 /* TPWebServiceClient.m */,
 				295E38271834702900EFAAC8 /* TPAssetManager.h */,
 				295E38281834702900EFAAC8 /* TPAssetManager.m */,
 				29BEB70E183CC99B003C46B7 /* TPReachabilityWrapper.h */,
@@ -391,6 +391,7 @@
 				29BE5FCF1828C7E500FE4D04 /* TPPhotosImportOperation.m in Sources */,
 				29A505D61828AECB00F03F24 /* TPPhotosViewController.m in Sources */,
 				29B85EF3182CA71000A11192 /* TPCardViewButton.m in Sources */,
+				29BEB71A183E8D84003C46B7 /* TPWebServiceClient.m in Sources */,
 				29BEB709183C85D9003C46B7 /* UIFont+DynamicTypeEuphemia.m in Sources */,
 				29B85EED1829E8BC00A11192 /* TPFetchedResultsCollectionViewDataSource.m in Sources */,
 				295E3826183393AB00EFAAC8 /* TPCollectionView.m in Sources */,
@@ -403,7 +404,6 @@
 				29B85EF0182A07D500A11192 /* TPPhotoCollectionViewCell.m in Sources */,
 				29A505AF1828A7E800F03F24 /* TPAppDelegate.m in Sources */,
 				29A505AB1828A7E800F03F24 /* main.m in Sources */,
-				29A505D21828ADA500F03F24 /* TPWebServiceClient.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
