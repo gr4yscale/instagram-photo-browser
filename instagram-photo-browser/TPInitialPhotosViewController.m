@@ -23,6 +23,8 @@
 @property (nonatomic, strong) TPFetchedResultsCollectionViewDataSource *dataSource;
 @property (nonatomic, strong) TPCollectionView *collectionView;
 @property (nonatomic, strong) UIRefreshControl *refresh;
+@property (nonatomic, strong) TPStatusOverlayView *statusOverlayView;
+
 @property (nonatomic, assign) NSUInteger photoDownloadCount;
 
 - (NSFetchedResultsController *)setupFetchedResultsController;
@@ -57,16 +59,20 @@
 {
     self.view = [[UIView alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     self.view.backgroundColor = kPrimaryBackgroundColor;
-    
+
     TPCollectionView *cv = [self setupCollectionView];
-    self.collectionView = cv;
-    
-    UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
-    [refresh addTarget:self action:@selector(fetchAndImportPhotosJSON) forControlEvents:UIControlEventValueChanged];
-    [cv addSubview:refresh];
-    self.refresh = refresh;
-    
     [self.view addSubview:cv];
+    
+    TPStatusOverlayView *statusOverlayView = [[TPStatusOverlayView alloc] initWithStatusType:TPStatusTypeOffline];
+    statusOverlayView.frame = CGRectMake(0, 20, self.view.frame.size.width, self.view.frame.size.height-20);
+    [self.view addSubview:statusOverlayView];
+    [statusOverlayView setupStaticConstraints];
+    [statusOverlayView.reloadButton addTarget:self action:@selector(statusViewButtonPressed:) forControlEvents:UIControlEventTouchUpInside];
+   
+    self.collectionView = cv;
+    self.statusOverlayView = statusOverlayView;
+    
+    [self setupDataSource]; // setting data source up here so we can check if there is data.
 }
 
 
@@ -74,7 +80,6 @@
 {
     [super viewDidLoad];
     
-    [self setupDataSource];
     [self fetchAndImportPhotosJSON];
 }
 
@@ -114,8 +119,11 @@
     collectionView.alwaysBounceVertical = YES;
     collectionView.delaysContentTouches = NO;
     collectionView.backgroundColor = [UIColor clearColor];
+    collectionView.hidden = YES;
     
     [collectionView registerClass:[TPPhotoCollectionViewCell class] forCellWithReuseIdentifier:NSStringFromClass([Photo class])];
+    
+    // reload the collectionView when slider is changed at Settings > General > Text Size
     
     [[NSNotificationCenter defaultCenter] addObserverForName:UIContentSizeCategoryDidChangeNotification
                                                       object:nil
@@ -123,7 +131,12 @@
                                                   usingBlock:^(NSNotification *notification) {
                                                       [collectionView reloadData];
                                                   }];
- 
+    // setup pull-to-refresh
+    UIRefreshControl *refresh = [[UIRefreshControl alloc] init];
+    [refresh addTarget:self action:@selector(fetchAndImportPhotosJSON) forControlEvents:UIControlEventValueChanged];
+    [collectionView addSubview:refresh];
+    self.refresh = refresh;
+    
     return collectionView;
 }
 
