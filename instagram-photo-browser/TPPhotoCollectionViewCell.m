@@ -279,7 +279,7 @@
                                                                  metrics:metrics
                                                                    views:views]];
     
-    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[likesCountLabel]-(spacing)-[likeButton]"
+    [self.contentView addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[likesCountLabel]-(spacing)-[likeButton(buttonRowHeight)]"
                                                                  options:0
                                                                  metrics:metrics
                                                                    views:views]];
@@ -290,8 +290,6 @@
 {
     [super prepareForReuse];
     
-    NSLog(@"preparing for reuse");
-    
     self.usernameLabel.text = nil;
     self.userFullNameLabel.text = nil;
     self.captionLabel.text = nil;
@@ -300,20 +298,6 @@
     self.profilePicImageView.image = nil;
     self.commentsCountLabel.text = nil;
     self.likesCountLabel.text = nil;
-
-    // re-setting the font here (necessary in case dynamic type text size setting changes)
-    // seems to be a better place to do it since we're not setting actual data.
-    
-    self.captionLabel.font = [UIFont preferredEuphemiaFontForTextStyle:UIFontTextStyleCaption1];
-    self.usernameLabel.font = [UIFont preferredEuphemiaFontForTextStyle:UIFontTextStyleSubheadline];
-    self.userFullNameLabel.font = [UIFont preferredEuphemiaFontForTextStyle:UIFontTextStyleCaption1];
-    self.likesCountLabel.font = [UIFont preferredEuphemiaFontForTextStyle:UIFontTextStyleCaption2];
-    self.commentsCountLabel.font = [UIFont preferredEuphemiaFontForTextStyle:UIFontTextStyleCaption2];
-    
-    self.commentButton.titleLabel.font = [UIFont preferredEuphemiaFontForTextStyle:UIFontTextStyleCaption1];
-    self.likeButton.titleLabel.font = [UIFont preferredEuphemiaFontForTextStyle:UIFontTextStyleCaption1];
-    self.shareButton.titleLabel.font = [UIFont preferredEuphemiaFontForTextStyle:UIFontTextStyleCaption1];
-    
 }
 
 

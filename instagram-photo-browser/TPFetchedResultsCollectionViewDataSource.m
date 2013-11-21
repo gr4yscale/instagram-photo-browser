@@ -276,7 +276,7 @@
     
     self.cellSizeCache[photo.identifier] = [NSValue valueWithCGSize:sizeComputedWithAutoLayout];
     
-//    NSLog(@"Cell size calculated: %@ || %@", indexPath, NSStringFromCGSize(sizeComputedWithAutoLayout));
+//    NSLog(@"Cell size calculated: %@ || %@", photo.identifier, NSStringFromCGSize(sizeComputedWithAutoLayout));
     
     return sizeComputedWithAutoLayout;
 }
