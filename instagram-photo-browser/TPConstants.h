@@ -23,6 +23,7 @@
 #define kPrimaryBackgroundColor                             [UIColor colorWithRed:230/255.0 green:230/255.0 blue:230/255.0 alpha:1.0]
 #define kPlaceHolderTintColor                               [UIColor colorWithRed:178/255.0 green:178/255.0 blue:178/255.0 alpha:1.0]
 
+#define kShadowResizableImageInsets                         UIEdgeInsetsMake(16, 17, 17, 16)
 
 #define kSpacingBetweenPhotos                               4
 
@@ -43,7 +44,7 @@
 #define kImageNameLikeUnselected                            @"like-unselected"
 #define kImageNameShareSelected                             @"share-selected"
 #define kImageNameShareUnselected                           @"share-unselected"
-
+#define kImageNameShadowThin                                @"shadow-thin"
 
 // application state enums
 

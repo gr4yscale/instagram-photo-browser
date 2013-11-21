@@ -12,6 +12,9 @@
 
 @interface TPPhotoCollectionViewCell ()
 
+@property (nonatomic, strong) UIImageView *cardShadowView;
+@property (nonatomic, strong) UIImageView *photoShadowView;
+
 - (void)setupSubviews;
 - (void)setupButtons;
 - (void)setupStaticConstraints;
@@ -50,19 +53,16 @@
 
     UIView *cardView = [[UIView alloc] init];
     cardView.backgroundColor = [UIColor whiteColor];
-    cardView.clipsToBounds = NO;
     cardView.userInteractionEnabled = YES;
-    
-    CALayer *cardViewLayer = cardView.layer;
-    cardViewLayer.shadowColor = [[UIColor blackColor] CGColor];
-    cardViewLayer.shadowOffset = CGSizeMake(0,2);
-    cardViewLayer.shadowOpacity = 0.6;
-    cardViewLayer.shadowRadius = 2.0;
-    cardViewLayer.cornerRadius = 6.0;
-    cardViewLayer.rasterizationScale = [[UIScreen mainScreen] scale]; // cache a bitmap of the layer so we're not redrawing shadows; improved performance according to Core Graphics instrument
-    cardViewLayer.shouldRasterize = YES;
-    
+
     [self.contentView addSubview:cardView];
+    
+    UIImage *cardShadowImage = [[UIImage imageNamed:kImageNameShadowThin] resizableImageWithCapInsets:kShadowResizableImageInsets];
+    UIImageView *cardShadowView = [[UIImageView alloc] initWithImage:cardShadowImage];
+    cardShadowView.layer.rasterizationScale = self.contentScaleFactor;
+    cardShadowView.layer.shouldRasterize = YES;
+    
+    [cardView addSubview:cardShadowView];
     
     UILabel *captionLabel = [[UILabel alloc] init];
     captionLabel.preferredMaxLayoutWidth = 284.0; // un-hardcode this!
@@ -88,17 +88,14 @@
     
     TPAsyncLoadImageView *photoImageView = [[TPAsyncLoadImageView alloc] init];
     photoImageView.contentMode = UIViewContentModeScaleAspectFill;
-    photoImageView.clipsToBounds = NO;
-    
-    CALayer *photoImageViewLayer = photoImageView.layer;
-    
-    photoImageViewLayer.shadowColor = [[UIColor blackColor] CGColor];
-    photoImageViewLayer.shadowOffset = CGSizeMake(0,1);
-    photoImageViewLayer.shadowOpacity = 0.8;
-    photoImageViewLayer.shadowRadius = 4.0;
-    photoImageViewLayer.masksToBounds = NO;
     
     [self.contentView addSubview:photoImageView];
+    
+    UIImage *photoShadowImage = [[UIImage imageNamed:kImageNameShadowThin] resizableImageWithCapInsets:kShadowResizableImageInsets];
+    UIImageView *photoShadowView = [[UIImageView alloc] initWithImage:photoShadowImage];
+    photoShadowView.layer.rasterizationScale = self.contentScaleFactor;
+    photoShadowView.layer.shouldRasterize = YES;
+    [photoImageView addSubview:photoShadowView];
     
     UILabel *likesCountLabel = [[UILabel alloc] init];
     likesCountLabel.font = [UIFont preferredEuphemiaFontForTextStyle:UIFontTextStyleCaption2];
@@ -110,12 +107,14 @@
     commentsCountLabel.textColor = kTextColorSecondary;
     [cardView addSubview:commentsCountLabel];
     
+    self.cardShadowView = cardShadowView;
     self.cardView = cardView;
     self.captionLabel = captionLabel;
     self.profilePicImageView = profilePicImageView;
     self.usernameLabel = usernameLabel;
     self.userFullNameLabel = userFullNameLabel;
     self.photoImageView = photoImageView;
+    self.photoShadowView = photoShadowView;
     self.likesCountLabel = likesCountLabel;
     self.commentsCountLabel = commentsCountLabel;
     
@@ -138,6 +137,8 @@
     
     commentButton.imageEdgeInsets = UIEdgeInsetsMake(2.0, 0, 0, 0);
     commentButton.userInteractionEnabled = NO;
+    commentButton.layer.rasterizationScale = self.contentScaleFactor;
+    commentButton.layer.shouldRasterize = YES;
     
     [self.cardView addSubview:commentButton];
     
@@ -154,6 +155,9 @@
     likeButton.imageEdgeInsets = UIEdgeInsetsMake(0.0, -4.0, 0, 0);
     likeButton.titleEdgeInsets = UIEdgeInsetsMake(0, 4.0, 0, 0);
     likeButton.userInteractionEnabled = NO;
+    
+    likeButton.layer.rasterizationScale = self.contentScaleFactor;
+    likeButton.layer.shouldRasterize = YES;
     
     [self.cardView addSubview:likeButton];
     
@@ -173,6 +177,9 @@
     
     [shareButton addTarget:self action:@selector(sharePressed:) forControlEvents:UIControlEventTouchUpInside];
     
+    shareButton.layer.rasterizationScale = self.contentScaleFactor;
+    shareButton.layer.shouldRasterize = YES;
+    
     [self.cardView addSubview:shareButton];
     
     self.commentButton = commentButton;
@@ -182,7 +189,8 @@
 
 
 // Apple says to add constraints for any custom UIVIew in updateConstraints and call [super updateConstraints] at the end of the implementation,
-// But for constraints that are static and don't need to be re-added or updated, that requires keeping extra state that seems like needless complexity
+// But for constraints that are static and don't need to be changed I call them from init.
+// Keeping extra state to only call once from updateConstraints seems like needless complexity for static constraints.
 // Inspired by the blog post referenced below, I setup static constraints from init, and any constraints that are updated conditionally can go in updateConstraints.
 // http://keighl.com/post/welcome-to-auto-layout/
 // https://developer.apple.com/library/ios/documentation/UIKit/Reference/UIView_Class/UIView/UIView.html#//apple_ref/occ/instm/UIView/updateConstraints
@@ -300,6 +308,19 @@
     self.likesCountLabel.text = nil;
 }
 
+
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+    
+    // set shadow views frames manually. I'm too lazy to use auto layout for these and want them to be precise.
+    
+    CGRect cardShadowViewFrame = CGRectMake(-8, -8, 311, self.frame.size.height + 3);
+    self.cardShadowView.frame = cardShadowViewFrame;
+    
+    CGRect photoShadowViewFrame = CGRectMake(-8, -8, 323, 323);
+    self.photoShadowView.frame = photoShadowViewFrame;
+}
 
 #pragma mark -
 #pragma mark Target-Action
