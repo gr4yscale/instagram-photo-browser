@@ -10,9 +10,11 @@
 // network
 
 #define kInstagramPopularPhotosURLKey                       @"https://api.instagram.com/v1/media/popular?client_id=50c0e12b64a84dd0b9bbf334ba7f6bf6"
-#define kNetworkTimeoutIntervalForAssetRequest              10
+#define kNetworkTimeoutIntervalForAssetRequest              30
 #define kNetworkTimeoutIntervalForAssetResource             30
 
+#define kNetworkTimeoutIntervalForJSONRequest               10
+#define kNetworkTimeoutIntervalForJSONResource              10
 
 // ui/colors
 

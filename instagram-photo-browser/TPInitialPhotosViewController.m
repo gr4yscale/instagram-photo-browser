@@ -242,7 +242,7 @@
     self.importInProgress = YES;
     self.photoDownloadCount = 0;
     
-    [TPWebServiceClient fetchPopularPhotosJSONWithCompletion:^(id data) {
+    [[TPWebServiceClient shared] fetchPopularPhotosJSONWithCompletion:^(id data) {
         
         NSArray *photos = data[@"data"];
         if ([photos isKindOfClass:[NSArray class]]) {

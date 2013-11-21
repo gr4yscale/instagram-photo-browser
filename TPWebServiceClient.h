@@ -11,7 +11,9 @@ typedef void (^fetchJSONFailBlock)(NSError *error);
 
 @interface TPWebServiceClient : NSObject
 
-+ (void)fetchPopularPhotosJSONWithCompletion:(fetchJSONCompletionBlock)completion
++ (instancetype)shared;
+
+- (void)fetchPopularPhotosJSONWithCompletion:(fetchJSONCompletionBlock)completion
                                    failBlock:(fetchJSONFailBlock)failBlock;
 
 @end

@@ -10,7 +10,9 @@
 
 @interface TPWebServiceClient ()
 
-+ (void)fetchJSONAtURL:(NSURL *)URL
+@property (nonatomic, strong) NSURLSession *urlSession;
+
+- (void)fetchJSONAtURL:(NSURL *)URL
             completion:(fetchJSONCompletionBlock)completion
              failBlock:(fetchJSONFailBlock)failBlock;
 @end
@@ -18,41 +20,95 @@
 
 @implementation TPWebServiceClient
 
+static TPWebServiceClient *_sharedInstance = nil;
+static dispatch_once_t onceToken = 0;
 
-+ (void)fetchJSONAtURL:(NSURL *)URL
-            completion:(fetchJSONCompletionBlock)completion
-             failBlock:(fetchJSONFailBlock)failBlock;
-{
-    [NSURLConnection sendAsynchronousRequest:[NSURLRequest requestWithURL:URL]
-                                       queue:[NSOperationQueue mainQueue]
-                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
-                               
-                               if (connectionError && failBlock) {
-                                   failBlock(connectionError);
-                                   NSLog(@"There was an error with the connection: %@, %@", connectionError, [connectionError userInfo]);
-                                   return;
-                               }
-                               
-                               NSError *errorParsingJSON = nil;
-                               id object = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers
-                                                                             error:&errorParsingJSON];
-                               if (!errorParsingJSON) {
-                                   if (completion) {
-                                       completion(object);
-                                   }
-                               } else {
-                                   if (failBlock) {
-                                       failBlock(errorParsingJSON);
-                                   }
-                                   NSLog(@"There was an error parsing the JSON from the url! %@\r\n%@, %@", URL, errorParsingJSON, [errorParsingJSON userInfo]);
-                                   NSLog(@"Here is the response string: \r\n%@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
-                               }
-                           }];
++ (instancetype)shared {
     
+    dispatch_once(&onceToken, ^{
+        if (!_sharedInstance) {
+            _sharedInstance = [[TPWebServiceClient alloc] init];
+        }
+    });
+    return _sharedInstance;
+}
+
++ (void)setShared:(TPWebServiceClient *)instance {
+    onceToken = 0;
+    _sharedInstance = instance;
+}
+
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
+        sessionConfiguration.timeoutIntervalForRequest = kNetworkTimeoutIntervalForJSONRequest;
+        sessionConfiguration.timeoutIntervalForResource = kNetworkTimeoutIntervalForJSONResource;
+        
+        self.urlSession = [NSURLSession sessionWithConfiguration:sessionConfiguration];
+    }
+    return self;
 }
 
 
-+ (void)fetchPopularPhotosJSONWithCompletion:(fetchJSONCompletionBlock)completion
+- (void)fetchJSONAtURL:(NSURL *)URL
+            completion:(fetchJSONCompletionBlock)completion
+             failBlock:(fetchJSONFailBlock)failBlock;
+{
+//    [NSURLConnection sendAsynchronousRequest:[NSURLRequest requestWithURL:URL]
+//                                       queue:[NSOperationQueue mainQueue]
+//                           completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError) {
+//                               
+//                               if (connectionError && failBlock) {
+//                                   failBlock(connectionError);
+//                                   NSLog(@"There was an error with the connection: %@, %@", connectionError, [connectionError userInfo]);
+//                                   return;
+//                               }
+//                               
+//                               NSError *errorParsingJSON = nil;
+//                               id object = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers
+//                                                                             error:&errorParsingJSON];
+//                               if (!errorParsingJSON) {
+//                                   if (completion) {
+//                                       completion(object);
+//                                   }
+//                               } else {
+//                                   if (failBlock) {
+//                                       failBlock(errorParsingJSON);
+//                                   }
+//                                   NSLog(@"There was an error parsing the JSON from the url! %@\r\n%@, %@", URL, errorParsingJSON, [errorParsingJSON userInfo]);
+//                                   NSLog(@"Here is the response string: \r\n%@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+//                               }
+//                           }];
+    
+    NSURLSessionDataTask *dataTask = [self.urlSession dataTaskWithRequest:[NSURLRequest requestWithURL:URL]
+                                                        completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+                                                            
+                                                            if (error && failBlock) {
+                                                                failBlock(error);
+                                                                NSLog(@"There was an error with the request at url: %@", response.URL);
+                                                            }
+                                                            
+                                                            NSError *errorParsingJSON = nil;
+                                                            id object = [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingMutableContainers
+                                                                                                          error:&errorParsingJSON];
+                                                            if (!errorParsingJSON) {
+                                                                if (completion) {
+                                                                    completion(object);
+                                                                }
+                                                            } else if (failBlock) {
+                                                                failBlock(errorParsingJSON);
+                                                            }
+                                                            
+                                                            NSLog(@"There was an error parsing the JSON from the url! %@\r\n%@, %@", URL, errorParsingJSON, [errorParsingJSON userInfo]);
+                                                            NSLog(@"Here is the response string: \r\n%@", [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding]);
+                                                        }];
+    [dataTask resume];
+}
+
+
+- (void)fetchPopularPhotosJSONWithCompletion:(fetchJSONCompletionBlock)completion
                                    failBlock:(fetchJSONFailBlock)failBlock;
 {
     NSURL *popularPhotosURL = [NSURL URLWithString:kInstagramPopularPhotosURLKey];
