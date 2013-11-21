@@ -270,15 +270,16 @@
     }
      failBlock:^(NSError *error) {
          
+         __weak typeof(self) weakSelf = self;
          dispatch_async(dispatch_get_main_queue(), ^{
              
              if (!isOnline()) {
-                 [self updateStatus:TPStatusTypeOffline];
+                 [weakSelf updateStatus:TPStatusTypeOffline];
              } else {
-                 [self updateStatus:TPStatusTypeError];
+                 [weakSelf updateStatus:TPStatusTypeError];
              }
-             [self.refresh endRefreshing];
-             self.importInProgress = NO;
+             [weakSelf.refresh endRefreshing];
+             weakSelf.importInProgress = NO;
          });
      }];
 }

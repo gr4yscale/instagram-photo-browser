@@ -48,10 +48,11 @@
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
                 UIImage *image = [UIImage imageWithContentsOfFile:[localURL path]];
                 
+                __weak typeof(self) weakSelf = self;
                 dispatch_async(dispatch_get_main_queue(), ^{
-                    [self.placeholderImageView.layer removeAllAnimations];
-                    self.placeholderImageView.hidden = YES;
-                    self.image = image;
+                    [weakSelf.placeholderImageView.layer removeAllAnimations];
+                    weakSelf.placeholderImageView.hidden = YES;
+                    weakSelf.image = image;
                 });
             });
             if (completion) completion();
@@ -71,24 +72,26 @@
                                                           
                                                           if (image && [self.imageURL.absoluteString isEqualToString:[URL absoluteString]]) {
                                                               
+                                                              __weak typeof(self) weakSelf = self;
                                                               dispatch_async(dispatch_get_main_queue(), ^{
-                                                                  [self.placeholderImageView.layer removeAllAnimations];
-                                                                  self.placeholderImageView.hidden = YES;
-                                                                  self.image = image;
+                                                                  [weakSelf.placeholderImageView.layer removeAllAnimations];
+                                                                  weakSelf.placeholderImageView.hidden = YES;
+                                                                  weakSelf.image = image;
                                                               });
                                                               if (completion) completion();
                                                           }
                                                           
                                                       } failBlock:^(NSError *error) {
                                                           
+                                                          __weak typeof(self) weakSelf = self;
                                                           dispatch_async(dispatch_get_main_queue(), ^{
                                                               [self.placeholderImageView.layer removeAllAnimations];
-                                                              
+
                                                               if (placeholder && error.code != NSURLErrorCancelled) {
-                                                                  self.placeholderImageView.hidden = NO;
-                                                                  self.placeholderImageView.image = [UIImage imageNamed:kImageNameLoadingIndicatorError];
+                                                                  weakSelf.placeholderImageView.hidden = NO;
+                                                                  weakSelf.placeholderImageView.image = [UIImage imageNamed:kImageNameLoadingIndicatorError];
                                                               } else {
-                                                                  self.placeholderImageView.hidden = YES;
+                                                                  weakSelf.placeholderImageView.hidden = YES;
                                                               }
                                                           });
                                                           if (failBlock) {
