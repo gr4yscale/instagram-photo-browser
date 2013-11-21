@@ -34,7 +34,9 @@
 @implementation TPFetchedResultsCollectionViewDataSource
 
 
-- (id)initWithCollectionView:(UICollectionView *)collectionView fetchedResultsController:(NSFetchedResultsController *)fetchedResultsController
+- (id)initWithCollectionView:(UICollectionView *)collectionView
+    fetchedResultsController:(NSFetchedResultsController *)fetchedResultsController
+              cellIdentifier:(NSString *)cellIdentifier
 {
     self = [super init];
     if (self) {
@@ -43,6 +45,7 @@
         
         self.collectionView = collectionView;
         self.fetchedResultsController = fetchedResultsController;
+        self.cellIdentifier = cellIdentifier;
         
         self.objectChanges = [NSMutableArray array];
         self.sectionChanges = [NSMutableArray array];

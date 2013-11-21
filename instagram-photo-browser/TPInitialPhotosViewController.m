@@ -32,6 +32,7 @@
 - (NSFetchedResultsController *)setupFetchedResultsController;
 - (TPCollectionView *)setupCollectionView;
 - (void)setupDataSource;
+- (void)updatePhotoCell:(TPPhotoCollectionViewCell *)cell withPhoto:(Photo *)photo;
 - (void)startQueuedDownloadTasksIfReady;
 - (void)fetchAndImportPhotosJSON;
 - (void)updateStatus:(TPStatusType)statusType;
@@ -156,55 +157,61 @@
     NSFetchedResultsController *frc = [self setupFetchedResultsController];
     
     self.dataSource = [[TPFetchedResultsCollectionViewDataSource alloc] initWithCollectionView:self.collectionView
-                                                                      fetchedResultsController:frc];
-    self.dataSource.cellIdentifier = NSStringFromClass([Photo class]);
-    
-    // this block gets called on the data source to update the cell with data on cellForItemAtIndexPath:
-    
+                                                                      fetchedResultsController:frc
+                                                                                cellIdentifier:NSStringFromClass([Photo class])];
     __weak typeof(self) weakSelf = self;
     
+    // this block gets called on the data source to update the cell with photo data on cellForItemAtIndexPath:
     self.dataSource.updateCellBlock = ^(TPPhotoCollectionViewCell *cell, Photo *photo) {
-       
-        cell.delegate = weakSelf;
-        cell.fullResImageURL = photo.fullResImageURL;
-        cell.usernameLabel.text = photo.username;
-        cell.userFullNameLabel.text = photo.userFullName;
-        cell.captionLabel.text = photo.caption;
-        cell.commentsCountLabel.text = [NSString stringWithFormat:@"%d %@", [photo.commentCount intValue], NSLocalizedString(@"comments", @"comments")];
-        cell.likesCountLabel.text = [NSString stringWithFormat:@"%d %@", [photo.likeCount intValue], NSLocalizedString(@"likes", @"likes")];
-        cell.link = photo.link;
-        cell.shareButton.userInteractionEnabled = NO;
         
-        cell.captionLabel.font = [UIFont preferredEuphemiaFontForTextStyle:UIFontTextStyleCaption1];
-        cell.usernameLabel.font = [UIFont preferredEuphemiaFontForTextStyle:UIFontTextStyleSubheadline];
-        cell.userFullNameLabel.font = [UIFont preferredEuphemiaFontForTextStyle:UIFontTextStyleCaption1];
-        cell.likesCountLabel.font = [UIFont preferredEuphemiaFontForTextStyle:UIFontTextStyleCaption2];
-        cell.commentsCountLabel.font = [UIFont preferredEuphemiaFontForTextStyle:UIFontTextStyleCaption2];
-        
-        cell.commentButton.titleLabel.font = [UIFont preferredEuphemiaFontForTextStyle:UIFontTextStyleCaption1];
-        cell.likeButton.titleLabel.font = [UIFont preferredEuphemiaFontForTextStyle:UIFontTextStyleCaption1];
-        cell.shareButton.titleLabel.font = [UIFont preferredEuphemiaFontForTextStyle:UIFontTextStyleCaption1];
-        
-        if (cell.fetchImages) {
-        
-            __weak typeof(cell) weakCell = cell;
-            NSURL *photoURL = [NSURL URLWithString:photo.fullResImageURL];
-            
-            [cell.photoImageView setImageWithURL:photoURL
-                                     placeHolder:YES
-                                      completion:^{
-                                          [weakSelf startQueuedDownloadTasksIfReady];
-                                          weakCell.shareButton.userInteractionEnabled = YES;
-                                      }
-                                       failBlock:nil];
-            
-            NSURL *userProfilePicURL = [NSURL URLWithString:photo.userProfilePicURL];
-            
-            [cell.profilePicImageView setImageWithURL:userProfilePicURL placeHolder:NO completion:nil failBlock:nil];
-        }
+        [weakSelf updatePhotoCell:cell withPhoto:photo];
     };
     
     self.collectionView.delegate = self.dataSource;
+}
+
+
+- (void)updatePhotoCell:(TPPhotoCollectionViewCell *)cell withPhoto:(Photo *)photo
+{
+    __weak typeof(self) weakSelf = self;
+    
+    cell.delegate = weakSelf;
+    cell.fullResImageURL = photo.fullResImageURL;
+    cell.usernameLabel.text = photo.username;
+    cell.userFullNameLabel.text = photo.userFullName;
+    cell.captionLabel.text = photo.caption;
+    cell.commentsCountLabel.text = [NSString stringWithFormat:@"%d %@", [photo.commentCount intValue], NSLocalizedString(@"comments", @"comments")];
+    cell.likesCountLabel.text = [NSString stringWithFormat:@"%d %@", [photo.likeCount intValue], NSLocalizedString(@"likes", @"likes")];
+    cell.link = photo.link;
+    cell.shareButton.userInteractionEnabled = NO;
+    
+    cell.captionLabel.font = [UIFont preferredEuphemiaFontForTextStyle:UIFontTextStyleCaption1];
+    cell.usernameLabel.font = [UIFont preferredEuphemiaFontForTextStyle:UIFontTextStyleSubheadline];
+    cell.userFullNameLabel.font = [UIFont preferredEuphemiaFontForTextStyle:UIFontTextStyleCaption1];
+    cell.likesCountLabel.font = [UIFont preferredEuphemiaFontForTextStyle:UIFontTextStyleCaption2];
+    cell.commentsCountLabel.font = [UIFont preferredEuphemiaFontForTextStyle:UIFontTextStyleCaption2];
+    
+    cell.commentButton.titleLabel.font = [UIFont preferredEuphemiaFontForTextStyle:UIFontTextStyleCaption1];
+    cell.likeButton.titleLabel.font = [UIFont preferredEuphemiaFontForTextStyle:UIFontTextStyleCaption1];
+    cell.shareButton.titleLabel.font = [UIFont preferredEuphemiaFontForTextStyle:UIFontTextStyleCaption1];
+    
+    if (cell.fetchImages) {
+        
+        __weak typeof(cell) weakCell = cell;
+        NSURL *photoURL = [NSURL URLWithString:photo.fullResImageURL];
+        
+        [cell.photoImageView setImageWithURL:photoURL
+                                 placeHolder:YES
+                                  completion:^{
+                                      [weakSelf startQueuedDownloadTasksIfReady];
+                                      weakCell.shareButton.userInteractionEnabled = YES;
+                                  }
+                                   failBlock:nil];
+        
+        NSURL *userProfilePicURL = [NSURL URLWithString:photo.userProfilePicURL];
+        
+        [cell.profilePicImageView setImageWithURL:userProfilePicURL placeHolder:NO completion:nil failBlock:nil];
+    }
 }
 
 

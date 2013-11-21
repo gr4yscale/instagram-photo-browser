@@ -38,6 +38,12 @@
 }
 
 
+- (void)dealloc
+{
+    self.delegate = nil;
+}
+
+
 - (void)setupSubviews
 {
     self.userInteractionEnabled = YES;
