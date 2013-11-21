@@ -20,6 +20,11 @@ BOOL isStringWithAnyText(id object)
     }
 }
 
+BOOL isOnline()
+{
+    return [[TPReachabilityWrapper shared] isOnline];
+}
+
 
 @implementation TPUtils
 

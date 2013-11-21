@@ -26,12 +26,15 @@
 @property (nonatomic, strong) TPStatusOverlayView *statusOverlayView;
 
 @property (nonatomic, assign) NSUInteger photoDownloadCount;
+@property (nonatomic, assign) TPStatusType currentStatus;
+@property (nonatomic, assign) BOOL importInProgress;
 
 - (NSFetchedResultsController *)setupFetchedResultsController;
 - (TPCollectionView *)setupCollectionView;
 - (void)setupDataSource;
 - (void)startQueuedDownloadTasksIfReady;
 - (void)fetchAndImportPhotosJSON;
+- (void)updateStatus:(TPStatusType)statusType;
 
 @end
 
@@ -63,7 +66,7 @@
     TPCollectionView *cv = [self setupCollectionView];
     [self.view addSubview:cv];
     
-    TPStatusOverlayView *statusOverlayView = [[TPStatusOverlayView alloc] initWithStatusType:TPStatusTypeOffline];
+    TPStatusOverlayView *statusOverlayView = [[TPStatusOverlayView alloc] initWithStatusType:TPStatusTypeLoading];
     statusOverlayView.frame = CGRectMake(0, 20, self.view.frame.size.width, self.view.frame.size.height-20);
     [self.view addSubview:statusOverlayView];
     [statusOverlayView setupStaticConstraints];
@@ -71,15 +74,22 @@
    
     self.collectionView = cv;
     self.statusOverlayView = statusOverlayView;
-    
-    [self setupDataSource]; // setting data source up here so we can check if there is data.
 }
 
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
+    [TPReachabilityWrapper shared].wentOnlineBlock = ^{
+        if (self.currentStatus == TPStatusTypeOffline && !self.importInProgress) {
+            [self fetchAndImportPhotosJSON];
+            NSLog(@"reloaded collectionview after coming back online");
+            [self.collectionView reloadData];
+        }
+    };
     
+    [self setupDataSource];
     [self fetchAndImportPhotosJSON];
 }
 
@@ -210,27 +220,71 @@
 
 - (void)fetchAndImportPhotosJSON
 {
+    if (self.importInProgress) return;
+    
+    if ([self.dataSource dataAvailable]) {
+        [self updateStatus:TPStatusTypeDataExists];
+    } else if (!isOnline()) {
+        [self updateStatus:TPStatusTypeOffline];
+        return;
+    } else {
+        [self updateStatus:TPStatusTypeLoading];
+    }
+
+    self.importInProgress = YES;
     self.photoDownloadCount = 0;
     
     [TPWebServiceClient fetchPopularPhotosJSONWithCompletion:^(id data) {
         
-        id photos = data[@"data"];
+        NSArray *photos = data[@"data"];
         if ([photos isKindOfClass:[NSArray class]]) {
             
             TPPhotosImportOperation *photosImportOp = [[TPPhotosImportOperation alloc] initWithPersistence:self.persistence
                                                                                                     photos:photos];
             photosImportOp.completionBlock = ^{
-                [[NSOperationQueue mainQueue] addOperationWithBlock:^{ // make sure to update UI on main thread!
+                [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                    
+                    if (photos.count == 0) {
+                        [self updateStatus:TPStatusTypeNoData];
+                    }
+                    else {
+                        [self updateStatus:TPStatusTypeDataExists];
+                    }
                     [self.refresh endRefreshing];
+                    self.importInProgress = NO;
                 }];
             };
-            
             [self.operationQueue addOperation:photosImportOp];
         }
     }
      failBlock:^(NSError *error) {
-         [self.refresh endRefreshing];
+         
+         dispatch_async(dispatch_get_main_queue(), ^{
+             
+             if (!isOnline()) {
+                 [self updateStatus:TPStatusTypeOffline];
+             } else {
+                 [self updateStatus:TPStatusTypeError];
+             }
+             [self.refresh endRefreshing];
+             self.importInProgress = NO;
+         });
      }];
+}
+
+
+- (void)updateStatus:(TPStatusType)statusType
+{
+    self.currentStatus = statusType;
+    [self.statusOverlayView switchStatusType:statusType];
+    
+    if (statusType == TPStatusTypeDataExists) {
+        self.statusOverlayView.hidden = YES;
+        self.collectionView.hidden = NO;
+    } else {
+        self.statusOverlayView.hidden = NO;
+        self.collectionView.hidden = YES;
+    }
 }
 
 
@@ -247,5 +301,22 @@
     [self presentViewController:activityVC animated:YES completion:nil];
 }
 
+
+#pragma mark -
+#pragma mark Target-Action
+
+- (void)statusViewButtonPressed:(id)sender
+{
+    if (self.currentStatus == TPStatusTypeError) {
+        if ([self.dataSource dataAvailable]) {
+            [self updateStatus:TPStatusTypeDataExists];
+            return;
+        }
+    } else if (isOnline()) {
+        if (!self.importInProgress) {
+            [self fetchAndImportPhotosJSON];
+        }
+    }
+}
 
 @end

@@ -9,8 +9,7 @@
 
 
 BOOL isStringWithAnyText(id object);
-
-
+BOOL isOnline();
 
 @interface TPUtils : NSObject
 
