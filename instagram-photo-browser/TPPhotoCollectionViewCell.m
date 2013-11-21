@@ -59,7 +59,7 @@
     
     UIImage *cardShadowImage = [[UIImage imageNamed:kImageNameShadowThin] resizableImageWithCapInsets:kShadowResizableImageInsets];
     UIImageView *cardShadowView = [[UIImageView alloc] initWithImage:cardShadowImage];
-    cardShadowView.layer.rasterizationScale = self.contentScaleFactor;
+    cardShadowView.layer.rasterizationScale = [[UIScreen mainScreen] scale];
     cardShadowView.layer.shouldRasterize = YES;
     
     [cardView addSubview:cardShadowView];
@@ -93,7 +93,7 @@
     
     UIImage *photoShadowImage = [[UIImage imageNamed:kImageNameShadowThin] resizableImageWithCapInsets:kShadowResizableImageInsets];
     UIImageView *photoShadowView = [[UIImageView alloc] initWithImage:photoShadowImage];
-    photoShadowView.layer.rasterizationScale = self.contentScaleFactor;
+    photoShadowView.layer.rasterizationScale = [[UIScreen mainScreen] scale];
     photoShadowView.layer.shouldRasterize = YES;
     [photoImageView addSubview:photoShadowView];
     
@@ -137,7 +137,7 @@
     
     commentButton.imageEdgeInsets = UIEdgeInsetsMake(2.0, 0, 0, 0);
     commentButton.userInteractionEnabled = NO;
-    commentButton.layer.rasterizationScale = self.contentScaleFactor;
+    commentButton.layer.rasterizationScale = [[UIScreen mainScreen] scale];
     commentButton.layer.shouldRasterize = YES;
     
     [self.cardView addSubview:commentButton];
@@ -156,7 +156,7 @@
     likeButton.titleEdgeInsets = UIEdgeInsetsMake(0, 4.0, 0, 0);
     likeButton.userInteractionEnabled = NO;
     
-    likeButton.layer.rasterizationScale = self.contentScaleFactor;
+    likeButton.layer.rasterizationScale = [[UIScreen mainScreen] scale];
     likeButton.layer.shouldRasterize = YES;
     
     [self.cardView addSubview:likeButton];
@@ -177,7 +177,7 @@
     
     [shareButton addTarget:self action:@selector(sharePressed:) forControlEvents:UIControlEventTouchUpInside];
     
-    shareButton.layer.rasterizationScale = self.contentScaleFactor;
+    shareButton.layer.rasterizationScale = [[UIScreen mainScreen] scale];
     shareButton.layer.shouldRasterize = YES;
     
     [self.cardView addSubview:shareButton];
