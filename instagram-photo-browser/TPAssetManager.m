@@ -153,8 +153,13 @@ static dispatch_once_t onceToken = 0;
 
 - (NSURL *)assetCacheURL
 {
+    static NSURL *assetCacheURL;
+    if (assetCacheURL) {
+        return assetCacheURL;
+    }
+    
     NSString *documentsPath = [NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES) firstObject];
-    NSURL *assetCacheURL = [[NSURL fileURLWithPath:documentsPath] URLByAppendingPathComponent:@"assetCache" isDirectory:YES];
+    assetCacheURL = [[NSURL fileURLWithPath:documentsPath] URLByAppendingPathComponent:@"assetCache" isDirectory:YES];
     
     NSFileManager *fm = [NSFileManager defaultManager];
     NSError *error = nil;
