@@ -11,6 +11,6 @@
 
 @interface TPInitialPhotosViewController : UIViewController <TPPhotoCollectionViewCellDelegate>
 
-@property (nonatomic, strong) TPPersistence *persistence;
+@property (nonatomic, weak) TPPersistence *persistence;
 
 @end

@@ -23,6 +23,7 @@
 {
     self = [super init];
     if (self) {
+        __weak typeof(self) weakSelf = self;
         
         // handle merging changes when a save notification happens from a background MOC
         [[NSNotificationCenter defaultCenter] addObserverForName:NSManagedObjectContextDidSaveNotification
@@ -30,11 +31,11 @@
                                                            queue:nil
                                                       usingBlock:^(NSNotification *notification) {
                                                           
-                                                          if (notification.object != self.mainMOC) {
+                                                          if (notification.object != weakSelf.mainMOC) {
                                                               
                                                               NSLog(@"Merging changes into the main context from a background context");
-                                                              [self.mainMOC performBlock:^(){
-                                                                  [self.mainMOC mergeChangesFromContextDidSaveNotification:notification];
+                                                              [weakSelf.mainMOC performBlock:^(){
+                                                                  [weakSelf.mainMOC mergeChangesFromContextDidSaveNotification:notification];
                                                               }];
                                                           }
                                                       }];

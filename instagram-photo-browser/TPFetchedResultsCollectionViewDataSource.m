@@ -18,7 +18,7 @@
 @interface TPFetchedResultsCollectionViewDataSource () <NSFetchedResultsControllerDelegate>
 
 @property (nonatomic, strong) NSFetchedResultsController *fetchedResultsController;
-@property (nonatomic, strong) UICollectionView *collectionView;
+@property (nonatomic, weak) UICollectionView *collectionView;
 
 @property (nonatomic, strong) NSMutableArray *objectChanges;
 @property (nonatomic, strong) NSMutableArray *sectionChanges;
@@ -56,12 +56,13 @@
         [self.fetchedResultsController performFetch:NULL];
         
         // invalidate our cell size cache if a user adusts the text size in iOS
-
+        
+        __weak typeof(self) weakSelf = self;
         [[NSNotificationCenter defaultCenter] addObserverForName:UIContentSizeCategoryDidChangeNotification
                                                           object:nil
                                                            queue:nil
                                                       usingBlock:^(NSNotification *notification) {
-                                                          [self.cellSizeCache removeAllObjects];
+                                                          [weakSelf.cellSizeCache removeAllObjects];
                                                       }];
     }
     return self;

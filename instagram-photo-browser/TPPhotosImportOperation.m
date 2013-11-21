@@ -12,7 +12,7 @@
 
 @interface TPPhotosImportOperation ()
 
-@property (nonatomic, strong) TPPersistence *persistence;
+@property (nonatomic, weak) TPPersistence *persistence;
 @property (nonatomic, strong) NSArray *photos;
 @property (nonatomic, strong) NSManagedObjectContext *backgroundMOC;
 
