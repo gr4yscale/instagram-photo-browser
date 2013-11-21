@@ -33,6 +33,7 @@
 
 @implementation TPFetchedResultsCollectionViewDataSource
 
+
 - (id)initWithCollectionView:(UICollectionView *)collectionView fetchedResultsController:(NSFetchedResultsController *)fetchedResultsController
 {
     self = [super init];
@@ -55,6 +56,20 @@
 - (id)objectAtIndexPath:(NSIndexPath *)indexPath
 {
     return [self.fetchedResultsController objectAtIndexPath:indexPath];
+}
+
+
+- (BOOL)dataAvailable
+{
+    NSError *error = nil;
+    NSUInteger numberOfObjects = [self.fetchedResultsController.managedObjectContext countForFetchRequest:self.fetchedResultsController.fetchRequest error:&error];
+    
+    if (!error && numberOfObjects > 0) {
+        return YES;
+    }
+    else {
+        return NO;
+    }
 }
 
 
@@ -234,13 +249,14 @@
         self.updateCellBlock(cellForComputingSize, photo); // set data on the labels so autolayout makes the right determinations
     }
     
-    return [cellForComputingSize.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+//    return [cellForComputingSize.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
     
 //    Cutting out size computations with Auto Layout for only the content that will dynamically change size, effecting the overall size of the cell to change.
 //    Doing this for performance optimization.
 //
-//    CGSize captionLabelSize = [cellForComputingSize.captionLabel systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-//    return CGSizeMake(320, captionLabelSize.height + 460);
+    CGSize captionLabelSize = [cellForComputingSize.captionLabel systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+    return CGSizeMake(320, captionLabelSize.height + 460);
+//    NSLog(@"Cell size calculated: %@ || %@", indexPath, NSStringFromCGSize(size));
     
 }
 
