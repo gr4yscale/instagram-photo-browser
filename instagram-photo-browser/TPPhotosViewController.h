@@ -9,7 +9,7 @@
 #import "TPPersistence.h"
 #import "TPPhotoCollectionViewCell.h"
 
-@interface TPPhotosViewController : UIViewController <TPPhotoCollectionViewCellDelegate>
+@interface TPPhotosViewController : UIViewController <TPPhotoCollectionViewCellDelegate, UICollectionViewDelegate, UICollectionViewDelegateFlowLayout>
 
 @property (nonatomic, weak) TPPersistence *persistence;
 

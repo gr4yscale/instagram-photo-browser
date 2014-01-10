@@ -26,8 +26,6 @@
 @property (nonatomic, assign) CGFloat totalHeightOfNewlyInsertedCells;
 @property (atomic, assign) NSUInteger insertsCountSinceCVReload;
 
-@property (nonatomic, strong) NSMutableDictionary *cellSizeCache;
-
 - (void)updateCollectionViewContentOffsetForNewlyInsertedCells;
 
 @end
@@ -215,9 +213,9 @@
                             self.insertsCountSinceCVReload++;
                             [self.collectionView insertItemsAtIndexPaths:@[obj]];
                             
-                            CGSize itemSize = [self collectionView:self.collectionView
-                                                            layout:self.collectionView.collectionViewLayout
-                                            sizeForItemAtIndexPath:obj];
+                            CGSize itemSize = [self.controller collectionView:self.collectionView
+                                                                       layout:self.collectionView.collectionViewLayout
+                                                       sizeForItemAtIndexPath:obj];
                             
                             self.totalHeightOfNewlyInsertedCells += itemSize.height;
                         }
@@ -250,36 +248,5 @@
 }
 
 
-- (CGSize)collectionView:(UICollectionView *)collectionView
-                  layout:(UICollectionViewLayout *)collectionViewLayout
-  sizeForItemAtIndexPath:(NSIndexPath *)indexPath
-{
-    Photo *photo = [self objectAtIndexPath:indexPath];
-    
-    if (!isStringWithAnyText(photo.identifier)) return CGSizeZero;
-    
-    NSValue *cachedValue = self.cellSizeCache[photo.identifier];
-    if (cachedValue) {
-        return [cachedValue CGSizeValue];
-    }
-    
-    static TPPhotoCollectionViewCell *cellForComputingSize;
-    if (!cellForComputingSize) {
-        cellForComputingSize = [[TPPhotoCollectionViewCell alloc] initWithFrame:CGRectZero];
-        cellForComputingSize.fetchImages = NO;
-    }
-    
-    if (self.updateCellBlock) {
-        self.updateCellBlock(cellForComputingSize, photo); // set data on the labels so autolayout makes the right determinations
-    }
-    
-    CGSize sizeComputedWithAutoLayout = [cellForComputingSize.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
-    
-    self.cellSizeCache[photo.identifier] = [NSValue valueWithCGSize:sizeComputedWithAutoLayout];
-    
-//    NSLog(@"Cell size calculated: %@ || %@", photo.identifier, NSStringFromCGSize(sizeComputedWithAutoLayout));
-    
-    return sizeComputedWithAutoLayout;
-}
 
 @end

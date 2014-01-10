@@ -8,10 +8,12 @@
 
 typedef void (^updateCellBlock)(id cell, id item);
 
-@interface TPFetchedResultsCollectionViewDataSource : NSObject <UICollectionViewDataSource, UICollectionViewDelegate>
+@interface TPFetchedResultsCollectionViewDataSource : NSObject <UICollectionViewDataSource>
 
 @property (nonatomic, strong) NSString *cellIdentifier;
 @property (nonatomic, copy) updateCellBlock updateCellBlock;
+@property (nonatomic, strong) NSMutableDictionary *cellSizeCache;
+@property (nonatomic, weak) id<UICollectionViewDelegateFlowLayout> controller;
 
 - (id)initWithCollectionView:(UICollectionView *)collectionView
     fetchedResultsController:(NSFetchedResultsController *)fetchedResultsController

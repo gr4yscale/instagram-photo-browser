@@ -161,6 +161,8 @@
     self.dataSource = [[TPFetchedResultsCollectionViewDataSource alloc] initWithCollectionView:self.collectionView
                                                                       fetchedResultsController:frc
                                                                                 cellIdentifier:NSStringFromClass([Photo class])];
+    self.dataSource.controller = self;
+    
     __weak typeof(self) weakSelf = self;
     
     // this block gets called on the data source to update the cell with photo data on cellForItemAtIndexPath:
@@ -169,7 +171,7 @@
         [weakSelf updatePhotoCell:cell withPhoto:photo];
     };
     
-    self.collectionView.delegate = self.dataSource;
+    self.collectionView.delegate = self;
 }
 
 
@@ -330,5 +332,42 @@
         }
     }
 }
+
+
+#pragma mark -
+#pragma UICollectionViewFlowLayoutDelegate
+
+- (CGSize)collectionView:(UICollectionView *)collectionView
+                  layout:(UICollectionViewLayout *)collectionViewLayout
+  sizeForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    Photo *photo = [self.dataSource objectAtIndexPath:indexPath];
+    
+    if (!isStringWithAnyText(photo.identifier)) return CGSizeZero;
+    
+    NSValue *cachedValue = self.dataSource.cellSizeCache[photo.identifier];
+    if (cachedValue) {
+        return [cachedValue CGSizeValue];
+    }
+    
+    static TPPhotoCollectionViewCell *cellForComputingSize;
+    if (!cellForComputingSize) {
+        cellForComputingSize = [[TPPhotoCollectionViewCell alloc] initWithFrame:CGRectZero];
+        cellForComputingSize.fetchImages = NO;
+    }
+    
+    if (self.dataSource.updateCellBlock) {
+        self.dataSource.updateCellBlock(cellForComputingSize, photo); // set data on the labels so autolayout makes the right determinations
+    }
+    
+    CGSize sizeComputedWithAutoLayout = [cellForComputingSize.contentView systemLayoutSizeFittingSize:UILayoutFittingCompressedSize];
+    
+    self.dataSource.cellSizeCache[photo.identifier] = [NSValue valueWithCGSize:sizeComputedWithAutoLayout];
+    
+    //    NSLog(@"Cell size calculated: %@ || %@", photo.identifier, NSStringFromCGSize(sizeComputedWithAutoLayout));
+    
+    return sizeComputedWithAutoLayout;
+}
+
 
 @end
