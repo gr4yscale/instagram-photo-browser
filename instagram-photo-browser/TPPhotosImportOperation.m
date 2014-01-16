@@ -73,7 +73,7 @@
     
     for (NSDictionary *photoDict in self.photos) {
         
-        [Photo importFromDictionary:photoDict intoMOC:self.backgroundMOC];
+        [Photo tp_importFromDictionary:photoDict intoMOC:self.backgroundMOC];
     }
 
     NSError *importError = nil;

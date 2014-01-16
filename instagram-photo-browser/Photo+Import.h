@@ -10,6 +10,6 @@
 
 @interface Photo (Import)
 
-+ (void)importFromDictionary:(NSDictionary *)dict intoMOC:(NSManagedObjectContext *)moc;
++ (void)tp_importFromDictionary:(NSDictionary *)dict intoMOC:(NSManagedObjectContext *)moc;
 
 @end

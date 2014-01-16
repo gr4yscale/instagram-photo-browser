@@ -10,10 +10,10 @@
 
 @implementation NSDictionary (KeyValueMapping)
 
-+ (NSDictionary *)applyMapping:(NSDictionary *)mapping
-                fromDictionary:(NSDictionary *)sourceDict
-                  toDictionary:(NSMutableDictionary *)toDict
-                      forClass:(Class)aClass {
++ (void)tp_applyMapping:(NSDictionary *)mapping
+         fromDictionary:(NSDictionary *)sourceDict
+           toDictionary:(NSMutableDictionary *)toDict
+               forClass:(Class)aClass {
     
     [mapping enumerateKeysAndObjectsUsingBlock:^(id key, id obj, BOOL *stop) {
         
@@ -24,7 +24,7 @@
         }
     }];
     
-    return toDict;
+    return;
 }
 
 @end

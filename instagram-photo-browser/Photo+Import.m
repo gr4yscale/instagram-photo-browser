@@ -23,7 +23,7 @@
 
 @implementation Photo (Import)
 
-+ (void)importFromDictionary:(NSDictionary *)dict intoMOC:(NSManagedObjectContext *)moc
++ (void)tp_importFromDictionary:(NSDictionary *)dict intoMOC:(NSManagedObjectContext *)moc
 {
     if (!dict[@"id"] || [dict[@"type"] isEqualToString:@"video"]) {
         return;
@@ -40,7 +40,7 @@
         Photo *photo = [NSEntityDescription insertNewObjectForEntityForName:NSStringFromClass(self)
                                                   inManagedObjectContext:moc];
         
-        NSDictionary *sanitizedDict = [self sanitizedDictionaryFromDictionary:dict];
+        NSDictionary *sanitizedDict = [self tp_sanitizedDictionaryFromDictionary:dict];
         
         [photo setValuesForKeysWithDictionary:sanitizedDict];
         photo.createdTime = [NSDate date];
@@ -49,7 +49,7 @@
 
 
 
-+ (NSDictionary *)sanitizedDictionaryFromDictionary:(NSDictionary *)dict {
++ (NSDictionary *)tp_sanitizedDictionaryFromDictionary:(NSDictionary *)dict {
 
     NSMutableDictionary *sanitizedDict = [NSMutableDictionary dictionary];
     
@@ -64,8 +64,8 @@
     NSDictionary *numbersMapping = @{kPhotoImportKeyLikeCount: @"likes.count",
                                      kPhotoImportKeyCommentCount: @"comments.count"};
     
-    [NSDictionary applyMapping:stringsMapping fromDictionary:dict toDictionary:sanitizedDict forClass:[NSString class]];
-    [NSDictionary applyMapping:numbersMapping fromDictionary:dict toDictionary:sanitizedDict forClass:[NSNumber class]];
+    [NSDictionary tp_applyMapping:stringsMapping fromDictionary:dict toDictionary:sanitizedDict forClass:[NSString class]];
+    [NSDictionary tp_applyMapping:numbersMapping fromDictionary:dict toDictionary:sanitizedDict forClass:[NSNumber class]];
     
     return sanitizedDict;
 }
